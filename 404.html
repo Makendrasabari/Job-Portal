@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The page you are looking for does not exist on Stackly. Return to the home page or login to access your talent dashboard.">
+  <title>Page Not Found &bull; Stackly Job Portal</title>
+  
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/pages.css">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/webp" href="assets/logo-favicon.webp">
+</head>
+<body>
+
+  <main class="error-sec">
+    <div class="error-card">
+      <div class="error-illustration">
+        <img src="images/404-illustration.webp" alt="Satellite Loss of Connection Illustration">
+      </div>
+      
+      <a href="index.html" style="display:inline-block; margin-bottom:1.5rem;"><img src="images/logo5.webp" alt="Stackly Primary Logo" style="height:40px;"></a>
+      <h1>Resource Unreachable</h1>
+      <p>The job listing, user profile, or dashboard section you requested is either expired or restricted for your account type.</p>
+      
+      <div class="error-actions">
+        <a href="index.html" class="btn btn-outline"><i class="fas fa-home"></i> Back To Home</a>
+        <button onclick="goToDashboard()" class="btn btn-primary" id="btn-404-dashboard"><i class="fas fa-chart-line"></i> Back To Dashboard</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- JS Scripts -->
+  <script src="js/auth.js"></script>
+  <script>
+    function goToDashboard() {
+      const session = getActiveSession();
+      if (session) {
+        if (session.role === 'job_seeker') {
+          window.location.href = 'job-seeker-dashboard.html';
+        } else if (session.role === 'recruiter') {
+          window.location.href = 'recruiter-dashboard.html';
+        }
+      } else {
+        window.location.href = 'login.html';
+      }
+    }
+  </script>
+</body>
+</html>

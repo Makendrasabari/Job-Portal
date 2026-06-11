@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Stackly is a premium, automated talent matchmaking platform connecting top software developer talent with leading tech companies and startups globally.">
+  <title>Stackly &bull; Premium Tech Job Matching Ecosystem</title>
+  
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/pages.css">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- AOS Animations Library CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/webp" href="assets/logo-favicon.webp">
+</head>
+<body>
+
+  <!-- Preloader Screen -->
+  <div id="preloader">
+    <div class="preloader-content">
+      <img src="images/logo5.webp" alt="Stackly Icon Logo" class="preloader-logo">
+      <div class="preloader-spinner"></div>
+    </div>
+  </div>
+
+  <!-- Sticky Top Navigation Bar -->
+  <header class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="nav-logo" id="header-logo-link">
+        <img src="images/logo5.webp" alt="Stackly Logo">
+      </a>
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="explore-jobs.html" class="nav-link">Explore Jobs</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="services.html" class="nav-link">Services</a></li>
+          <li><a href="blog.html" class="nav-link">Blog</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions" id="navbar-actions-container">
+        <!-- Auth buttons loaded dynamically by auth.js -->
+      </div>
+      <button class="menu-toggle" aria-label="Toggle Navigation Drawer" id="mobile-menu-trigger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Slide-in Mobile Drawer Navigation -->
+  <div class="mobile-overlay"></div>
+  <aside class="mobile-nav" aria-label="Mobile Navigation Menu">
+    <button class="mobile-nav-close" aria-label="Close Menu" id="mobile-menu-close">
+      <i class="fas fa-times"></i>
+    </button>
+    <ul class="mobile-nav-links">
+      <li><a href="index.html" class="mobile-nav-link">Home</a></li>
+      <li><a href="explore-jobs.html" class="mobile-nav-link">Explore Jobs</a></li>
+      <li><a href="about.html" class="mobile-nav-link">About</a></li>
+      <li><a href="services.html" class="mobile-nav-link">Services</a></li>
+      <li><a href="blog.html" class="mobile-nav-link">Blog</a></li>
+      <li><a href="contact.html" class="mobile-nav-link">Contact</a></li>
+    </ul>
+    <div class="mobile-nav-actions" id="mobile-nav-actions-container">
+      <!-- Auth buttons loaded dynamically by auth.js -->
+    </div>
+  </aside>
+
+  <main>
+    <!-- 1. Hero Section -->
+    <section class="hero-sec" aria-label="Introduction Hero Section">
+      <div class="container hero-grid">
+        <div class="hero-content" data-aos="fade-right">
+          <div class="hero-tag">
+            <i class="fas fa-sparkles"></i> The Next Generation Recruitment Network
+          </div>
+          <h1 class="hero-title">Discover the Best <span>Tech Opportunities</span> for Your Talents</h1>
+          <p class="hero-desc">Stackly automates hiring matching, matching vetted frontend specialists, full-stack builders, and systems engineers with premier SaaS enterprises.</p>
+          
+          <!-- Job Search Form -->
+          <div class="search-form-container">
+            <div class="search-field">
+              <i class="fas fa-search"></i>
+              <input type="text" placeholder="Job Title, Skills or Keyword..." id="hero-search-keyword">
+            </div>
+            <div class="search-field">
+              <i class="fas fa-map-marker-alt"></i>
+              <input type="text" placeholder="Location or Remote..." id="hero-search-location">
+            </div>
+            <button class="btn btn-primary" onclick="triggerHeroSearch()" id="hero-search-submit-btn">Search Jobs</button>
+          </div>
+          
+          <div style="display:flex; gap:1.5rem; align-items:center; flex-wrap:wrap;">
+            <span style="font-weight:600; font-size:0.9rem; color:var(--slate-800);">Trusted by tech leaders:</span>
+            <div style="display:flex; gap:1rem; opacity:0.6; font-size:1.1rem; font-weight:700;">
+              <span><i class="fab fa-amazon"></i></span>
+              <span><i class="fab fa-spotify"></i></span>
+              <span><i class="fab fa-stripe"></i></span>
+              <span><i class="fab fa-slack"></i></span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="hero-illustration" data-aos="zoom-in" data-aos-delay="200">
+          <img src="images/img2.webp" alt="Stackly Talent Matchmaking Ecosystem Dashboard">
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Statistics Grid Section -->
+    <section class="stats-sec" aria-label="Platform Success Statistics">
+      <div class="container stats-grid">
+        <div class="stat-card" data-aos="fade-up">
+          <h3 class="counter-number" data-target="15240" data-suffix="+">0</h3>
+          <p>Active Job Openings</p>
+        </div>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+          <h3 class="counter-number" data-target="1280" data-suffix="+">0</h3>
+          <p>Verified Employers</p>
+        </div>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+          <h3 class="counter-number" data-target="89450" data-suffix="+">0</h3>
+          <p>Qualified Candidates</p>
+        </div>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+          <h3 class="counter-number" data-target="94" data-suffix="%">0</h3>
+          <p>Placement Success Rate</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Popular Categories Section -->
+    <section class="section-padding" aria-label="Popular Job Categories">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <h2>Explore Dynamic Categories</h2>
+          <p>Access high paying positions across specialized fields in hardware, software, finance, and visual design teams.</p>
+        </div>
+        
+        <div class="categories-grid">
+          <div class="category-card" data-aos="fade-up" onclick="selectCategory('Software Development')" style="background-image: url('images/cat-software.webp');">
+            <div class="category-icon"><i class="fas fa-code"></i></div>
+            <h3>Software Development</h3>
+            <span>4,820 Active Openings</span>
+          </div>
+          <div class="category-card" data-aos="fade-up" data-aos-delay="100" onclick="selectCategory('IT Support')" style="background-image: url('images/cat-it.webp');">
+            <div class="category-icon"><i class="fas fa-server"></i></div>
+            <h3>IT Support</h3>
+            <span>1,940 Active Openings</span>
+          </div>
+          <div class="category-card" data-aos="fade-up" data-aos-delay="200" onclick="selectCategory('Engineering')" style="background-image: url('images/cat-engineering.webp');">
+            <div class="category-icon"><i class="fas fa-microchip"></i></div>
+            <h3>Engineering</h3>
+            <span>3,120 Active Openings</span>
+          </div>
+          <div class="category-card" data-aos="fade-up" data-aos-delay="300" onclick="selectCategory('Finance')" style="background-image: url('images/blog-negotiating.webp');">
+            <div class="category-icon"><i class="fas fa-wallet"></i></div>
+            <h3>Finance</h3>
+            <span>1,240 Active Openings</span>
+          </div>
+          <div class="category-card" data-aos="fade-up" onclick="selectCategory('Marketing')" style="background-image: url('images/blog-linkedin.webp');">
+            <div class="category-icon"><i class="fas fa-chart-line"></i></div>
+            <h3>Marketing</h3>
+            <span>2,550 Active Openings</span>
+          </div>
+          <div class="category-card" data-aos="fade-up" data-aos-delay="100" onclick="selectCategory('Healthcare')" style="background-image: url('images/blog-burnout.webp');">
+            <div class="category-icon"><i class="fas fa-briefcase-medical"></i></div>
+            <h3>Healthcare</h3>
+            <span>890 Active Openings</span>
+          </div>
+          <div class="category-card" data-aos="fade-up" data-aos-delay="200" onclick="selectCategory('Design')" style="background-image: url('images/blog-portfolio.webp');">
+            <div class="category-icon"><i class="fas fa-paint-brush"></i></div>
+            <h3>Design</h3>
+            <span>1,830 Active Openings</span>
+          </div>
+          <div class="category-card" data-aos="fade-up" data-aos-delay="300" onclick="selectCategory('Customer Service')" style="background-image: url('images/blog-behavioral.webp');">
+            <div class="category-icon"><i class="fas fa-headset"></i></div>
+            <h3>Customer Service</h3>
+            <span>2,110 Active Openings</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Featured Jobs Section -->
+    <section class="section-padding" style="background-color: var(--slate-50);" aria-label="Featured Job Openings">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <h2>Featured Opportunities</h2>
+          <p>Apply directly to curated openings offering market leading packages, equity options, and workplace flexibility.</p>
+        </div>
+        
+        <div class="jobs-filter-tabs" data-aos="fade-up">
+          <button class="filter-tab active" onclick="filterJobs('all')">All Positions</button>
+          <button class="filter-tab" onclick="filterJobs('Full-time')">Full-Time</button>
+          <button class="filter-tab" onclick="filterJobs('Remote')">Remote</button>
+          <button class="filter-tab" onclick="filterJobs('Contract')">Contract</button>
+        </div>
+        
+        <div class="jobs-grid" id="featured-jobs-container">
+          <!-- Jobs injected dynamically by JS -->
+        </div>
+        
+        <div class="jobs-more-container" data-aos="fade-up">
+          <a href="login.html" class="btn btn-outline" id="browse-all-jobs-btn">Sign In to Browse All Jobs</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Why Choose Stackly Section -->
+    <section class="section-padding" aria-label="Why Choose Stackly Platform">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <h2>Engineered for Better Careers</h2>
+          <p>Ditch the outdated job boards. Stackly brings transparency, speed, and analytics directly to tech recruiting.</p>
+        </div>
+        
+        <div class="why-grid">
+          <div class="why-card" data-aos="fade-up">
+            <div class="why-icon"><i class="fas fa-user-shield"></i></div>
+            <h3>Verified Opportunities</h3>
+            <p>Every position listing undergoes strict corporate screening, guaranteeing real wages, valid listings, and authentic company profiles.</p>
+          </div>
+          <div class="why-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="why-icon"><i class="fas fa-handshake"></i></div>
+            <h3>Trusted Employers</h3>
+            <p>Work with vetted startups, established SaaS systems, and enterprises utilizing clear interview processes and positive cultures.</p>
+          </div>
+          <div class="why-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="why-icon"><i class="fas fa-rocket"></i></div>
+            <h3>Fast Applications</h3>
+            <p>Our centralized portfolio database lets you submit documents, portfolio links, and preferences to recruiters in a single click.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. How It Works Section -->
+    <section class="section-padding" style="background-color: var(--slate-50);" aria-label="Platform Application Steps">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <h2>How Stackly Elevates Hiring</h2>
+          <p>Get matched with technical jobs aligned to your lifestyle, credentials, and financial expectations.</p>
+        </div>
+        
+        <div class="workflow-timeline">
+          <div class="workflow-step" data-aos="fade-up">
+            <div class="workflow-circle">1</div>
+            <h3>Create Account</h3>
+            <p>Configure your credentials as either a seeker or recruiter.</p>
+          </div>
+          <div class="workflow-step" data-aos="fade-up" data-aos-delay="100">
+            <div class="workflow-circle">2</div>
+            <h3>Build Profile</h3>
+            <p>Populate career summaries, portfolio urls, and skills criteria.</p>
+          </div>
+          <div class="workflow-step" data-aos="fade-up" data-aos-delay="200">
+            <div class="workflow-circle">3</div>
+            <h3>Apply Instantly</h3>
+            <p>Browse matching positions and submit files with a tap.</p>
+          </div>
+          <div class="workflow-step" data-aos="fade-up" data-aos-delay="300">
+            <div class="workflow-circle">4</div>
+            <h3>Get Hired</h3>
+            <p>Communicate directly with hiring managers and secure contracts.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Top Hiring Companies -->
+    <section class="section-padding" aria-label="Top Hiring Partners">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <h2>Top Hiring Partners</h2>
+          <p>Join engineering departments scaling teams with vetted technical talent sourced from Stackly.</p>
+        </div>
+        
+        <div class="companies-grid">
+          <div class="company-logo-card" data-aos="fade-up" onclick="viewCompany('vortex')">
+            <i class="fab fa-slack-hash" style="font-size:2.5rem; color:#4a154b; margin-bottom:1rem;"></i>
+            <h4>Vortex Tech</h4>
+            <span>3 Open Jobs</span>
+          </div>
+          <div class="company-logo-card" data-aos="fade-up" data-aos-delay="50" onclick="viewCompany('saasify')">
+            <i class="fab fa-salesforce" style="font-size:2.5rem; color:#00a1e0; margin-bottom:1rem;"></i>
+            <h4>SaaSify</h4>
+            <span>5 Open Jobs</span>
+          </div>
+          <div class="company-logo-card" data-aos="fade-up" data-aos-delay="100" onclick="viewCompany('apex')">
+            <i class="fab fa-atlassian" style="font-size:2.5rem; color:#0052cc; margin-bottom:1rem;"></i>
+            <h4>Apex Creative</h4>
+            <span>2 Open Jobs</span>
+          </div>
+          <div class="company-logo-card" data-aos="fade-up" data-aos-delay="150" onclick="viewCompany('cloudcore')">
+            <i class="fab fa-aws" style="font-size:2.5rem; color:#ff9900; margin-bottom:1rem;"></i>
+            <h4>CloudCore</h4>
+            <span>4 Open Jobs</span>
+          </div>
+          <div class="company-logo-card" data-aos="fade-up" data-aos-delay="200" onclick="viewCompany('scalelabs')">
+            <i class="fab fa-hubspot" style="font-size:2.5rem; color:#ff7a59; margin-bottom:1rem;"></i>
+            <h4>ScaleLabs</h4>
+            <span>1 Open Job</span>
+          </div>
+          <div class="company-logo-card" data-aos="fade-up" data-aos-delay="250" onclick="viewCompany('helpdesk')">
+            <i class="fab fa-jira" style="font-size:2.5rem; color:#0052cc; margin-bottom:1rem;"></i>
+            <h4>Helpdesk Inc</h4>
+            <span>6 Open Jobs</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Testimonials Slider -->
+    <section class="section-padding testimonials-sec" aria-label="Customer Success Stories">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <h2>Stories from the Field</h2>
+          <p>Find out how candidates and technical managers build high performing connections using Stackly.</p>
+        </div>
+        
+        <div class="testimonials-container" data-aos="zoom-in">
+          <div class="testimonials-slider">
+            <div class="testimonial-slide active">
+              <p class="testimonial-quote">"Stackly completely changed our developer sourcing. Instead of screening hundreds of unqualified applications, we were matched with three high-caliber fullstack engineers who fit our stack perfectly."</p>
+              <div class="testimonial-user">
+                <div class="testimonial-avatar">JD</div>
+                <div class="testimonial-info">
+                  <h4>Jonathan Davis</h4>
+                  <span>VP of Engineering, Vortex Technologies</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="testimonial-slide">
+              <p class="testimonial-quote">"The direct match mechanism on Stackly bypasses traditional recruiter roadblocks. I filled out my profile, linked my GitHub, and received two solid offers from SaaS firms within ten business days."</p>
+              <div class="testimonial-user">
+                <div class="testimonial-avatar">EM</div>
+                <div class="testimonial-info">
+                  <h4>Elena Rostova</h4>
+                  <span>Senior Frontend Architect</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-dots"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Latest Career Articles -->
+    <section class="section-padding" aria-label="Career Advice Blog Summaries">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <h2>Latest Career Insights</h2>
+          <p>Read professional hiring guides, salary negotiation tactics, and technical resume optimizations written by industry experts.</p>
+        </div>
+        
+        <div class="articles-grid">
+          <article class="article-card" data-aos="fade-up">
+            <div class="article-img" style="background-image: url('images/blog-system-design.webp'); background-size:cover; background-position:center; position:relative;">
+              <span class="article-tag">Interview Mastery</span>
+            </div>
+            <div class="article-body">
+              <div class="article-meta">
+                <span><i class="far fa-calendar"></i> June 08, 2026</span>
+                <span><i class="far fa-clock"></i> 5 min read</span>
+              </div>
+              <h3>Cracking the System Design Interview in 2026</h3>
+              <p>An architectural guide detailing distributed systems caching, database scaling patterns, and microservices decoupling for developers.</p>
+              <a href="blog.html" class="article-readmore">Read Full Guide <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </article>
+          
+          <article class="article-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="article-img" style="background-image: url('images/blog-remote-salaries.webp'); background-size:cover; background-position:center; position:relative;">
+              <span class="article-tag">Career Strategies</span>
+            </div>
+            <div class="article-body">
+              <div class="article-meta">
+                <span><i class="far fa-calendar"></i> June 06, 2026</span>
+                <span><i class="far fa-clock"></i> 4 min read</span>
+              </div>
+              <h3>Navigating Remote Tech Salaries &amp; Offers</h3>
+              <p>How to research geo-arbitrage baselines, evaluate equity compensation plans, and structure remote salary negotiation arguments.</p>
+              <a href="blog.html" class="article-readmore">Read Full Guide <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </article>
+          
+          <article class="article-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="article-img" style="background-image: url('images/blog-github-audit.webp'); background-size:cover; background-position:center; position:relative;">
+              <span class="article-tag">Resume Advice</span>
+            </div>
+            <div class="article-body">
+              <div class="article-meta">
+                <span><i class="far fa-calendar"></i> June 04, 2026</span>
+                <span><i class="far fa-clock"></i> 6 min read</span>
+              </div>
+              <h3>Structuring Technical Portfolios for SaaS Recruiter Audits</h3>
+              <p>Key design requirements to highlight project contributions, code quality controls, and architectural impact on web portfolios.</p>
+              <a href="blog.html" class="article-readmore">Read Full Guide <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Final Call-To-Action -->
+    <section class="section-padding cta-sec" aria-label="Sign Up CTA Section">
+      <div class="container cta-grid">
+        <div class="cta-box" data-aos="fade-right" id="seeker-cta-card">
+          <h3>Are You Looking for a Job?</h3>
+          <p>Join our database of vetted developers, engineers, and product builders. Get direct job alerts, automated applications, and direct communication channels.</p>
+          <a href="signup.html" class="btn btn-white" id="seeker-signup-cta-btn"><i class="fas fa-user-plus"></i> Register as Candidate</a>
+        </div>
+        
+        <div class="cta-box" data-aos="fade-left" data-aos-delay="100" id="recruiter-cta-card">
+          <h3>Are You Sourcing Talent?</h3>
+          <p>Post open job requirements, configure screening workflows, track candidates through our pipelines, and fill open developer slots.</p>
+          <a href="signup.html" class="btn btn-primary" id="recruiter-signup-cta-btn"><i class="fas fa-briefcase"></i> Post Jobs &amp; Source candidates</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo5.webp" alt="Stackly White Logo">
+        <p class="footer-desc">Stackly is an industry leading tech matching portal, bridging the gap between top software builders and modern tech enterprises globally.</p>
+        <div class="social-links">
+          <a href="404.html" class="social-icon" aria-label="Visit Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+          <a href="404.html" class="social-icon" aria-label="Visit Instagram Profile"><i class="fab fa-instagram"></i></a>
+          <a href="404.html" class="social-icon" aria-label="Visit LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+          <a href="404.html" class="social-icon" aria-label="Visit Twitter Profile"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      
+      <div>
+        <h3 class="footer-heading">Company</h3>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="blog.html">Resources</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="footer-heading">Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Home Landing</a></li>
+          <li><a href="login.html">Sign In Portal</a></li>
+          <li><a href="signup.html">Register User</a></li>
+          <li><a href="404.html">Error Reference</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="footer-heading">Job Categories</h3>
+        <ul class="footer-links">
+          <li><a href="login.html">IT Support</a></li>
+          <li><a href="login.html">Marketing</a></li>
+          <li><a href="login.html">Engineering</a></li>
+          <li><a href="login.html">Design Details</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="footer-heading">Contact Details</h3>
+        <div class="footer-contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>MMR Complex, Chinna Thirupathi,<br>Salem, Tamil Nadu 636008</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fas fa-phone-alt"></i>
+          <span>+91 70107 92745</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>info@thestackly.com</span>
+        </div>
+        
+        <!-- Styled Map Container -->
+        <div class="footer-map-container">
+          <iframe 
+            src="https://maps.google.com/maps?q=Stackly%20MMR%20Complex%20Chinna%20Thirupathi%20Salem&t=&z=14&ie=UTF8&iwloc=&output=embed" 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Stackly. All Rights Reserved.</p>
+      <p>Designed for Modern Recruitment Systems.</p>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" aria-label="Scroll to top of page"><i class="fas fa-chevron-up"></i></button>
+
+  <!-- JS Scripts -->
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  
+  <!-- AOS Script CDN & Init -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: false,
+      offset: 100
+    });
+    
+    // Initial load of featured jobs on home page
+    document.addEventListener('DOMContentLoaded', () => {
+      renderHomeJobs('all');
+    });
+    
+    function renderHomeJobs(filterType) {
+      const container = document.getElementById('featured-jobs-container');
+      if (!container) return;
+      
+      const jobs = JSON.parse(localStorage.getItem('stackly_jobs')) || [];
+      const filtered = filterType === 'all' ? jobs.slice(0, 6) : jobs.filter(j => j.type === filterType).slice(0, 6);
+      
+      container.innerHTML = '';
+      if (filtered.length === 0) {
+        container.innerHTML = `<p style="grid-column:span 2; text-align:center; color:var(--slate-400); padding:2rem;">No matching job openings found.</p>`;
+        return;
+      }
+      
+      filtered.forEach(job => {
+        const card = document.createElement('div');
+        card.className = 'job-card';
+        card.setAttribute('data-aos', 'fade-up');
+        card.innerHTML = `
+          <div class="job-card-header">
+            <div class="job-comp-logo">${job.logoText || job.company.substring(0,2).toUpperCase()}</div>
+            <div class="job-title-wrapper">
+              <h3>${job.title}</h3>
+              <span class="job-comp-name">${job.company}</span>
+            </div>
+          </div>
+          <p style="font-size:0.9rem; color:var(--slate-600); margin-bottom:1rem; line-height:1.5;">${job.description}</p>
+          <div class="job-tag-list">
+            <span class="job-tag type">${job.type}</span>
+            ${job.tags.slice(0,3).map(t => `<span class="job-tag">${t}</span>`).join('')}
+          </div>
+          <div class="job-card-footer">
+            <div class="job-salary-loc">
+              <span class="job-salary">${job.salary}</span>
+              <span class="job-loc">${job.location}</span>
+            </div>
+            <div class="job-actions">
+              <a href="login.html" class="btn btn-primary job-btn-apply">Sign In to Apply</a>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+    
+    function filterJobs(type) {
+      // Toggle active filter button classes
+      const tabs = document.querySelectorAll('.filter-tab');
+      tabs.forEach(tab => {
+        if (tab.textContent.toLowerCase().includes(type.toLowerCase()) || (type === 'all' && tab.textContent === 'All Positions')) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+      renderHomeJobs(type);
+    }
+    
+    function triggerHeroSearch() {
+      const keyword = document.getElementById('hero-search-keyword').value;
+      const location = document.getElementById('hero-search-location').value;
+      
+      // Save search filters temporarily to apply on redirection
+      sessionStorage.setItem('stackly_search_keyword', keyword);
+      sessionStorage.setItem('stackly_search_location', location);
+      
+      window.location.href = 'login.html';
+    }
+    
+    function selectCategory(catName) {
+      sessionStorage.setItem('stackly_search_keyword', catName);
+      window.location.href = 'login.html';
+    }
+    
+    function viewCompany(compId) {
+      window.location.href = 'login.html';
+    }
+  </script>
+</body>
+</html>

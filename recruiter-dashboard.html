@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Manage hiring pipelines, post active technical openings, and evaluate software developer candidates using Stackly.">
+  <title>Recruiter Dashboard &bull; Stackly Talent Matching</title>
+
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/webp" href="assets/logo-favicon.webp">
+
+  <style>
+    /* Corporate Violet & Emerald Theme for Recruiter Portal */
+    :root {
+      --primary: #7c3aed;         /* Violet */
+      --primary-hover: #6d28d9;
+      --secondary: #10b981;       /* Emerald */
+      --secondary-hover: #059669;
+      --accent: #f5f3ff;          /* Violet Light */
+      --accent-hover: #ede9fe;
+      --primary-gradient: linear-gradient(135deg, #7c3aed 0%, #10b981 100%);
+      --hover-gradient: linear-gradient(135deg, #6d28d9 0%, #059669 100%);
+      --white: #ffffff;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+    }
+    
+    body.dashboard-body {
+      background-color: #f0f9ff; /* Very soft blue background */
+    }
+    
+    .db-sidebar {
+      background: linear-gradient(180deg, #1a83ea 0%, #1568c7 100%);
+      border-right: none;
+    }
+    
+    .db-menu-list {
+      gap: 0.6rem;
+    }
+    
+    .db-menu-item a {
+      color: #bfdbfe;
+      padding: 0.9rem 1.25rem;
+    }
+    
+    .db-menu-item a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      padding-left: 1.5rem;
+    }
+    
+    .db-menu-item.active a {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(26, 131, 234, 0.3);
+      border-left: 4px solid #10b981;
+    }
+    
+    .db-menu-item i {
+      color: #93c5fd;
+    }
+    
+    .db-menu-item.active i {
+      color: #10b981;
+    }
+    
+    .db-logout-item {
+      margin-top: auto;
+      border-top: 1px solid #bfdbfe;
+      padding-top: 1rem;
+    }
+    
+    .db-logout-item a:hover {
+      background-color: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+    
+    .db-logout-item a:hover i {
+      color: #ef4444;
+    }
+    
+    .db-logo img {
+      filter: drop-shadow(0 2px 4px rgba(26, 131, 234, 0.2));
+    }
+    
+    .db-topnav {
+      border-bottom: 2px solid #dbeafe;
+      background-color: rgba(255, 255, 255, 0.95);
+    }
+    
+    .db-nav-icon-btn {
+      background-color: #eff6ff;
+      color: #1a83ea;
+    }
+    
+    .db-nav-icon-btn:hover {
+      background-color: #dbeafe;
+    }
+    
+    .db-profile-avatar {
+      background: var(--primary-gradient);
+      box-shadow: 0 4px 10px rgba(26, 131, 234, 0.3);
+    }
+    
+    .db-profile-role {
+      color: #1a83ea;
+      font-weight: 700;
+    }
+    
+    .db-stat-card {
+      border-color: #dbeafe;
+      box-shadow: 0 4px 6px -1px rgba(26, 131, 234, 0.05);
+      background-color: #ffffff;
+    }
+    
+    .db-stat-card:hover {
+      border-color: rgba(26, 131, 234, 0.3);
+      box-shadow: 0 10px 15px -3px rgba(26, 131, 234, 0.1);
+    }
+    
+    .db-stat-card:nth-child(1) .db-stat-icon { background-color: #eff6ff; color: #1a83ea; }
+    .db-stat-card:nth-child(2) .db-stat-icon { background-color: #ecfdf5; color: #10b981; }
+    .db-stat-card:nth-child(3) .db-stat-icon { background-color: #e0f2fe; color: #0ea5e9; }
+    .db-stat-card:nth-child(4) .db-stat-icon { background-color: #f3e8ff; color: #a855f7; }
+    
+    .db-card {
+      border-color: #dbeafe;
+      box-shadow: 0 4px 6px -1px rgba(26, 131, 234, 0.05);
+      background-color: #ffffff;
+    }
+    
+    .btn-primary {
+      background: var(--primary-gradient);
+      box-shadow: 0 4px 14px rgba(26, 131, 234, 0.3);
+      color: var(--white);
+      font-weight: 700;
+    }
+    
+    .btn-primary:hover {
+      background: var(--hover-gradient);
+      box-shadow: 0 6px 20px rgba(26, 131, 234, 0.4);
+    }
+    
+    .btn-outline {
+      border-color: #dbeafe;
+      color: #1a83ea;
+    }
+    
+    .btn-outline:hover {
+      border-color: #1a83ea;
+      background-color: #eff6ff;
+      color: #1a83ea;
+    }
+    
+    .pipeline-col {
+      background-color: #f1f5f9;
+      border: 1px solid var(--slate-200);
+    }
+    
+    .pipeline-col-badge {
+      background-color: #ffffff;
+      color: var(--slate-800);
+    }
+    
+    .pipeline-card {
+      background-color: #ffffff;
+      border-color: rgba(226, 232, 240, 0.8);
+      color: var(--slate-600);
+    }
+    
+    .pipeline-card h4 {
+      color: var(--slate-800);
+    }
+    
+    .pipeline-btn {
+      background-color: #ffffff;
+      border-color: var(--slate-200);
+      color: var(--slate-700);
+    }
+    
+    .pipeline-btn:hover {
+      background-color: var(--accent);
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+    
+    .db-list-item {
+      border-bottom-color: var(--slate-100);
+    }
+    
+    .chat-layout {
+      background-color: #ffffff;
+      border-color: var(--slate-200);
+    }
+    
+    .chat-sidebar {
+      background-color: var(--slate-50);
+      border-right-color: var(--slate-200);
+    }
+    
+    .chat-contact-item {
+      border-bottom-color: var(--slate-100);
+    }
+    
+    .chat-contact-item:hover, .chat-contact-item.active {
+      background-color: #ffffff;
+    }
+    
+    .chat-contact-name {
+      color: var(--slate-800);
+    }
+    
+    .chat-main-header {
+      border-bottom-color: var(--slate-200);
+    }
+    
+    .chat-message-timeline {
+      background-color: #fafbfc;
+    }
+    
+    .chat-bubble.received {
+      background-color: #ffffff;
+      border-color: var(--slate-100);
+      color: var(--slate-700);
+    }
+    
+    .chat-bubble.sent {
+      background: var(--primary-gradient);
+      color: var(--white);
+    }
+    
+    .chat-input-area {
+      border-top-color: var(--slate-200);
+    }
+    
+    .chat-input-area input {
+      background-color: #ffffff;
+      border-color: var(--slate-200);
+      color: var(--slate-700);
+    }
+    
+    .chat-input-area input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+    }
+    
+    .calendar-day-cell {
+      background-color: var(--slate-50);
+      color: var(--slate-700);
+    }
+    
+    .calendar-day-cell:hover {
+      background-color: var(--slate-100);
+    }
+    
+    .calendar-day-cell.active {
+      background: var(--primary-gradient);
+      color: var(--white);
+    }
+    
+    .calendar-day-cell.has-event {
+      border-bottom: 3px solid var(--primary);
+    }
+    
+    .preview-sidecard {
+      background-color: var(--slate-50);
+      border-color: var(--slate-200);
+    }
+    
+    .settings-tabs-container {
+      border-bottom-color: var(--slate-200);
+    }
+    
+    .settings-tab-btn:hover, .settings-tab-btn.active {
+      color: var(--primary);
+    }
+    
+    .settings-tab-btn::after {
+      background-color: var(--primary);
+    }
+    
+    .db-header h1 {
+      color: var(--slate-900);
+    }
+    
+    .db-header p {
+      color: var(--slate-500);
+    }
+    
+    /* Brand Badge */
+    .brand-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary);
+      background-color: var(--accent);
+      border-radius: 50px;
+      margin-bottom: 0.75rem;
+      border: 1px solid var(--accent-hover);
+    }
+    
+    input[type="text"], input[type="email"], input[type="url"], select, textarea {
+      background-color: #fcfbfe;
+      border: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      outline: none;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      width: 100%;
+      transition: all 0.2s ease;
+    }
+    
+    input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+      background-color: #ffffff;
+    }
+
+    /* Stat Card Background Images — uses ::after to avoid conflict with ::before left stripe */
+    .db-stat-card::after {
+      content: '';
+      position: absolute;
+      right: -12px;
+      bottom: -12px;
+      width: 130px;
+      height: 130px;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.13;
+      border-radius: 16px;
+      pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .db-stat-card:hover::after {
+      opacity: 0.25;
+      transform: scale(1.1);
+    }
+
+    .db-stat-card:nth-child(1)::after {
+      background-image: url('../assets/card-active-jobs.webp');
+    }
+    .db-stat-card:nth-child(2)::after {
+      background-image: url('../assets/card-applicants.webp');
+    }
+    .db-stat-card:nth-child(3)::after {
+      background-image: url('../assets/card-interviews.webp');
+    }
+    .db-stat-card:nth-child(4)::after {
+      background-image: url('../assets/card-applications.webp');
+    }
+  </style>
+</head>
+
+<body class="dashboard-body">
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="db-topnav" aria-label="Dashboard Top Bar">
+    <div class="db-topnav-left">
+      <button class="db-menu-toggle" aria-label="Toggle Dashboard Sidebar Menu" id="db-sidebar-trigger">
+        <i class="fas fa-bars"></i>
+      </button>
+      <a href="index.html" class="db-logo">
+        <img src="images/logo5.webp" alt="Stackly Primary Logo">
+      </a>
+      <div class="db-search">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search candidates..." id="db-top-search-input">
+      </div>
+    </div>
+
+    <div class="db-topnav-right">
+      <button class="db-nav-icon-btn" aria-label="View notifications"
+        onclick="alert('Notification Alert: Sarah Connor applied for Lead QA Analyst!')">
+        <i class="far fa-bell"></i>
+        <span class="db-nav-badge"></span>
+      </button>
+      <div class="db-profile-trigger">
+        <div class="db-profile-avatar"><i class="fas fa-building-user"></i></div>
+        <div class="db-profile-info">
+          <span class="db-profile-name session-user-name">Marcus Aurelius</span>
+          <span class="db-profile-role">Recruiter</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar / Dashboard Navigation -->
+  <div class="db-wrapper">
+    <aside class="db-sidebar" aria-label="Dashboard Sidebar Navigation Menu">
+      <button class="sidebar-close-btn" id="db-sidebar-close" aria-label="Close Sidebar">
+        <i class="fas fa-times"></i>
+      </button>
+      <ul class="db-menu-list">
+        <li class="db-menu-item active"><a href="recruiter-dashboard.html"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+        <li class="db-menu-item"><a href="recruiter-post-jobs.html"><i class="fas fa-plus-circle"></i> Post Jobs</a></li>
+        <li class="db-menu-item"><a href="recruiter-manage-jobs.html"><i class="fas fa-tasks"></i> Manage Jobs</a></li>
+        <li class="db-menu-item"><a href="recruiter-applicants.html"><i class="fas fa-users-rectangle"></i> Applicants</a></li>
+        <li class="db-menu-item"><a href="recruiter-messages.html"><i class="far fa-comments"></i> Messages</a></li>
+        <li class="db-menu-item db-logout-item">
+          <a href="index.html" onclick="alert('Logged out successfully!')"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="db-content-area">
+
+      <!-- 1. DASHBOARD OVERVIEW PANEL -->
+      <section class="db-panel active" id="dashboard-panel" aria-label="Dashboard Statistics Overview">
+        <div class="db-header">
+          <span class="brand-badge"> RECRUITER PORTAL</span>
+          <h1>Welcome Back, <span class="session-user-name">Marcus Aurelius</span></h1>
+          <p>Analyze candidate applications, pipeline stages, and active positions</p>
+        </div>
+
+        <!-- Stats Cards Grid -->
+        <div class="db-stats-grid">
+          <div class="db-stat-card">
+            <div class="db-stat-info">
+              <h3 id="stat-active-jobs">0</h3>
+              <p>Active Jobs</p>
+            </div>
+            <div class="db-stat-icon"><i class="fas fa-briefcase"></i></div>
+          </div>
+          <div class="db-stat-card">
+            <div class="db-stat-info">
+              <h3 id="stat-recruiter-apps">0</h3>
+              <p>Applicants</p>
+            </div>
+            <div class="db-stat-icon"><i class="fas fa-file-signature"></i></div>
+          </div>
+          <div class="db-stat-card">
+            <div class="db-stat-info">
+              <h3 id="stat-shortlisted">0</h3>
+              <p>Shortlisted</p>
+            </div>
+            <div class="db-stat-icon"><i class="fas fa-user-check"></i></div>
+          </div>
+          <div class="db-stat-card">
+            <div class="db-stat-info">
+              <h3 id="stat-hired">0</h3>
+              <p>Hired</p>
+            </div>
+            <div class="db-stat-icon"><i class="fas fa-trophy"></i></div>
+          </div>
+        </div>
+
+        <!-- Dashboard Charts grid -->
+        <div class="db-grid-2col">
+          <div class="db-card">
+            <div class="db-card-header">
+              <h3>Monthly Application Volume</h3>
+            </div>
+            <div class="chart-container">
+              <canvas id="applicantRateChart"></canvas>
+            </div>
+          </div>
+
+          <div class="db-card">
+            <div class="db-card-header">
+              <h3>Pipeline Stage Distribution</h3>
+            </div>
+            <div class="chart-container">
+              <canvas id="pipelineStageChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Candidates & Activity -->
+        <div class="db-grid-2col">
+          <div class="db-card">
+            <div class="db-card-header">
+              <h3>Recent Candidates Sourced</h3>
+              <a href="#applications" class="db-card-link">View pipeline board <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div id="recent-candidates-list" style="display:flex; flex-direction:column;">
+              <!-- Loaded dynamically by JS -->
+            </div>
+          </div>
+
+          <div class="db-card">
+            <div class="db-card-header">
+              <h3>Hiring Activity Alerts</h3>
+            </div>
+            <div style="text-align:left; padding:0.25rem 0;">
+              <ul style="list-style:none; display:flex; flex-direction:column; gap:1rem; font-size:0.9rem;">
+                <li style="border-bottom:1px solid var(--slate-100); padding-bottom:0.75rem;">
+                  <i class="fas fa-bell" style="color:var(--primary); margin-right:0.5rem;"></i> <strong>1 new
+                    applicant</strong> applied for your Lead QA Analyst position.
+                </li>
+                <li style="border-bottom:1px solid var(--slate-100); padding-bottom:0.75rem;">
+                  <i class="fas fa-circle-check" style="color:#22c55e; margin-right:0.5rem;"></i> Scheduled tech
+                  screener with candidate Sarah Connor.
+                </li>
+                <li>
+                  <i class="fas fa-clock" style="color:#d97706; margin-right:0.5rem;"></i> <strong>SLA Warning</strong>:
+                  2 profiles pending screening reviews.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. POST JOB PANEL -->
+      <section class="db-panel" id="post-jobs-panel" aria-label="Post a New Job Opening">
+        <div class="db-header">
+          <span class="brand-badge"> RECRUITER PORTAL</span>
+          <h1>Publish a Job Opportunity</h1>
+          <p>Enter tech stack specifications and salary baselines to target candidates</p>
+        </div>
+
+        <div class="split-preview-layout">
+          <!-- Form -->
+          <div class="db-card" style="margin-bottom:0;">
+            <form id="post-job-form">
+              <div class="form-group-row">
+                <div class="form-group" style="margin-bottom:1rem;">
+                  <label
+                    style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.5rem; color:var(--slate-700);">Job
+                    Position Title</label>
+                  <input type="text" id="post-job-title" placeholder="e.g. Senior Backend Engineer" required
+                    oninput="updateLiveJobPreview()">
+                </div>
+                <div class="form-group" style="margin-bottom:1rem;">
+                  <label
+                    style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.5rem; color:var(--slate-700);">Company
+                    Name</label>
+                  <input type="text" id="post-job-company" placeholder="e.g. Vortex Technologies" required
+                    oninput="updateLiveJobPreview()">
+                </div>
+              </div>
+
+              <div class="form-group-row">
+                <div class="form-group" style="margin-bottom:1rem;">
+                  <label
+                    style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.5rem; color:var(--slate-700);">Geographic
+                    Location</label>
+                  <input type="text" id="post-job-location" placeholder="e.g. San Francisco, CA (Hybrid)" required
+                    oninput="updateLiveJobPreview()">
+                </div>
+                <div class="form-group" style="margin-bottom:1rem;">
+                  <label
+                    style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.5rem; color:var(--slate-700);">Salary
+                    Range / Baseline</label>
+                  <input type="text" id="post-job-salary" placeholder="e.g. $120,000 - $140,000" required
+                    oninput="updateLiveJobPreview()">
+                </div>
+              </div>
+
+              <div class="form-group-row">
+                <div class="form-group" style="margin-bottom:1rem;">
+                  <label
+                    style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.5rem; color:var(--slate-700);">Job
+                    Type</label>
+                  <select id="post-job-type"
+                    style="width:100%; padding:1rem; border-radius:6px; border:1px solid var(--slate-200); background-color:var(--slate-50); outline:none;"
+                    onchange="updateLiveJobPreview()">
+                    <option value="Full-time">Full-time</option>
+                    <option value="Remote">Remote</option>
+                    <option value="Contract">Contract</option>
+                  </select>
+                </div>
+                <div class="form-group" style="margin-bottom:1rem;">
+                  <label
+                    style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.5rem; color:var(--slate-700);">Required
+                    Skills (Comma Separated)</label>
+                  <input type="text" id="post-job-tags" placeholder="e.g. React, Node.js, AWS, Postgres"
+                    oninput="updateLiveJobPreview()">
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-bottom:1.5rem;">
+                <label
+                  style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.5rem; color:var(--slate-700);">Opportunity
+                  Description</label>
+                <textarea id="post-job-desc" placeholder="Detail tech stack, responsibilities, team structures..."
+                  rows="6" required oninput="updateLiveJobPreview()"></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary"><i class="fas fa-bullhorn"></i> Publish Listing</button>
+            </form>
+          </div>
+
+          <!-- Live preview sidecard -->
+          <div class="preview-sidecard" id="live-job-preview-container">
+            <h3
+              style="font-size:1rem; margin-bottom:1rem; color:var(--slate-400); border-bottom:1px dashed var(--slate-200); padding-bottom:0.5rem;">
+              <i class="far fa-eye"></i> Live Seeker Portal Preview</h3>
+            <div class="job-card" style="margin-bottom:0; background-color:var(--white);">
+              <div class="job-card-header">
+                <div class="job-comp-logo" id="prev-logo-text">ST</div>
+                <div class="job-title-wrapper">
+                  <h3 id="prev-title">Job Position Title</h3>
+                  <span class="job-comp-name" id="prev-company">Company Name</span>
+                </div>
+              </div>
+              <p style="font-size:0.9rem; color:var(--slate-600); margin-bottom:1rem; line-height:1.5;" id="prev-desc">
+                Description preview text will update as you compile qualifications...</p>
+              <div class="job-tag-list" id="prev-tags-container">
+                <span class="job-tag type" id="prev-type">Full-time</span>
+              </div>
+              <div class="job-card-footer">
+                <div class="job-salary-loc">
+                  <span class="job-salary" id="prev-salary">Salary Range</span>
+                  <span class="job-loc" id="prev-location">Geographic Location</span>
+                </div>
+                <button class="btn btn-primary job-btn-apply" disabled
+                  style="padding:0.4rem 1rem; font-size:0.8rem;">Apply Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. MANAGE JOBS LIST PANEL -->
+      <section class="db-panel" id="manage-jobs-panel" aria-label="Manage Your Published Listings">
+        <div class="db-header">
+          <span class="brand-badge"> RECRUITER PORTAL</span>
+          <h1>Active Job Listings</h1>
+          <p>Delete listings and review overall application numbers per listing</p>
+        </div>
+
+        <div class="db-card">
+          <div id="recruiter-jobs-list" style="display:flex; flex-direction:column;">
+            <!-- Injected dynamically by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. APPLICANT TRACKER KANBAN PIPELINE -->
+      <section class="db-panel" id="applicants-panel" aria-label="Kanban Applicant Tracking Board">
+        <div class="db-header">
+          <span class="brand-badge">RECRUITER PORTAL</span>
+          <h1>Hiring Pipeline Tracker</h1>
+          <p>Track candidates dynamically across recruitment stages: Screen, Interview, Offer, Hired</p>
+        </div>
+
+        <!-- Kanban Board Lanes Grid -->
+        <div class="pipeline-board">
+
+          <!-- Lane 1: Applied -->
+          <div class="pipeline-col">
+            <div class="pipeline-col-header">
+              <span>Applied</span>
+              <span class="pipeline-col-badge" id="count-applied">0</span>
+            </div>
+            <div id="lane-applied" style="display:flex; flex-direction:column; gap:0.75rem;">
+              <!-- Injected dynamically by JS -->
+            </div>
+          </div>
+
+          <!-- Lane 2: Screening -->
+          <div class="pipeline-col">
+            <div class="pipeline-col-header">
+              <span>Screening</span>
+              <span class="pipeline-col-badge" id="count-screening">0</span>
+            </div>
+            <div id="lane-screening" style="display:flex; flex-direction:column; gap:0.75rem;">
+              <!-- Injected dynamically by JS -->
+            </div>
+          </div>
+
+          <!-- Lane 3: Interview -->
+          <div class="pipeline-col">
+            <div class="pipeline-col-header">
+              <span>Interview</span>
+              <span class="pipeline-col-badge" id="count-interview">0</span>
+            </div>
+            <div id="lane-interview" style="display:flex; flex-direction:column; gap:0.75rem;">
+              <!-- Injected dynamically by JS -->
+            </div>
+          </div>
+
+          <!-- Lane 4: Offer -->
+          <div class="pipeline-col">
+            <div class="pipeline-col-header">
+              <span>Offer</span>
+              <span class="pipeline-col-badge" id="count-offer">0</span>
+            </div>
+            <div id="lane-offer" style="display:flex; flex-direction:column; gap:0.75rem;">
+              <!-- Injected dynamically by JS -->
+            </div>
+          </div>
+
+          <!-- Lane 5: Hired -->
+          <div class="pipeline-col">
+            <div class="pipeline-col-header">
+              <span>Hired</span>
+              <span class="pipeline-col-badge" id="count-hired">0</span>
+            </div>
+            <div id="lane-hired" style="display:flex; flex-direction:column; gap:0.75rem;">
+              <!-- Injected dynamically by JS -->
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 5. INTERVIEWS SCHEDULER PANEL -->
+      <section class="db-panel" id="interviews-panel" aria-label="Coordinate Interviews">
+        <div class="db-header">
+          <span class="brand-badge"> RECRUITER PORTAL</span>
+          <h1>Coordinate Tech Interviews</h1>
+          <p>Verify times, dates, and meeting URLs for applicants</p>
+        </div>
+
+        <div class="db-grid-2col">
+          <div class="db-card">
+            <h3 style="margin-bottom:1.5rem;">Interview Calendars</h3>
+            <div class="db-list-item" style="border-bottom:none;">
+              <div class="db-list-info">
+                <h4 style="color:var(--primary);"><i class="fas fa-calendar-check"></i> Technical Coding Screener</h4>
+                <p>Candidate: Sarah Connor &bull; Date: June 15, 2026 &bull; Time: 2:00 PM EST &bull; Lobby: Zoom Link
+                </p>
+              </div>
+              <a href="404.html" class="btn btn-outline" style="padding:0.4rem 1rem; font-size:0.8rem;">Edit Time</a>
+            </div>
+          </div>
+
+          <!-- Calendar visual widget -->
+          <div class="db-card">
+            <h3 style="margin-bottom:1.25rem;"><i class="far fa-calendar"></i> Recruiter Slot Planner</h3>
+            <div class="calendar-mock">
+              <!-- Calendar day headers -->
+              <span class="calendar-day-header">M</span>
+              <span class="calendar-day-header">T</span>
+              <span class="calendar-day-header">W</span>
+              <span class="calendar-day-header">T</span>
+              <span class="calendar-day-header">F</span>
+              <span class="calendar-day-header">S</span>
+              <span class="calendar-day-header">S</span>
+
+              <!-- Days cells -->
+              <span class="calendar-day-cell">14</span>
+              <span class="calendar-day-cell active has-event"
+                onclick="alert('June 15: Scheduled screener with Sarah Connor at 2:00 PM EST')">15</span>
+              <span class="calendar-day-cell">16</span>
+              <span class="calendar-day-cell">17</span>
+              <span class="calendar-day-cell has-event"
+                onclick="alert('June 18: System Architect review at 11:30 AM PST')">18</span>
+              <span class="calendar-day-cell">19</span>
+              <span class="calendar-day-cell">20</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. MESSAGES PANEL -->
+      <section class="db-panel" id="messages-panel" aria-label="Messages list panel">
+        <div class="db-header">
+          <span class="brand-badge"> RECRUITER PORTAL</span>
+          <h1>Candidate Messaging Room</h1>
+          <p>Communicate directly with active applicants</p>
+        </div>
+
+        <div class="chat-layout">
+          <!-- Chat sidebar contacts -->
+          <div class="chat-sidebar">
+            <div class="chat-sidebar-header">
+              <h3 style="font-size:1rem; font-weight:700;">Active Applicants</h3>
+            </div>
+            <div class="chat-contact-list">
+              <div class="chat-contact-item active">
+                <div class="chat-contact-avatar">
+                  <span>SC</span>
+                  <span class="chat-online-dot"></span>
+                </div>
+                <div class="chat-contact-info">
+                  <div class="chat-contact-name">Sarah Connor</div>
+                  <div class="chat-contact-lastmsg">Absolutely! I'm available...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chat body -->
+          <div class="chat-main">
+            <div class="chat-main-header">
+              <div class="chat-contact-avatar">
+                <span>SC</span>
+                <span class="chat-online-dot"></span>
+              </div>
+              <div>
+                <h4 style="font-size:0.95rem; font-weight:600; margin-bottom:0.15rem;">Sarah Connor</h4>
+                <span style="font-size:0.75rem; color:#22c55e; font-weight:600;">Online &bull; Systems Candidate</span>
+              </div>
+            </div>
+
+            <div class="chat-message-timeline">
+              <div class="chat-bubble received">
+                Hi, I submitted my resume. I'm excited about the React and CSS roles.
+              </div>
+              <div class="chat-bubble sent">
+                Hi Sarah. We would love to organize a code system design chat. Can you make it next Monday afternoon?
+              </div>
+              <div class="chat-bubble received">
+                Absolutely! I'm available Mon or Wed afternoon.
+              </div>
+            </div>
+
+            <div class="chat-input-area">
+              <input type="text" placeholder="Type a message..." id="recruiter-chat-text-input">
+              <button class="btn btn-primary" onclick="sendDemoRecruiterChat()" style="padding:0.75rem 1.25rem;"><i
+                  class="fas fa-paper-plane"></i></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. COMPANY PROFILE SETTINGS PANEL -->
+      <section class="db-panel" id="company-profile-panel" aria-label="Corporate Profile Settings">
+        <div class="db-header">
+          <span class="brand-badge"> RECRUITER PORTAL</span>
+          <h1>Corporate Profile details</h1>
+          <p>Modify public company coordinates and descriptions</p>
+        </div>
+
+        <div class="db-grid-2col" style="grid-template-columns: 1.5fr 1fr;">
+          <div class="db-card" style="margin-bottom:0;">
+            <form id="company-profile-form">
+              <div class="form-group">
+                <label
+                  style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.5rem; color:var(--slate-700);">Company
+                  Display Name</label>
+                <input type="text" id="comp-name" required>
+              </div>
+
+              <div class="form-group">
+                <label
+                  style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.5rem; color:var(--slate-700);">Company
+                  Size Range</label>
+                <input type="text" id="comp-size" placeholder="e.g. 50-100 employees" required>
+              </div>
+
+              <div class="form-group">
+                <label
+                  style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.5rem; color:var(--slate-700);">Location
+                  Address Headquarters</label>
+                <input type="text" id="comp-location" required>
+              </div>
+
+              <div class="form-group">
+                <label
+                  style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.5rem; color:var(--slate-700);">Website
+                  Link URL</label>
+                <input type="url" id="comp-website" placeholder="https://" required>
+              </div>
+
+              <div class="form-group">
+                <label
+                  style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.5rem; color:var(--slate-700);">Corporate
+                  Overview / Description</label>
+                <textarea id="comp-desc" rows="5" required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle"></i> Save Company
+                Updates</button>
+            </form>
+          </div>
+
+          <!-- Company branding card side -->
+          <div class="db-card"
+            style="margin-bottom:0; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;">
+            <div
+              style="width:100px; height:100px; border-radius:12px; background-color:var(--slate-100); border:2px dashed var(--slate-300); display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:800; color:var(--slate-400); margin-bottom:1.5rem;">
+              VT
+            </div>
+            <h4 style="margin-bottom:0.25rem;">Corporate Logo Banner</h4>
+            <p style="font-size:0.8rem; color:var(--slate-500); margin-bottom:1.5rem;">Upload custom WebP dimensions
+              100x100 for seeker tags matching portals.</p>
+            <button class="btn btn-outline" style="width:100%; font-size:0.85rem;"
+              onclick="alert('Logo updates template loaded!')"><i class="fas fa-upload"></i> Upload Logo file</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. RECRUITER SETTINGS PANEL -->
+      <section class="db-panel" id="settings-panel" aria-label="Dashboard Account Settings">
+        <div class="db-header">
+          <span class="brand-badge"> RECRUITER PORTAL</span>
+          <h1>Dashboard Configurations</h1>
+          <p>Configure notification rules, active plans, and API integrations</p>
+        </div>
+
+        <div class="db-card" style="max-width:800px;">
+          <!-- Tabs container -->
+          <div class="settings-tabs-container">
+            <button class="settings-tab-btn active"
+              onclick="switchSettingsTab(this, 'settings-notifications')">Notifications</button>
+            <button class="settings-tab-btn" onclick="switchSettingsTab(this, 'settings-billing')">Billing Plan</button>
+            <button class="settings-tab-btn" onclick="switchSettingsTab(this, 'settings-integrations')">Integrations
+              &amp; API</button>
+          </div>
+
+          <!-- Tab 1: Notifications -->
+          <div class="settings-panel-tab active" id="settings-notifications">
+            <h4 style="margin-bottom:1.25rem; font-size:1.05rem;">Email Warning Alert configurations</h4>
+            <div style="display:flex; flex-direction:column; gap:1.25rem; margin-bottom:2rem;">
+              <label style="display:flex; align-items:center; gap:0.75rem; cursor:pointer;">
+                <input type="checkbox" checked> Send email when new candidate applies
+              </label>
+              <label style="display:flex; align-items:center; gap:0.75rem; cursor:pointer;">
+                <input type="checkbox" checked> Send daily digest of applicant pipeline movements
+              </label>
+              <label style="display:flex; align-items:center; gap:0.75rem; cursor:pointer;">
+                <input type="checkbox" checked> Warn when candidate cards stay in screening over 48 hours
+              </label>
+            </div>
+            <button class="btn btn-primary" onclick="alert('Recruiter notifications updated!')">Save
+              Configurations</button>
+          </div>
+
+          <!-- Tab 2: Billing Plan -->
+          <div class="settings-panel-tab" id="settings-billing">
+            <h4 style="margin-bottom:1rem; font-size:1.1rem;">Recruiter Posting Plan</h4>
+            <div
+              style="background-color:var(--slate-50); padding:1.5rem; border-radius:8px; border:1px solid var(--slate-200); margin-bottom:1.5rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                <strong style="font-size:1.25rem; color:var(--slate-900);">Enterprise Growth Tier</strong>
+                <span class="db-badge offer">Active</span>
+              </div>
+              <p style="font-size:0.85rem; color:var(--slate-600); margin-top:0.5rem;">You have <strong>5 active job
+                  posting credits</strong> remaining this month. Job matching alerts are Synergized.</p>
+            </div>
+            <button class="btn btn-primary" onclick="alert('Invoices template is loading!')"><i
+                class="fas fa-file-invoice-dollar"></i> View Corporate Invoices</button>
+          </div>
+
+          <!-- Tab 3: Integrations & API -->
+          <div class="settings-panel-tab" id="settings-integrations">
+            <h4 style="margin-bottom:1rem; font-size:1.1rem;">Third Party Sync webhooks</h4>
+            <p style="font-size:0.85rem; color:var(--slate-500); margin-bottom:1.5rem;">Transmit candidate application
+              records dynamically to your custom ATS endpoints.</p>
+            <div style="display:flex; flex-direction:column; gap:1.25rem; margin-bottom:2rem;">
+              <div class="form-group" style="margin-bottom:0;">
+                <label style="font-size:0.8rem; font-weight:600; display:block; margin-bottom:0.5rem;">Webhook URL
+                  endpoint</label>
+                <input type="url" placeholder="https://api.yourcompany.com/ats-hook"
+                  style="width:100%; padding:0.6rem; border:1px solid var(--slate-200); border-radius:6px; background-color:var(--slate-50);"
+                  id="settings-webhook-url">
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="alert('Webhook endpoint configured!')">Register Endpoint</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. REPORTS & ANALYTICS PANEL -->
+      <section class="db-panel" id="reports-panel" aria-label="Corporate Sourcing Reports">
+        <div class="db-header">
+          <span class="brand-badge"> RECRUITER PORTAL</span>
+          <h1>Hiring Analytics &amp; Reports</h1>
+          <p>Analyze applicant pipeline conversions, cost per source, and hiring efficiency</p>
+        </div>
+
+        <div class="db-grid-2col">
+          <!-- KPI Metrics Card -->
+          <div class="db-card">
+            <h3 style="margin-bottom:1.5rem;"><i class="fas fa-chart-line" style="color:var(--primary);"></i> Key Performance Indicators</h3>
+            <div style="display:flex; flex-direction:column; gap:1.25rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--slate-200); padding-bottom:0.75rem;">
+                <div>
+                  <strong style="display:block; font-size:0.95rem;">Average Time-to-Hire</strong>
+                  <span style="font-size:0.8rem; color:var(--slate-400);">From application received to offer acceptance</span>
+                </div>
+                <strong style="font-size:1.25rem; color:var(--primary);">18.5 Days</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--slate-200); padding-bottom:0.75rem;">
+                <div>
+                  <strong style="display:block; font-size:0.95rem;">Interview Attendance Rate</strong>
+                  <span style="font-size:0.8rem; color:var(--slate-400);">Candidates showing up to scheduled Zoom screeners</span>
+                </div>
+                <strong style="font-size:1.25rem; color:#22c55e;">94.2%</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--slate-200); padding-bottom:0.75rem;">
+                <div>
+                  <strong style="display:block; font-size:0.95rem;">Offer Acceptance Rate</strong>
+                  <span style="font-size:0.8rem; color:var(--slate-400);">Percentage of extended offers accepted</span>
+                </div>
+                <strong style="font-size:1.25rem; color:#22c55e;">88.9%</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                  <strong style="display:block; font-size:0.95rem;">Sourcing Cost Per Hire</strong>
+                  <span style="font-size:0.8rem; color:var(--slate-400);">Average platform investment per verified hire</span>
+                </div>
+                <strong style="font-size:1.25rem; color:var(--primary);">$1,450</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sourcing Funnel Chart Card -->
+          <div class="db-card">
+            <h3 style="margin-bottom:1.5rem;"><i class="fas fa-filter" style="color:var(--primary);"></i> Pipeline Conversion Funnel</h3>
+            <div class="chart-container" style="height: 250px;">
+              <canvas id="recruiterFunnelChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sourcing Channels Table -->
+        <div class="db-card">
+          <h3 style="margin-bottom:1.5rem;"><i class="fas fa-list-check" style="color:var(--primary);"></i> Sourcing Channel Performance</h3>
+          <div style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; text-align:left; font-size:0.9rem;">
+              <thead>
+                <tr style="border-bottom:2px solid var(--slate-200); color:var(--slate-400);">
+                  <th style="padding:0.75rem 1rem;">Source Channel</th>
+                  <th style="padding:0.75rem 1rem;">Views</th>
+                  <th style="padding:0.75rem 1rem;">Applications</th>
+                  <th style="padding:0.75rem 1rem;">Interviewed</th>
+                  <th style="padding:0.75rem 1rem;">Conversion Rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid var(--slate-200);">
+                  <td style="padding:1rem;"><i class="fas fa-globe" style="color:var(--primary); margin-right:0.5rem;"></i> Stackly Organic Search</td>
+                  <td style="padding:1rem;">1,420</td>
+                  <td style="padding:1rem;">248</td>
+                  <td style="padding:1rem;">32</td>
+                  <td style="padding:1rem; font-weight:600; color:#22c55e;">17.4%</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--slate-200);">
+                  <td style="padding:1rem;"><i class="fab fa-linkedin" style="color:#0a66c2; margin-right:0.5rem;"></i> LinkedIn Sync</td>
+                  <td style="padding:1rem;">840</td>
+                  <td style="padding:1rem;">96</td>
+                  <td style="padding:1rem;">14</td>
+                  <td style="padding:1rem; font-weight:600; color:#22c55e;">11.4%</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--slate-200);">
+                  <td style="padding:1rem;"><i class="fab fa-github" style="color:#f0f6fc; margin-right:0.5rem;"></i> GitHub Talent Match</td>
+                  <td style="padding:1rem;">530</td>
+                  <td style="padding:1rem;">112</td>
+                  <td style="padding:1rem;">28</td>
+                  <td style="padding:1rem; font-weight:600; color:#22c55e;">21.1%</td>
+                </tr>
+                <tr>
+                  <td style="padding:1rem;"><i class="fas fa-users" style="color:#a855f7; margin-right:0.5rem;"></i> Internal Referral</td>
+                  <td style="padding:1rem;">94</td>
+                  <td style="padding:1rem;">15</td>
+                  <td style="padding:1rem;">8</td>
+                  <td style="padding:1rem; font-weight:600; color:#22c55e;">53.3%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. SUBSCRIPTION & BILLING PANEL -->
+      <section class="db-panel" id="subscription-billing-panel" aria-label="Subscription and Billing Settings">
+        <div class="db-header">
+          <span class="brand-badge"> RECRUITER PORTAL</span>
+          <h1>Subscription &amp; Billing</h1>
+          <p>View current plan limits, upgrade account tiers, and review PDF receipts</p>
+        </div>
+
+        <div class="db-grid-2col">
+          <!-- Plan Card -->
+          <div class="db-card">
+            <h3 style="margin-bottom:1.25rem;"><i class="fas fa-gem" style="color:var(--primary);"></i> Current Package</h3>
+            <div style="background-color:rgba(245, 158, 11, 0.05); border:1px solid rgba(245, 158, 11, 0.2); padding:1.5rem; border-radius:8px; margin-bottom:1.5rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+                <strong style="font-size:1.3rem; color:var(--primary);">Enterprise Growth Plan</strong>
+                <span class="db-badge hired" style="background-color:#113022; color:#10b981;">Active</span>
+              </div>
+              <p style="font-size:0.85rem; line-height:1.5; color:var(--slate-400);">You have access to candidate alerts, third-party ATS syncs, webhooks, and prioritized match score ratings.</p>
+            </div>
+
+            <div style="margin-bottom:1.5rem;">
+              <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:0.5rem;">
+                <strong>Job Posting Credits</strong>
+                <span><strong id="billing-credits-used">3</strong> / 5 Listings Sourced</span>
+              </div>
+              <div style="height:8px; background-color:var(--slate-200); border-radius:50px; overflow:hidden;">
+                <div style="width:60%; height:100%; background:var(--primary-gradient);" id="billing-credits-bar"></div>
+              </div>
+            </div>
+            
+            <button class="btn btn-primary" style="width:100%;" onclick="alert('Upgrade package: Redirecting to corporate invoice checkout portal...')"><i class="fas fa-arrow-up-right-from-square"></i> Upgrade Package Tier</button>
+          </div>
+
+          <!-- Billing Info Form -->
+          <div class="db-card">
+            <h3 style="margin-bottom:1.25rem;"><i class="fas fa-wallet" style="color:var(--primary);"></i> Billing Configuration</h3>
+            <form id="recruiter-billing-info-form" onsubmit="event.preventDefault(); alert('Billing coordinates updated successfully!');">
+              <div style="display:grid; grid-template-columns:1fr; gap:1rem; margin-bottom:1.25rem;">
+                <div>
+                  <label style="font-size:0.8rem; font-weight:600; display:block; margin-bottom:0.25rem; color:var(--slate-400);">Billing Contact Email</label>
+                  <input type="email" value="billing@nebula.io" required>
+                </div>
+                <div>
+                  <label style="font-size:0.8rem; font-weight:600; display:block; margin-bottom:0.25rem; color:var(--slate-400);">VAT / Tax Registration Code</label>
+                  <input type="text" value="US-99581-A2" required>
+                </div>
+                <div>
+                  <label style="font-size:0.8rem; font-weight:600; display:block; margin-bottom:0.25rem; color:var(--slate-400);">HQ Corporate Address</label>
+                  <input type="text" value="388 Market Street, Suite 500, San Francisco, CA 94111" required>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-outline" style="width:100%;"><i class="fas fa-save"></i> Save Billing Details</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Invoices List -->
+        <div class="db-card">
+          <h3 style="margin-bottom:1.5rem;"><i class="fas fa-file-invoice-dollar" style="color:var(--primary);"></i> Platform Invoices History</h3>
+          <div style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; text-align:left; font-size:0.9rem;">
+              <thead>
+                <tr style="border-bottom:2px solid var(--slate-200); color:var(--slate-400);">
+                  <th style="padding:0.75rem 1rem;">Invoice Code</th>
+                  <th style="padding:0.75rem 1rem;">Billing Cycle</th>
+                  <th style="padding:0.75rem 1rem;">Total Due</th>
+                  <th style="padding:0.75rem 1rem;">Payment State</th>
+                  <th style="padding:0.75rem 1rem; text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid var(--slate-200);">
+                  <td style="padding:1rem; font-weight:600;">#INV-2026-006</td>
+                  <td style="padding:1rem;">June 1, 2026 - June 30, 2026</td>
+                  <td style="padding:1rem;">$299.00 USD</td>
+                  <td style="padding:1rem;"><span style="color:#22c55e; font-weight:600;"><i class="fas fa-circle-check"></i> Cleared</span></td>
+                  <td style="padding:1rem; text-align:right;"><a href="#" onclick="alert('Downloading invoice PDF INV-2026-006...')" style="color:var(--primary); font-weight:600;"><i class="fas fa-download"></i> PDF</a></td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--slate-200);">
+                  <td style="padding:1rem; font-weight:600;">#INV-2026-005</td>
+                  <td style="padding:1rem;">May 1, 2026 - May 31, 2026</td>
+                  <td style="padding:1rem;">$299.00 USD</td>
+                  <td style="padding:1rem;"><span style="color:#22c55e; font-weight:600;"><i class="fas fa-circle-check"></i> Cleared</span></td>
+                  <td style="padding:1rem; text-align:right;"><a href="#" onclick="alert('Downloading invoice PDF INV-2026-005...')" style="color:var(--primary); font-weight:600;"><i class="fas fa-download"></i> PDF</a></td>
+                </tr>
+                <tr>
+                  <td style="padding:1rem; font-weight:600;">#INV-2026-004</td>
+                  <td style="padding:1rem;">April 1, 2026 - April 30, 2026</td>
+                  <td style="padding:1rem;">$299.00 USD</td>
+                  <td style="padding:1rem;"><span style="color:#22c55e; font-weight:600;"><i class="fas fa-circle-check"></i> Cleared</span></td>
+                  <td style="padding:1rem; text-align:right;"><a href="#" onclick="alert('Downloading invoice PDF INV-2026-004...')" style="color:var(--primary); font-weight:600;"><i class="fas fa-download"></i> PDF</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Chart.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- JS Scripts -->
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard-recruiter.js"></script>
+
+  <script>
+    // Tab switching controls in settings
+    function switchSettingsTab(btn, tabId) {
+      // Remove active tab button classes
+      const tabs = btn.parentElement.querySelectorAll('.settings-tab-btn');
+      tabs.forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Toggle panels
+      const panels = btn.closest('.db-card').querySelectorAll('.settings-panel-tab');
+      panels.forEach(p => p.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    // Live preview generator for job postings
+    function updateLiveJobPreview() {
+      const title = document.getElementById('post-job-title').value.trim() || "Job Position Title";
+      const company = document.getElementById('post-job-company').value.trim() || "Company Name";
+      const location = document.getElementById('post-job-location').value.trim() || "Geographic Location";
+      const salary = document.getElementById('post-job-salary').value.trim() || "Salary Range";
+      const type = document.getElementById('post-job-type').value;
+      const tagsString = document.getElementById('post-job-tags').value.trim();
+      const desc = document.getElementById('post-job-desc').value.trim() || "Description preview text will update as you compile qualifications...";
+
+      // Set text contents
+      document.getElementById('prev-title').textContent = title;
+      document.getElementById('prev-company').textContent = company;
+      document.getElementById('prev-location').textContent = location;
+      document.getElementById('prev-salary').textContent = salary;
+      document.getElementById('prev-type').textContent = type;
+      document.getElementById('prev-desc').textContent = desc;
+
+      // Logo letters
+      document.getElementById('prev-logo-text').textContent = company.substring(0, 2).toUpperCase();
+
+      // Render tags list
+      const tagsContainer = document.getElementById('prev-tags-container');
+      tagsContainer.innerHTML = `<span class="job-tag type" id="prev-type">${type}</span>`;
+
+      if (tagsString) {
+        tagsString.split(',').forEach(t => {
+          if (t.trim()) {
+            const span = document.createElement('span');
+            span.className = 'job-tag';
+            span.textContent = t.trim();
+            tagsContainer.appendChild(span);
+          }
+        });
+      }
+    }
+
+    // Chat function
+    function sendDemoRecruiterChat() {
+      const input = document.getElementById('recruiter-chat-text-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const timeline = document.querySelector('.chat-message-timeline');
+
+      // Add recruiter message bubble
+      const recruiterBubble = document.createElement('div');
+      recruiterBubble.className = 'chat-bubble sent';
+      recruiterBubble.textContent = text;
+      timeline.appendChild(recruiterBubble);
+
+      input.value = '';
+      timeline.scrollTop = timeline.scrollHeight;
+
+      // Simulated candidate response
+      setTimeout(() => {
+        const seekerBubble = document.createElement('div');
+        seekerBubble.className = 'chat-bubble received';
+        seekerBubble.textContent = "Thank you Marcus. I have completed the schedule planner confirmation on my dashboard. Speak then!";
+        timeline.appendChild(seekerBubble);
+        timeline.scrollTop = timeline.scrollHeight;
+      }, 1000);
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "stackly-job-portal",
+  "version": "1.0.0",
+  "description": "Stackly - A complete, production-ready Premium Job Portal built with HTML5, CSS3, vanilla JS, AOS, and Chart.js.",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx http-server -p 3000"
+  },
+  "dependencies": {
+    "sharp": "^0.34.5"
+  }
+}

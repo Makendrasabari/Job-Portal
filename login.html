@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sign in to your Stackly account to manage job applications, configure recruiter pipeline tracking boards, or publish new tech listings.">
+  <title>Sign In &bull; Stackly Job Portal Dashboard</title>
+  
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/pages.css">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/webp" href="assets/logo-favicon.webp">
+
+  <style>
+    body { overflow: hidden; }
+    /* Role selector cards — reused from signup */
+    .auth-role-select {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.75rem;
+    }
+    .role-option input[type="radio"] { display: none; }
+    .role-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 0.5rem;
+      border: 2px solid var(--slate-200, #e2e8f0);
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--slate-500, #64748b);
+      transition: all 0.2s ease;
+      background: var(--slate-50, #f8fafc);
+    }
+    .role-label i { font-size: 1.4rem; }
+    .role-option input[type="radio"]:checked + .role-label {
+      border-color: var(--primary, #2563eb);
+      background: #eff6ff;
+      color: var(--primary, #2563eb);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    }
+    .role-label:hover {
+      border-color: var(--primary, #2563eb);
+      color: var(--primary, #2563eb);
+    }
+    .auth-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+    }
+    .auth-panel-left {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0c4a6e 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .auth-panel-left::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(14,165,233,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .auth-panel-left::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      right: -80px;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(37,99,235,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .auth-left-logo img { height: 44px; }
+    .auth-left-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    .auth-left-content img.auth-hero-img {
+      width: 90%;
+      max-width: 440px;
+      margin-bottom: 2.5rem;
+      filter: drop-shadow(0 20px 40px rgba(14,165,233,0.3));
+      animation: floatEffect 6s ease-in-out infinite;
+    }
+    .auth-left-tagline h2 {
+      color: #ffffff;
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .auth-left-tagline p {
+      color: rgba(148,163,184,0.9);
+      font-size: 1rem;
+      max-width: 340px;
+      line-height: 1.6;
+    }
+    .auth-left-stats {
+      display: flex;
+      gap: 2.5rem;
+      position: relative;
+      z-index: 2;
+    }
+    .auth-left-stat h4 {
+      color: #0ea5e9;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    .auth-left-stat p {
+      color: rgba(148,163,184,0.8);
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    .auth-panel-right {
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2.5rem;
+      overflow-y: auto;
+    }
+    .auth-form-wrap {
+      width: 100%;
+      max-width: 400px;
+    }
+    .auth-form-header {
+      margin-bottom: 2.5rem;
+    }
+    .auth-form-header h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .auth-form-header p {
+      color: var(--slate-500);
+      font-size: 0.95rem;
+    }
+    @media (max-width: 768px) {
+      body { overflow: auto; }
+      .auth-split { grid-template-columns: 1fr; }
+      .auth-panel-left { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-split">
+    <!-- Left Panel: Illustration + Brand Story -->
+    <div class="auth-panel-left">
+      <div class="auth-left-logo">
+        <a href="index.html"><img src="images/logo5.webp" alt="Stackly White Logo"></a>
+      </div>
+
+      <div class="auth-left-content">
+        <img src="images/hero-illustration.webp" alt="Stackly Recruitment Dashboard Illustration" class="auth-hero-img">
+        <div class="auth-left-tagline">
+          <h2>Your Career, Supercharged</h2>
+          <p>Access thousands of verified tech opportunities matched to your exact stack, salary expectations, and work style.</p>
+        </div>
+      </div>
+
+      <div class="auth-left-stats">
+        <div class="auth-left-stat">
+          <h4>15K+</h4>
+          <p>Active Jobs</p>
+        </div>
+        <div class="auth-left-stat">
+          <h4>1.2K+</h4>
+          <p>Employers</p>
+        </div>
+        <div class="auth-left-stat">
+          <h4>94%</h4>
+          <p>Success Rate</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel: Login Form -->
+    <div class="auth-panel-right">
+      <div class="auth-form-wrap">
+        <div class="auth-form-header">
+          <h2>Welcome back <span style="background:var(--primary-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;"></span></h2>
+          <p>Sign in to your Stackly account to continue</p>
+        </div>
+
+        <!-- Display alerts/errors -->
+        <div id="auth-alert" style="display:none; padding:0.75rem 1rem; margin-bottom:1.5rem; border-radius:8px; font-size:0.85rem; font-weight:600; text-align:center;"></div>
+        
+        <form id="login-form" onsubmit="handleLoginSubmit(event)">
+          <!-- Role Selection -->
+          <div class="auth-role-select">
+            <div class="role-option">
+              <input type="radio" name="login-role" id="login-role-seeker" value="job_seeker" checked>
+              <label for="login-role-seeker" class="role-label">
+                <i class="fas fa-user-astronaut"></i>
+                <span>Job Seeker</span>
+              </label>
+            </div>
+            <div class="role-option">
+              <input type="radio" name="login-role" id="login-role-recruiter" value="recruiter">
+              <label for="login-role-recruiter" class="role-label">
+                <i class="fas fa-building-user"></i>
+                <span>Recruiter</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="text" placeholder="Email or Username" id="login-username" required autocomplete="email username">
+          </div>
+          
+          <div class="form-group">
+            <input type="password" placeholder="Password" id="login-password" required autocomplete="current-password">
+          </div>
+          
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; font-size:0.85rem;">
+            <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+              <input type="checkbox" id="login-remember"> Remember Session
+            </label>
+            <a href="404.html" style="color:var(--primary); font-weight:600;">Forgot Password?</a>
+          </div>
+          
+          <button type="submit" class="btn btn-primary" style="width:100%; padding:1rem; font-size:1rem;"><i class="fas fa-sign-in-alt"></i> Sign In to Account</button>
+        </form>
+        
+        <div style="text-align:center; margin-top:1.75rem; font-size:0.9rem; color:var(--slate-600);">
+          Don't have an account? <a href="signup.html" style="color:var(--primary); font-weight:600;">Register here</a>
+        </div>
+        
+        <!-- Test Credentials -->
+        <!-- <div style="margin-top:2rem; background:var(--slate-50); border:1px solid var(--slate-200); border-radius:var(--radius-md); padding:1.25rem; font-size:0.8rem; color:var(--slate-500);">
+          <p style="font-weight:700; color:var(--slate-700); margin-bottom:0.5rem; display:flex;align-items:center;gap:0.4rem;"><i class="fas fa-circle-info" style="color:var(--primary);"></i> Test Credentials</p>
+          <p>Job Seeker: <span style="font-family:monospace; font-weight:bold; color:var(--slate-800);">seeker</span> / <span style="font-family:monospace; font-weight:bold; color:var(--slate-800);">password123</span></p>
+          <p style="margin-top:0.3rem;">Recruiter: <span style="font-family:monospace; font-weight:bold; color:var(--slate-800);">recruiter</span> / <span style="font-family:monospace; font-weight:bold; color:var(--slate-800);">password123</span></p>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JS Scripts -->
+  <script src="js/auth.js"></script>
+  <script>
+    // Redirect if already logged in
+    document.addEventListener('DOMContentLoaded', () => {
+      const session = getActiveSession();
+      if (session) {
+        if (session.role === 'job_seeker') {
+          window.location.href = 'job-seeker-dashboard.html';
+        } else if (session.role === 'recruiter') {
+          window.location.href = 'recruiter-dashboard.html';
+        }
+      }
+    });
+
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      
+      const usernameInput = document.getElementById('login-username').value;
+      const passwordInput = document.getElementById('login-password').value;
+      const selectedRole = document.querySelector('input[name="login-role"]:checked').value;
+      const alertBox = document.getElementById('auth-alert');
+      
+      // Clear alert
+      alertBox.style.display = 'none';
+      alertBox.style.backgroundColor = '';
+      alertBox.style.color = '';
+      alertBox.textContent = '';
+      
+      const res = loginUser(usernameInput, passwordInput, selectedRole);
+      
+      if (res.success) {
+        alertBox.style.display = 'block';
+        alertBox.style.backgroundColor = '#dcfce7';
+        alertBox.style.color = '#15803d';
+        alertBox.textContent = 'Sign in successful! Redirecting...';
+        
+        setTimeout(() => {
+          if (res.role === 'job_seeker') {
+            window.location.href = 'job-seeker-dashboard.html';
+          } else if (res.role === 'recruiter') {
+            window.location.href = 'recruiter-dashboard.html';
+          }
+        }, 800);
+      } else {
+        alertBox.style.display = 'block';
+        alertBox.style.backgroundColor = '#fee2e2';
+        alertBox.style.color = '#b91c1c';
+        alertBox.textContent = res.message;
+      }
+    }
+  </script>
+</body>
+</html>

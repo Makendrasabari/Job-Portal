@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn about Stackly's journey to automate tech recruiting, connect talent with premier startups and software enterprises, and build transparent candidate matching.">
+  <title>About Stackly &bull; Bridging Developer Talent and Startup Opportunity</title>
+  
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/pages.css">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- AOS Animations Library CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/webp" href="assets/logo-favicon.webp">
+</head>
+<body>
+
+  <!-- Preloader Screen -->
+  <div id="preloader">
+    <div class="preloader-content">
+      <img src="images/logo5.webp" alt="Stackly Icon Logo" class="preloader-logo">
+      <div class="preloader-spinner"></div>
+    </div>
+  </div>
+
+  <!-- Sticky Top Navigation Bar -->
+  <header class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="nav-logo" id="header-logo-link">
+        <img src="images/logo5.webp" alt="Stackly Logo">
+      </a>
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="explore-jobs.html" class="nav-link">Explore Jobs</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="services.html" class="nav-link">Services</a></li>
+          <li><a href="blog.html" class="nav-link">Blog</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions" id="navbar-actions-container">
+        <!-- Loaded dynamically by auth.js -->
+      </div>
+      <button class="menu-toggle" aria-label="Toggle Navigation Drawer" id="mobile-menu-trigger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Slide-in Mobile Drawer Navigation -->
+  <div class="mobile-overlay"></div>
+  <aside class="mobile-nav" aria-label="Mobile Navigation Menu">
+    <button class="mobile-nav-close" aria-label="Close Menu" id="mobile-menu-close">
+      <i class="fas fa-times"></i>
+    </button>
+    <ul class="mobile-nav-links">
+      <li><a href="index.html" class="mobile-nav-link">Home</a></li>
+      <li><a href="explore-jobs.html" class="mobile-nav-link">Explore Jobs</a></li>
+      <li><a href="about.html" class="mobile-nav-link">About</a></li>
+      <li><a href="services.html" class="mobile-nav-link">Services</a></li>
+      <li><a href="blog.html" class="mobile-nav-link">Blog</a></li>
+      <li><a href="contact.html" class="mobile-nav-link">Contact</a></li>
+    </ul>
+    <div class="mobile-nav-actions" id="mobile-nav-actions-container">
+      <!-- Loaded dynamically by auth.js -->
+    </div>
+  </aside>
+
+  <main>
+    <!-- 1. About Hero Section -->
+    <section class="inner-hero" aria-label="About Stackly Hero Banner">
+      <div class="container">
+        <h1 data-aos="fade-down">Our Journey to Modernize Hiring</h1>
+        <p data-aos="fade-up" data-aos-delay="100">Stackly is built by engineers, for engineers, to replace the friction of traditional resumes with direct match-making algorithms.</p>
+      </div>
+    </section>
+
+    <!-- 2. Company Story Section -->
+    <section class="section-padding" aria-label="Our Corporate History">
+      <div class="container story-grid">
+        <div class="story-content" data-aos="fade-right">
+          <h2>Reimagining Tech Recruitment</h2>
+          <p>Founded in 2024, Stackly was born out of frustration with spammy recruiting agencies and opaque job boards that waste time. We believed there was a better way to connect qualified developers with companies who value solid architecture and clean coding.</p>
+          <p>We built a centralized matching pipeline that evaluates candidates on actual competencies, past contributions, and career expectations. Today, thousands of software engineers, DevOps experts, and product leads use Stackly to build relationships with growing startups and enterprise companies.</p>
+        </div>
+        <div class="story-illustration" data-aos="fade-left" data-aos-delay="100">
+          <img src="images/features-illustration.webp" alt="Platform matching steps workflow graphic">
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Mission & Vision Section -->
+    <section class="section-padding" style="background-color: var(--slate-50);" aria-label="Mission and Vision Columns">
+      <div class="container vision-mission-grid">
+        <div class="vm-card" data-aos="fade-up">
+          <h3>Our Mission</h3>
+          <p>To eliminate hiring friction by matching software developers and technical managers with relevant, verified opportunities in real time. We focus on transparency, providing clear salary baselines, technology specifications, and responsive interview steps for every single role.</p>
+        </div>
+        
+        <div class="vm-card" data-aos="fade-up" data-aos-delay="100">
+          <h3>Our Vision</h3>
+          <p>To build the world's most trusted developer employment ecosystem. We look forward to a future where engineering placement doesn't depend on buzzword-filled resume filtering, but rather on verified portfolio capabilities, mutual interests, and team culture matches.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Leadership Team Section -->
+    <section class="section-padding" aria-label="Stackly Leadership Team">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <h2>The Founders &amp; Leaders</h2>
+          <p>Meet the team of software architects, product designers, and talent experts driving Stackly's growth.</p>
+        </div>
+        
+        <div class="team-grid">
+          <div class="team-card" data-aos="fade-up">
+            <div class="team-photo-wrap">
+              <img src="images/team-david.webp" alt="David Miller – CEO & Co-Founder" class="team-photo">
+            </div>
+            <h3>David Miller</h3>
+            <span class="team-role">CEO &amp; Co-Founder</span>
+            <p class="team-bio">Former Staff Engineer at Stripe with over a decade of experience scaling backend infrastructure and technical departments.</p>
+            <div class="team-socials">
+              <a href="404.html" aria-label="Twitter link"><i class="fab fa-twitter"></i></a>
+              <a href="404.html" aria-label="LinkedIn link"><i class="fab fa-linkedin-in"></i></a>
+              <a href="404.html" aria-label="Github link"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          
+          <div class="team-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="team-photo-wrap">
+              <img src="images/team-sophia.webp" alt="Sophia Patel – CTO & Co-Founder" class="team-photo">
+            </div>
+            <h3>Sophia Patel</h3>
+            <span class="team-role">CTO &amp; Co-Founder</span>
+            <p class="team-bio">Cloud systems architect who previously managed data pipeline engineering and DevOps strategies at AWS and HubSpot.</p>
+            <div class="team-socials">
+              <a href="404.html" aria-label="Twitter link"><i class="fab fa-twitter"></i></a>
+              <a href="404.html" aria-label="LinkedIn link"><i class="fab fa-linkedin-in"></i></a>
+              <a href="404.html" aria-label="Github link"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          
+          <div class="team-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="team-photo-wrap">
+              <img src="images/team-marcus.webp" alt="Marcus Brooks – VP of Product" class="team-photo">
+            </div>
+            <h3>Marcus Brooks</h3>
+            <span class="team-role">VP of Product</span>
+            <p class="team-bio">Lead user experience designer specializing in SaaS interfaces, administrative analytics dashboards, and search tools.</p>
+            <div class="team-socials">
+              <a href="404.html" aria-label="Twitter link"><i class="fab fa-twitter"></i></a>
+              <a href="404.html" aria-label="LinkedIn link"><i class="fab fa-linkedin-in"></i></a>
+              <a href="404.html" aria-label="Github link"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          
+          <div class="team-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="team-photo-wrap">
+              <img src="images/team-aria.webp" alt="Aria Ross – Head of Talent" class="team-photo">
+            </div>
+            <h3>Aria Ross</h3>
+            <span class="team-role">Head of Talent</span>
+            <p class="team-bio">Technical recruitment manager with a history of helping high growth startups source developers and engineers.</p>
+            <div class="team-socials">
+              <a href="404.html" aria-label="Twitter link"><i class="fab fa-twitter"></i></a>
+              <a href="404.html" aria-label="LinkedIn link"><i class="fab fa-linkedin-in"></i></a>
+              <a href="404.html" aria-label="Github link"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Platform Statistics / Analytics Section -->
+    <section class="section-padding" style="background-color: var(--slate-900); color: var(--white);" aria-label="Global Analytics Stats">
+      <div class="container about-perf-grid">
+        <div data-aos="fade-right">
+          <h2 style="color:var(--white); margin-bottom:1.5rem;">Uncompromising Performance baselines</h2>
+          <p style="color:var(--slate-400); margin-bottom:2rem; font-size:1.05rem;">We build our matchmaking engines with focus on speed, availability, and safety. Monitor candidate success across all regions.</p>
+          <div class="about-mini-stats">
+            <div>
+              <h4 style="color:var(--primary); font-size:2rem; font-weight:800; margin-bottom:0.25rem;">99.99%</h4>
+              <p style="color:var(--slate-400); font-size:0.9rem;">Match Engine Uptime</p>
+            </div>
+            <div>
+              <h4 style="color:var(--primary); font-size:2rem; font-weight:800; margin-bottom:0.25rem;">1.2 sec</h4>
+              <p style="color:var(--slate-400); font-size:0.9rem;">Average Profile Search Match</p>
+            </div>
+          </div>
+        </div>
+        
+        <div data-aos="fade-left" data-aos-delay="100" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.05); padding:3rem; border-radius:var(--radius-lg); text-align:center;">
+          <h3 style="color:var(--white); margin-bottom:1.5rem;">Geographic Talent Distribution</h3>
+          <!-- Canvas for Chart.js or stylized inline metrics representation -->
+          <div style="display:flex; flex-direction:column; gap:1rem; text-align:left;">
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:0.25rem;"><span>North America</span><span>45%</span></div>
+              <div style="height:6px; background:var(--slate-800); border-radius:3px;"><div style="width:45%; height:100%; background:var(--primary); border-radius:3px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:0.25rem;"><span>Europe &amp; UK</span><span>35%</span></div>
+              <div style="height:6px; background:var(--slate-800); border-radius:3px;"><div style="width:35%; height:100%; background:var(--primary); border-radius:3px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:0.25rem;"><span>Asia-Pacific</span><span>15%</span></div>
+              <div style="height:6px; background:var(--slate-800); border-radius:3px;"><div style="width:15%; height:100%; background:var(--primary); border-radius:3px;"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo5.webp" alt="Stackly White Logo">
+        <p class="footer-desc">Stackly is an industry leading tech matching portal, bridging the gap between top software builders and modern tech enterprises globally.</p>
+        <div class="social-links">
+          <a href="404.html" class="social-icon" aria-label="Visit Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+          <a href="404.html" class="social-icon" aria-label="Visit Instagram Profile"><i class="fab fa-instagram"></i></a>
+          <a href="404.html" class="social-icon" aria-label="Visit LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+          <a href="404.html" class="social-icon" aria-label="Visit Twitter Profile"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      
+      <div>
+        <h3 class="footer-heading">Company</h3>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="blog.html">Resources</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="footer-heading">Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Home Landing</a></li>
+          <li><a href="login.html">Sign In Portal</a></li>
+          <li><a href="signup.html">Register User</a></li>
+          <li><a href="404.html">Error Reference</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="footer-heading">Job Categories</h3>
+        <ul class="footer-links">
+          <li><a href="login.html">IT Support</a></li>
+          <li><a href="login.html">Marketing</a></li>
+          <li><a href="login.html">Engineering</a></li>
+          <li><a href="login.html">Design Details</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="footer-heading">Contact Details</h3>
+        <div class="footer-contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>MMR Complex, Chinna Thirupathi,<br>Salem, Tamil Nadu 636008</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fas fa-phone-alt"></i>
+          <span>+91 70107 92745</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>info@thestackly.com</span>
+        </div>
+        
+        <div class="footer-map-container">
+          <iframe 
+            src="https://maps.google.com/maps?q=Stackly%20MMR%20Complex%20Chinna%20Thirupathi%20Salem&t=&z=14&ie=UTF8&iwloc=&output=embed" 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Stackly. All Rights Reserved.</p>
+      <p>Designed for Modern Recruitment Systems.</p>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" aria-label="Scroll to top of page"><i class="fas fa-chevron-up"></i></button>
+
+  <!-- JS Scripts -->
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  
+  <!-- AOS Script CDN & Init -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: false,
+      offset: 100
+    });
+  </script>
+</body>
+</html>

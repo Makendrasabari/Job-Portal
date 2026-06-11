@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Register a new Stackly account as a job seeker or recruiter. Configure your credentials and access the talent matching dashboard.">
+  <title>Register Account &bull; Stackly Job Portal</title>
+  
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/pages.css">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/webp" href="assets/logo-favicon.webp">
+
+  <style>
+    .auth-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+    }
+    .auth-panel-left {
+      background: linear-gradient(145deg, #0f172a 0%, #1e3a5f 50%, #312e81 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .auth-panel-left::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(14,165,233,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .auth-panel-left::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; right: -80px;
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(99,102,241,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .auth-left-logo img { height: 44px; }
+    .auth-left-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      padding: 2rem 0;
+    }
+    .auth-left-content img.auth-hero-img {
+      width: 88%;
+      max-width: 420px;
+      margin-bottom: 2rem;
+      filter: drop-shadow(0 20px 40px rgba(14,165,233,0.3));
+      animation: floatEffect 6s ease-in-out infinite;
+    }
+    .auth-left-tagline h2 { color: #fff; font-size: 1.65rem; margin-bottom: 0.75rem; }
+    .auth-left-tagline p { color: rgba(148,163,184,0.9); font-size: 0.95rem; max-width: 340px; line-height: 1.6; }
+    .auth-left-features {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+    .auth-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .auth-feature-item i { color: #22c55e; font-size: 1rem; width: 20px; }
+    .auth-panel-right {
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2.5rem;
+      overflow-y: auto;
+    }
+    .auth-form-wrap { width: 100%; max-width: 400px; }
+    .auth-form-header { margin-bottom: 2rem; }
+    .auth-form-header h2 { font-size: 1.9rem; margin-bottom: 0.5rem; }
+    .auth-form-header p { color: var(--slate-500); font-size: 0.95rem; }
+    @media (max-width: 768px) {
+      .auth-split { grid-template-columns: 1fr; }
+      .auth-panel-left { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-split">
+    <!-- Left Panel: Illustration + Feature List -->
+    <div class="auth-panel-left">
+      <div class="auth-left-logo">
+        <a href="index.html"><img src="images/logo5.webp" alt="Stackly White Logo"></a>
+      </div>
+
+      <div class="auth-left-content">
+        <img src="images/features-illustration.webp" alt="Stackly Platform Features Illustration" class="auth-hero-img">
+        <div class="auth-left-tagline">
+          <h2>Join 89,000+ Professionals</h2>
+          <p>Build your profile once. Get matched with top companies actively hiring in your tech stack.</p>
+        </div>
+      </div>
+
+      <div class="auth-left-features">
+        <div class="auth-feature-item"><i class="fas fa-check-circle"></i> AI-powered job matching engine</div>
+        <div class="auth-feature-item"><i class="fas fa-check-circle"></i> Verified employers & salary data</div>
+        <div class="auth-feature-item"><i class="fas fa-check-circle"></i> Real-time application tracking</div>
+        <div class="auth-feature-item"><i class="fas fa-check-circle"></i> One-click apply with your profile</div>
+      </div>
+    </div>
+
+    <!-- Right Panel: Registration Form -->
+    <div class="auth-panel-right">
+      <div class="auth-form-wrap">
+        <div class="auth-form-header">
+          <h2>Create your account <span style="background:var(--primary-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">✨</span></h2>
+          <p>Get started with automated talent matchmaking today</p>
+        </div>
+
+        <!-- Display alerts/errors -->
+        <div id="auth-alert" style="display:none; padding:0.75rem 1rem; margin-bottom:1.5rem; border-radius:8px; font-size:0.85rem; font-weight:600; text-align:center;"></div>
+        
+        <form id="signup-form" onsubmit="handleSignupSubmit(event)">
+          <!-- Role Selection radio cards -->
+          <div class="auth-role-select">
+            <div class="role-option">
+              <input type="radio" name="auth-role" id="role-seeker" value="job_seeker" checked>
+              <label for="role-seeker" class="role-label">
+                <i class="fas fa-user-astronaut"></i>
+                <span>Job Seeker</span>
+              </label>
+            </div>
+            
+            <div class="role-option">
+              <input type="radio" name="auth-role" id="role-recruiter" value="recruiter">
+              <label for="role-recruiter" class="role-label">
+                <i class="fas fa-building-user"></i>
+                <span>Recruiter</span>
+              </label>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <input type="text" placeholder="Full Name" id="signup-fullname" required autocomplete="name">
+          </div>
+          
+          <div class="form-group">
+            <input type="email" placeholder="Email Address" id="signup-email" required autocomplete="email">
+          </div>
+          
+          <div class="form-group">
+            <input type="text" placeholder="Desired Username" id="signup-username" required autocomplete="username">
+          </div>
+          
+          <div class="form-group">
+            <input type="password" placeholder="Choose a Password" id="signup-password" required autocomplete="new-password">
+          </div>
+          
+          <div style="margin-bottom:2rem; font-size:0.85rem;">
+            <label style="display:flex; align-items:flex-start; gap:0.5rem; cursor:pointer;">
+              <input type="checkbox" id="signup-agree" required style="margin-top:0.2rem;"> 
+              <span>I agree to the Stackly <a href="404.html" style="color:var(--primary); font-weight:600;">Terms of Service</a> and <a href="404.html" style="color:var(--primary); font-weight:600;">Privacy Policy</a>.</span>
+            </label>
+          </div>
+          
+          <button type="submit" class="btn btn-primary" style="width:100%; padding:1rem; font-size:1rem;"><i class="fas fa-user-plus"></i> Create Stackly Account</button>
+        </form>
+        
+        <div style="text-align:center; margin-top:1.75rem; font-size:0.9rem; color:var(--slate-600);">
+          Already have an account? <a href="login.html" style="color:var(--primary); font-weight:600;">Sign in here</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS Scripts -->
+  <script src="js/auth.js"></script>
+  <script>
+    function handleSignupSubmit(e) {
+      e.preventDefault();
+      
+      const role = document.querySelector('input[name="auth-role"]:checked').value;
+      const fullName = document.getElementById('signup-fullname').value;
+      const email = document.getElementById('signup-email').value;
+      const username = document.getElementById('signup-username').value;
+      const password = document.getElementById('signup-password').value;
+      const alertBox = document.getElementById('auth-alert');
+      
+      // Clear alert
+      alertBox.style.display = 'none';
+      alertBox.textContent = '';
+      alertBox.style.backgroundColor = '';
+      alertBox.style.color = '';
+      
+      const res = registerUser(fullName, email, username, password, role);
+      
+      if (res.success) {
+        alertBox.style.display = 'block';
+        alertBox.style.backgroundColor = '#dcfce7';
+        alertBox.style.color = '#15803d';
+        alertBox.textContent = 'Account registered successfully! Redirecting to login...';
+        
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 1200);
+      } else {
+        alertBox.style.display = 'block';
+        alertBox.style.backgroundColor = '#fee2e2';
+        alertBox.style.color = '#b91c1c';
+        alertBox.textContent = res.message;
+      }
+    }
+  </script>
+</body>
+</html>

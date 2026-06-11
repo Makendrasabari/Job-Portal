@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manage your tech job search on Stackly. View active application timelines, edit your resume profile, and search for open developer roles.">
+  <title>Candidate Dashboard &bull; Stackly Talent Matching</title>
+  
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/webp" href="assets/logo-favicon.webp">
+  
+  <style>
+    /* Unique Violet/Emerald Theme for Job Seeker Portal */
+    :root {
+      --primary: #7c3aed;         /* Violet */
+      --primary-hover: #6d28d9;
+      --secondary: #10b981;       /* Emerald */
+      --secondary-hover: #059669;
+      --accent: #f5f3ff;          /* Violet Light */
+      --accent-hover: #ede9fe;
+      --primary-gradient: linear-gradient(135deg, #7c3aed 0%, #10b981 100%);
+      --hover-gradient: linear-gradient(135deg, #6d28d9 0%, #059669 100%);
+      --white: #ffffff;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+    }
+    
+    body.dashboard-body {
+      background-color: #f0f9ff; /* Very soft blue background */
+    }
+    
+    .db-sidebar {
+      background: linear-gradient(180deg, #1a83ea 0%, #1568c7 100%);
+      border-right: none;
+    }
+    
+    .db-menu-list {
+      gap: 0.6rem;
+    }
+    
+    .db-menu-item a {
+      color: #bfdbfe;
+      padding: 0.9rem 1.25rem;
+    }
+    
+    .db-menu-item a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      padding-left: 1.5rem;
+    }
+    
+    .db-menu-item.active a {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(26, 131, 234, 0.3);
+      border-left: 4px solid #10b981;
+    }
+    
+    .db-menu-item i {
+      color: #93c5fd;
+    }
+    
+    .db-menu-item.active i {
+      color: #10b981;
+    }
+    
+    .db-logout-item {
+      margin-top: auto;
+      border-top: 1px solid #bfdbfe;
+      padding-top: 1rem;
+    }
+    
+    .db-logout-item a:hover {
+      background-color: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+    
+    .db-logout-item a:hover i {
+      color: #ef4444;
+    }
+    
+    .db-logo img {
+      filter: drop-shadow(0 2px 4px rgba(26, 131, 234, 0.2));
+    }
+    
+    .db-topnav {
+      border-bottom: 2px solid #dbeafe;
+      background-color: rgba(255, 255, 255, 0.95);
+    }
+    
+    .db-nav-icon-btn {
+      background-color: #eff6ff;
+      color: #1a83ea;
+    }
+    
+    .db-nav-icon-btn:hover {
+      background-color: #dbeafe;
+    }
+    
+    .db-profile-avatar {
+      background: var(--primary-gradient);
+      box-shadow: 0 4px 10px rgba(26, 131, 234, 0.3);
+    }
+    
+    .db-profile-role {
+      color: #1a83ea;
+      font-weight: 700;
+    }
+    
+    .db-stat-card {
+      border-color: #dbeafe;
+      box-shadow: 0 4px 6px -1px rgba(26, 131, 234, 0.05);
+    }
+    
+    .db-stat-card:hover {
+      border-color: rgba(26, 131, 234, 0.3);
+      box-shadow: 0 10px 15px -3px rgba(26, 131, 234, 0.1);
+    }
+    
+    .db-stat-card:nth-child(1) .db-stat-icon { background-color: #eff6ff; color: #1a83ea; }
+    .db-stat-card:nth-child(2) .db-stat-icon { background-color: #ecfdf5; color: #10b981; }
+    .db-stat-card:nth-child(3) .db-stat-icon { background-color: #fff7ed; color: #f97316; }
+    .db-stat-card:nth-child(4) .db-stat-icon { background-color: #fef3c7; color: #f59e0b; }
+    
+    .db-card {
+      border-color: #dbeafe;
+      box-shadow: 0 4px 6px -1px rgba(26, 131, 234, 0.05);
+      background-color: #ffffff;
+    }
+    
+    .btn-primary {
+      background: var(--primary-gradient);
+      box-shadow: 0 4px 14px rgba(26, 131, 234, 0.3);
+      color: var(--white);
+    }
+    
+    .btn-primary:hover {
+      background: var(--hover-gradient);
+      box-shadow: 0 6px 20px rgba(26, 131, 234, 0.4);
+    }
+    
+    .btn-outline {
+      border-color: #dbeafe;
+      color: #1a83ea;
+    }
+    
+    .btn-outline:hover {
+      border-color: #1a83ea;
+      background-color: #eff6ff;
+      color: #1a83ea;
+    }
+    
+    .job-btn-save.saved {
+      color: #1a83ea;
+    }
+    
+    /* Branding Badge */
+    .brand-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #1a83ea;
+      background-color: #eff6ff;
+      border-radius: 50px;
+      margin-bottom: 0.75rem;
+      border: 1px solid #bfdbfe;
+    }
+    
+    /* Input Styling */
+    input[type="text"], input[type="email"], input[type="url"], select, textarea {
+      outline: none;
+      border: 1px solid #dbeafe;
+      background-color: #fcfbfe;
+      transition: all 0.2s ease;
+    }
+    
+    input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, select:focus, textarea:focus {
+      border-color: #1a83ea;
+      box-shadow: 0 0 0 3px rgba(26, 131, 234, 0.15);
+      background-color: #ffffff;
+    }
+
+    /* Stat Card Background Images — uses ::after to avoid conflict with ::before left stripe */
+    .db-stat-card::after {
+      content: '';
+      position: absolute;
+      right: -12px;
+      bottom: -12px;
+      width: 130px;
+      height: 130px;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.13;
+      border-radius: 16px;
+      pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .db-stat-card:hover::after {
+      opacity: 0.25;
+      transform: scale(1.1);
+    }
+
+    .db-stat-card:nth-child(1)::after {
+      background-image: url('../assets/card-applications.webp');
+    }
+    .db-stat-card:nth-child(2)::after {
+      background-image: url('../assets/card-saved-jobs.webp');
+    }
+    .db-stat-card:nth-child(3)::after {
+      background-image: url('../assets/card-interviews.webp');
+    }
+    .db-stat-card:nth-child(4)::after {
+      background-image: url('../assets/card-profile-views.webp');
+    }
+  </style>
+</head>
+<body class="dashboard-body">
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="db-topnav" aria-label="Dashboard Top Bar">
+    <div class="db-topnav-left">
+      <button class="db-menu-toggle" aria-label="Toggle Dashboard Sidebar Menu" id="db-sidebar-trigger">
+        <i class="fas fa-bars"></i>
+      </button>
+      <a href="index.html" class="db-logo">
+        <img src="images/logo5.webp" alt="Stackly Primary Logo">
+      </a>
+      <div class="db-search">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search dashboard..." id="db-top-search-input">
+      </div>
+    </div>
+    
+    <div class="db-topnav-right">
+      <button class="db-nav-icon-btn" aria-label="View notifications" onclick="alert('System Alert: Aria Ross changed your application status for Frontend Architect to Interview!')">
+        <i class="far fa-bell"></i>
+        <span class="db-nav-badge"></span>
+      </button>
+      <div class="db-profile-trigger">
+        <div class="db-profile-avatar"><i class="fas fa-user-astronaut"></i></div>
+        <div class="db-profile-info">
+          <span class="db-profile-name session-user-name">Sarah Connor</span>
+          <span class="db-profile-role">Job Seeker</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar / Dashboard Navigation -->
+  <div class="db-wrapper">
+    <aside class="db-sidebar" aria-label="Dashboard Sidebar Navigation Menu">
+      <button class="sidebar-close-btn" id="db-sidebar-close" aria-label="Close Sidebar">
+        <i class="fas fa-times"></i>
+      </button>
+      <ul class="db-menu-list">
+        <li class="db-menu-item active"><a href="job-seeker-dashboard.html"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+        <li class="db-menu-item"><a href="job-seeker-find-jobs.html"><i class="fas fa-briefcase"></i> Find Jobs</a></li>
+        <li class="db-menu-item"><a href="job-seeker-applied-jobs.html"><i class="fas fa-file-signature"></i> Applied Jobs</a></li>
+        <li class="db-menu-item"><a href="job-seeker-messages.html"><i class="far fa-comments"></i> Messages</a></li>
+        <li class="db-menu-item"><a href="job-seeker-profile.html"><i class="far fa-user-circle"></i> Profile</a></li>
+        <li class="db-menu-item db-logout-item">
+          <a href="index.html" onclick="alert('Logged out successfully!')"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="db-content-area">
+      
+      <!-- 1. DASHBOARD OVERVIEW PANEL -->
+      <section class="db-panel active" id="dashboard-panel" aria-label="Dashboard Statistics Overview">
+        <div class="db-header">
+          <span class="brand-badge"> JOB SEEKER PORTAL</span>
+          <h1>Welcome Back, <span class="session-user-name">Sarah Connor</span></h1>
+          <p>Review recommendations and track your technical job applications</p>
+        </div>
+        
+        <!-- Stats Cards Grid -->
+        <div class="db-stats-grid">
+          <div class="db-stat-card">
+            <div class="db-stat-info">
+              <h3 id="stat-total-apps">0</h3>
+              <p>Applications</p>
+            </div>
+            <div class="db-stat-icon"><i class="fas fa-file-signature"></i></div>
+          </div>
+          <div class="db-stat-card">
+            <div class="db-stat-info">
+              <h3 id="stat-saved">0</h3>
+              <p>Saved Jobs</p>
+            </div>
+            <div class="db-stat-icon"><i class="fas fa-bookmark"></i></div>
+          </div>
+          <div class="db-stat-card">
+            <div class="db-stat-info">
+              <h3 id="stat-interviews">0</h3>
+              <p>Interviews</p>
+            </div>
+            <div class="db-stat-icon"><i class="fas fa-calendar-alt"></i></div>
+          </div>
+          <div class="db-stat-card">
+            <div class="db-stat-info">
+              <h3>240</h3>
+              <p>Profile Views</p>
+            </div>
+            <div class="db-stat-icon"><i class="far fa-eye"></i></div>
+          </div>
+        </div>
+        
+        <!-- Dashboard Charts grid -->
+        <div class="db-grid-2col">
+          <div class="db-card">
+            <div class="db-card-header">
+              <h3>Application Status Distribution</h3>
+            </div>
+            <div class="chart-container">
+              <canvas id="appStatusChart"></canvas>
+            </div>
+          </div>
+          
+          <div class="db-card">
+            <div class="db-card-header">
+              <h3>Monthly Search Views</h3>
+            </div>
+            <div class="chart-container">
+              <canvas id="profileViewsChart"></canvas>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Recommended Jobs & Recent Activity -->
+        <div class="db-grid-2col">
+          <div class="db-card">
+            <div class="db-card-header">
+              <h3>Recent Application Activity</h3>
+              <a href="#applied-jobs" class="db-card-link">View timeline <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div id="recent-apps-list" style="display:flex; flex-direction:column;">
+              <!-- Loaded dynamically by JS -->
+            </div>
+          </div>
+          
+          <div class="db-card">
+            <div class="db-card-header">
+              <h3>Profile Strength Dashboard</h3>
+            </div>
+            <div style="text-align:center; padding:0.5rem 0;">
+              <div style="font-size:2.25rem; font-weight:800; color:var(--primary); margin-bottom:0.5rem;" id="profile-strength-pct">85%</div>
+              <div style="height:10px; background-color:var(--slate-100); border-radius:50px; overflow:hidden; margin-bottom:1.5rem;">
+                <div style="width:85%; height:100%; background:var(--primary-gradient);" id="profile-strength-bar"></div>
+              </div>
+              <ul style="list-style:none; text-align:left; font-size:0.85rem; display:flex; flex-direction:column; gap:0.5rem;">
+                <li><i class="fas fa-circle-check" style="color:#22c55e;"></i> Verified identity details loaded</li>
+                <li><i class="fas fa-circle-check" style="color:#22c55e;"></i> Connected active resume files</li>
+                <li><i class="far fa-circle" style="color:var(--slate-400);"></i> Connect LinkedIn profile (<span style="color:var(--primary); cursor:pointer;">add now</span>)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. FIND JOBS PANEL -->
+      <section class="db-panel" id="find-jobs-panel" aria-label="Browse and Find Job Opportunities">
+        <div class="db-header">
+          <span class="brand-badge"> JOB SEEKER PORTAL</span>
+          <h1>Find Tech Positions</h1>
+          <p>Apply to vetted opportunities offering market leading wages</p>
+        </div>
+        
+        <div class="db-grid-2col" style="grid-template-columns: 2fr 1fr;">
+          <div>
+            <!-- Search Filters Card -->
+            <div class="db-card" style="margin-bottom:2rem; padding:1.5rem;">
+              <div style="display:grid; grid-template-columns:1.2fr 1fr 1fr 60px; gap:0.75rem; align-items:center;">
+                <div class="db-search" style="width:100%; background-color:var(--slate-50);">
+                  <i class="fas fa-search"></i>
+                  <input type="text" placeholder="Title or keyword..." id="search-job-keyword">
+                </div>
+                <div class="db-search" style="width:100%; background-color:var(--slate-50);">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <input type="text" placeholder="City or remote..." id="search-job-location">
+                </div>
+                <div>
+                  <select id="filter-job-type" style="width:100%; padding:0.6rem; border-radius:6px; border:1px solid var(--slate-200); outline:none; font-family:var(--font-primary);">
+                    <option value="">All Job Types</option>
+                    <option value="Full-time">Full-time</option>
+                    <option value="Remote">Remote</option>
+                    <option value="Contract">Contract</option>
+                  </select>
+                </div>
+                <button class="btn btn-primary" id="btn-db-job-search" style="padding:0.65rem;"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+            
+            <!-- Job Grid -->
+            <div class="jobs-grid" id="db-jobs-list" style="grid-template-columns:1fr; gap:1.5rem;">
+              <!-- Injected dynamically by JS -->
+            </div>
+          </div>
+
+          <!-- Trends Sidecard -->
+          <div>
+            <div class="db-card" style="position:sticky; top:100px;">
+              <h3 style="font-size:1.1rem; margin-bottom:1.25rem; border-bottom:1px solid var(--slate-100); padding-bottom:0.75rem;"><i class="fas fa-chart-line" style="color:var(--primary);"></i> Trending Tech Wages</h3>
+              <div style="display:flex; flex-direction:column; gap:1rem;">
+                <div>
+                  <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:0.25rem;"><strong>Senior Frontend Architect</strong><span>$145k/yr avg</span></div>
+                  <div style="height:4px; background:var(--slate-100); border-radius:2px;"><div style="width:85%; height:100%; background:var(--primary);"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:0.25rem;"><strong>DevOps / AWS Engineer</strong><span>$160k/yr avg</span></div>
+                  <div style="height:4px; background:var(--slate-100); border-radius:2px;"><div style="width:95%; height:100%; background:var(--primary);"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:0.25rem;"><strong>Product UI/UX Designer</strong><span>$115k/yr avg</span></div>
+                  <div style="height:4px; background:var(--slate-100); border-radius:2px;"><div style="width:70%; height:100%; background:var(--primary);"></div></div>
+                </div>
+              </div>
+              <div style="margin-top:1.5rem; background-color:var(--slate-50); padding:1rem; border-radius:8px; border:1px solid var(--slate-200); font-size:0.8rem; line-height:1.5;">
+                <p><strong>Note</strong>: Match ratings increase when skill keywords matching posted requirements are loaded inside your profile builder settings.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. APPLIED JOBS TIMELINE PANEL -->
+      <section class="db-panel" id="applied-jobs-panel" aria-label="Your Applied Jobs Trackers">
+        <div class="db-header">
+          <span class="brand-badge"> JOB SEEKER PORTAL</span>
+          <h1>Application Timelines</h1>
+          <p>Review interview progress logs and offer status stages</p>
+        </div>
+        
+        <div id="applied-jobs-list" style="display:flex; flex-direction:column; gap:1.5rem;">
+          <!-- Injected dynamically by JS -->
+        </div>
+      </section>
+
+      <!-- 4. SAVED JOBS PANEL -->
+      <section class="db-panel" id="saved-jobs-panel" aria-label="Bookmarked Job Opportunities">
+        <div class="db-header">
+          <span class="brand-badge">🎯 JOB SEEKER PORTAL</span>
+          <h1>Bookmarked Positions</h1>
+          <p>Review your bookmarked opportunities before submitting resumes</p>
+        </div>
+        
+        <div class="db-grid-2col" style="grid-template-columns: 2fr 1fr;">
+          <div class="jobs-grid" id="saved-jobs-list" style="grid-template-columns: 1fr; gap:1.5rem;">
+            <!-- Injected dynamically by JS -->
+          </div>
+          <div>
+            <div class="db-card">
+              <h3 style="font-size:1.05rem; margin-bottom:1rem;"><i class="fas fa-bell-slash"></i> Hiring Status Alerts</h3>
+              <ul style="list-style:none; font-size:0.85rem; display:flex; flex-direction:column; gap:1rem; padding:0.25rem 0;">
+                <li style="border-bottom:1px solid var(--slate-100); padding-bottom:0.75rem;">
+                  <strong style="color:var(--primary);">Vortex Technologies</strong> closed hiring for Junior Full Stack developer positions.
+                </li>
+                <li>
+                  <strong style="color:#ef4444;">Expired</strong>: DevOps contract position at CloudCore has expired.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. INTERVIEWS SCHEDULE PANEL -->
+      <section class="db-panel" id="interviews-panel" aria-label="Upcoming Interview Meetings">
+        <div class="db-header">
+          <span class="brand-badge">🎯 JOB SEEKER PORTAL</span>
+          <h1>Interview Lobby</h1>
+          <p>Manage your upcoming meetings and mock tech screening calls</p>
+        </div>
+        
+        <div class="db-grid-2col">
+          <!-- Calendar & Meetings lists -->
+          <div class="db-card">
+            <h3 style="margin-bottom:1.5rem;">Upcoming Meetings</h3>
+            <div class="db-list-item">
+              <div class="db-list-info">
+                <h4 style="color:var(--primary);"><i class="far fa-calendar-check"></i> Technical Code Screener</h4>
+                <p>Company: CloudCore &bull; Date: June 15, 2026 &bull; Time: 2:00 PM EST &bull; Room: Zoom Invitation</p>
+              </div>
+              <a href="404.html" class="btn btn-outline" style="padding:0.4rem 1rem; font-size:0.8rem;">Join Lobby</a>
+            </div>
+            
+            <div class="db-list-item" style="border-bottom:none;">
+              <div class="db-list-info">
+                <h4 style="color:var(--slate-700);"><i class="far fa-calendar-check"></i> Architecture &amp; System Review</h4>
+                <p>Company: Vortex Technologies &bull; Date: June 18, 2026 &bull; Time: 11:30 AM PST &bull; Room: Google Meet</p>
+              </div>
+              <a href="404.html" class="btn btn-outline" style="padding:0.4rem 1rem; font-size:0.8rem;">Join Lobby</a>
+            </div>
+          </div>
+
+          <!-- Practice Room Widget -->
+          <div class="db-card">
+            <h3 style="margin-bottom:1.25rem;"><i class="fas fa-chalkboard-user" style="color:var(--primary);"></i> AI Screener Practice Room</h3>
+            <p style="font-size:0.85rem; color:var(--slate-500); margin-bottom:1.5rem;">Simulate standard design prompts and behavior queries in tech evaluations.</p>
+            <div style="display:flex; flex-direction:column; gap:1rem;">
+              <div>
+                <label style="font-size:0.8rem; font-weight:600; display:block; margin-bottom:0.25rem;">Practice Topic</label>
+                <select id="mock-practice-topic" style="width:100%; padding:0.5rem; border-radius:6px; border:1px solid var(--slate-200); outline:none;">
+                  <option value="system">Distributed System Design</option>
+                  <option value="react">React Hooks &amp; Performance</option>
+                  <option value="css">CSS Grid &amp; Layout standards</option>
+                </select>
+              </div>
+              <button class="btn btn-primary" onclick="alert('Simulation Launched: Outline how you scale caching layers across multi-region databases!')" style="font-size:0.85rem; padding:0.6rem;"><i class="fas fa-play"></i> Start Practice Session</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. MESSAGES PANEL -->
+      <section class="db-panel" id="messages-panel" aria-label="Direct Recruiter Messaging">
+        <div class="db-header">
+          <span class="brand-badge">🎯 JOB SEEKER PORTAL</span>
+          <h1>Direct Messages</h1>
+          <p>Communicate directly with recruiter verification leads regarding applications</p>
+        </div>
+        
+        <div class="chat-layout">
+          <!-- Chat sidebar contacts -->
+          <div class="chat-sidebar">
+            <div class="chat-sidebar-header">
+              <h3 style="font-size:1rem; font-weight:700;">Hiring managers</h3>
+            </div>
+            <div class="chat-contact-list">
+              <div class="chat-contact-item active">
+                <div class="chat-contact-avatar">
+                  <span>AR</span>
+                  <span class="chat-online-dot"></span>
+                </div>
+                <div class="chat-contact-info">
+                  <div class="chat-contact-name">Aria Ross (Vortex)</div>
+                  <div class="chat-contact-lastmsg">We would love to schedule...</div>
+                </div>
+              </div>
+              <div class="chat-contact-item">
+                <div class="chat-contact-avatar">
+                  <span>MB</span>
+                  <span class="chat-online-dot offline"></span>
+                </div>
+                <div class="chat-contact-info">
+                  <div class="chat-contact-name">Marcus Brooks (Apex)</div>
+                  <div class="chat-contact-lastmsg">Hi Sarah, your UI tests...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chat body -->
+          <div class="chat-main">
+            <div class="chat-main-header">
+              <div class="chat-contact-avatar">
+                <span>AR</span>
+                <span class="chat-online-dot"></span>
+              </div>
+              <div>
+                <h4 style="font-size:0.95rem; font-weight:600; margin-bottom:0.15rem;">Aria Ross</h4>
+                <span style="font-size:0.75rem; color:#22c55e; font-weight:600;">Online &bull; VP of Talent, Vortex Technologies</span>
+              </div>
+            </div>
+            
+            <div class="chat-message-timeline">
+              <div class="chat-bubble received">
+                Sarah, thanks for applying. We reviewed your portfolio and like the performance metrics. Can you discuss system designs next week?
+              </div>
+              <div class="chat-bubble sent">
+                Absolutely! I'm available Mon or Wed afternoon.
+              </div>
+              <div class="chat-bubble received">
+                Great. Let's lock in Monday at 2:00 PM PST. I will send a calendar invite.
+              </div>
+            </div>
+            
+            <div class="chat-input-area">
+              <input type="text" placeholder="Type a message..." id="seeker-chat-text-input">
+              <button class="btn btn-primary" onclick="sendDemoSeekerChat()" style="padding:0.75rem 1.25rem;"><i class="fas fa-paper-plane"></i></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. RESUME BUILDER PANEL -->
+      <section class="db-panel" id="resume-builder-panel" aria-label="Machine-Readable Portfolio Builder">
+        <div class="db-header">
+          <span class="brand-badge">🎯 JOB SEEKER PORTAL</span>
+          <h1>SaaS Resume Portfolio Builder</h1>
+          <p>Enter your professional credentials and render a structured, recruiter friendly portfolio sheet</p>
+        </div>
+        
+        <div class="split-preview-layout">
+          <!-- Form -->
+          <div class="db-card" style="margin-bottom:0;">
+            <form id="resume-builder-form">
+              <div class="resume-form-grid">
+                <div class="resume-section-box">
+                  <h4>Identity Details</h4>
+                  <div class="form-group" style="margin-bottom:1rem;">
+                    <input type="text" placeholder="Full Legal Name" id="resume-fullname" required>
+                  </div>
+                  <div class="form-group" style="margin-bottom:0;">
+                    <input type="text" placeholder="Professional Title (e.g. Frontend Engineer)" id="resume-title" required>
+                  </div>
+                </div>
+                
+                <div class="resume-section-box">
+                  <h4>Professional Summary</h4>
+                  <div class="form-group" style="margin-bottom:0;">
+                    <textarea placeholder="Describe your architectural background, core competencies, and career goals..." id="resume-summary" rows="4" required></textarea>
+                  </div>
+                </div>
+                
+                <div class="resume-section-box">
+                  <h4>Work Experience</h4>
+                  <div class="form-group" style="margin-bottom:0;">
+                    <textarea placeholder="Line 1: Company &bull; Title &bull; Years&#10;Bullet 1: Project achievements and speedups&#10;Bullet 2: Stack design specifics..." id="resume-experience" rows="6" required></textarea>
+                  </div>
+                </div>
+                
+                <div class="resume-section-box">
+                  <h4>Education History</h4>
+                  <div class="form-group" style="margin-bottom:0;">
+                    <textarea placeholder="Institution &bull; Degree &bull; Graduation Year..." id="resume-education" rows="3" required></textarea>
+                  </div>
+                </div>
+                
+                <div class="resume-section-box">
+                  <h4>Core Skills (Comma Separated)</h4>
+                  <div class="form-group" style="margin-bottom:0;">
+                    <input type="text" placeholder="React, CSS3, Docker, SQL, Git..." id="resume-skills" required>
+                  </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary"><i class="fas fa-magic"></i> Generate PDF Portfolio Preview</button>
+              </div>
+            </form>
+          </div>
+          
+          <!-- Live Preview sidecard -->
+          <div class="preview-sidecard" id="resume-preview-box">
+            <div style="text-align:center; padding:5rem 0; color:var(--slate-400);">
+              <i class="far fa-file-pdf" style="font-size:4rem; margin-bottom:1.5rem; color:var(--primary);"></i>
+              <p style="font-weight:600; color:var(--slate-700); margin-bottom:0.5rem;">Portfolio Preview Empty</p>
+              <p style="font-size:0.85rem;">Complete the form on the left to render a styled, printable worksheet.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. PROFILE SETTINGS PANEL -->
+      <section class="db-panel" id="profile-panel" aria-label="Edit Seeker Personal Profile">
+        <div class="db-header">
+          <span class="brand-badge">🎯 JOB SEEKER PORTAL</span>
+          <h1>Account Profile details</h1>
+          <p>Edit verification parameters used for platform matchmaking</p>
+        </div>
+        
+        <div class="db-grid-2col" style="grid-template-columns:1.5fr 1fr;">
+          <div class="db-card" style="margin-bottom:0;">
+            <form id="profile-edit-form">
+              <div class="form-group">
+                <label style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.5rem; color:var(--slate-700);">Full Name</label>
+                <input type="text" id="profile-name" required>
+              </div>
+              
+              <div class="form-group">
+                <label style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.5rem; color:var(--slate-700);">Email Address</label>
+                <input type="email" id="profile-email" required>
+              </div>
+              
+              <div class="form-group" style="opacity:0.65;">
+                <label style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.5rem; color:var(--slate-700);">Username (Locked)</label>
+                <input type="text" id="profile-username" readonly>
+              </div>
+              
+              <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle"></i> Save Account Updates</button>
+            </form>
+          </div>
+
+          <!-- Tech stack tags editor -->
+          <div class="db-card" style="margin-bottom:0;">
+            <h3 style="font-size:1.1rem; margin-bottom:1rem;"><i class="fas fa-tags" style="color:var(--primary);"></i> Match Tags Editor</h3>
+            <p style="font-size:0.85rem; color:var(--slate-500); margin-bottom:1.5rem;">Select technologies to match targeted job postings algorithms.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:0.5rem;" id="profile-skill-tags-selector">
+              <span class="job-tag type" style="cursor:pointer;" onclick="toggleSkillTag(this)">React</span>
+              <span class="job-tag type" style="cursor:pointer;" onclick="toggleSkillTag(this)">CSS3</span>
+              <span class="job-tag" style="cursor:pointer;" onclick="toggleSkillTag(this)">Node.js</span>
+              <span class="job-tag" style="cursor:pointer;" onclick="toggleSkillTag(this)">Postgres</span>
+              <span class="job-tag" style="cursor:pointer;" onclick="toggleSkillTag(this)">AWS</span>
+              <span class="job-tag" style="cursor:pointer;" onclick="toggleSkillTag(this)">Docker</span>
+              <span class="job-tag" style="cursor:pointer;" onclick="toggleSkillTag(this)">Figma</span>
+            </div>
+            <div style="margin-top:1.5rem;">
+              <button class="btn btn-outline" style="width:100%; font-size:0.8rem; padding:0.5rem;" onclick="alert('Tags configuration updated successfully!')">Apply Skills Config</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. REPORTS PANEL -->
+      <section class="db-panel" id="reports-panel" aria-label="Platform Reports and Metrics">
+        <div class="db-header">
+          <span class="brand-badge">🎯 JOB SEEKER PORTAL</span>
+          <h1>Platform Search Reports</h1>
+          <p>Analyze how recruiters interact with your portfolio</p>
+        </div>
+        
+        <div class="db-grid-2col">
+          <div class="db-card">
+            <h3 style="margin-bottom:1rem;">Match Index Summary</h3>
+            <p style="margin-bottom:1.5rem; font-size:0.95rem;">Your profile ranks in the top <strong style="color:var(--primary);">15%</strong> for fullstack roles containing javascript keywords.</p>
+            <div class="db-list-item">
+              <span>Avg search rating</span>
+              <strong style="color:#22c55e;">High matching</strong>
+            </div>
+            <div class="db-list-item">
+              <span>Average recruiter clickthrough rate</span>
+              <strong>14.2%</strong>
+            </div>
+            <div class="db-list-item" style="border-bottom:none;">
+              <span>Interview invites ratio</span>
+              <strong>8.5%</strong>
+            </div>
+          </div>
+          
+          <div class="db-card" style="background-color: var(--slate-900); color: var(--white); display:flex; flex-direction:column; justify-content:center;">
+            <h3 style="color:var(--white); margin-bottom:1.25rem;"><i class="fas fa-lightbulb" style="color:var(--primary);"></i> Recommendations</h3>
+            <ul style="list-style:none; display:flex; flex-direction:column; gap:1rem; font-size:0.9rem; padding:0.5rem 0; color:var(--slate-300);">
+              <li><i class="fas fa-check-circle" style="color:var(--primary);"></i> Connect your personal portfolio URL</li>
+              <li><i class="fas fa-check-circle" style="color:var(--primary);"></i> List at least 3 work experience markers</li>
+              <li><i class="far fa-circle" style="color:var(--slate-500);"></i> Generate your generated resume sheet</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. SETTINGS PANEL -->
+      <section class="db-panel" id="settings-panel" aria-label="Dashboard Account Settings">
+        <div class="db-header">
+          <span class="brand-badge">🎯 JOB SEEKER PORTAL</span>
+          <h1>Dashboard Configurations</h1>
+          <p>Configure notifications, search parameters, and session parameters</p>
+        </div>
+        
+        <div class="db-card" style="max-width:800px;">
+          <!-- Tabs container -->
+          <div class="settings-tabs-container">
+            <button class="settings-tab-btn active" onclick="switchSettingsTab(this, 'settings-notifications')">Notifications</button>
+            <button class="settings-tab-btn" onclick="switchSettingsTab(this, 'settings-billing')">Billing Plan</button>
+            <button class="settings-tab-btn" onclick="switchSettingsTab(this, 'settings-privacy')">Privacy Controls</button>
+          </div>
+
+          <!-- Sub-panel 1: Notifications -->
+          <div class="settings-panel-tab active" id="settings-notifications">
+            <h4 style="margin-bottom:1rem; font-size:1.1rem;">Manage Email Notifications</h4>
+            <div style="display:flex; flex-direction:column; gap:1.25rem; margin-bottom:2rem;">
+              <label style="display:flex; align-items:center; gap:0.75rem; cursor:pointer;">
+                <input type="checkbox" checked> Send weekly matching job emails
+              </label>
+              <label style="display:flex; align-items:center; gap:0.75rem; cursor:pointer;">
+                <input type="checkbox" checked> Send notification when recruiter views profile
+              </label>
+            </div>
+            <button class="btn btn-primary" onclick="alert('Notification settings saved!')">Save Preferences</button>
+          </div>
+
+          <!-- Sub-panel 2: Billing Plan -->
+          <div class="settings-panel-tab" id="settings-billing">
+            <h4 style="margin-bottom:1rem; font-size:1.1rem;">Current Subscription Plan</h4>
+            <div style="background-color:var(--slate-50); padding:1.5rem; border-radius:8px; border:1px solid var(--slate-200); margin-bottom:1.5rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                <strong style="font-size:1.2rem; color:var(--slate-900);">Standard Candidate (Free)</strong>
+                <span class="db-badge applied" style="background-color:var(--accent); color:var(--secondary);">Active</span>
+              </div>
+              <p style="font-size:0.85rem; color:var(--slate-500);">You have access to unlimited job searches, resume creations, and pipeline applications tracker.</p>
+            </div>
+            <button class="btn btn-outline" onclick="alert('Premium upgrades temporarily disabled for free testing!')"><i class="fas fa-arrow-up"></i> Upgrade to Candidate Plus ($9/mo)</button>
+          </div>
+
+          <!-- Sub-panel 3: Privacy Controls -->
+          <div class="settings-panel-tab" id="settings-privacy">
+            <h4 style="margin-bottom:1rem; font-size:1.1rem;">Profile Audits Settings</h4>
+            <div style="display:flex; flex-direction:column; gap:1.25rem; margin-bottom:2rem;">
+              <label style="display:flex; align-items:center; gap:0.75rem; cursor:pointer;">
+                <input type="checkbox"> Make profile completely hidden from search searches
+              </label>
+              <label style="display:flex; align-items:center; gap:0.75rem; cursor:pointer;">
+                <input type="checkbox" checked> Obfuscate contact details until interview is scheduled
+              </label>
+            </div>
+            <button class="btn btn-primary" onclick="alert('Privacy configuration updated!')">Save Privacy Settings</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Chart.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- JS Scripts -->
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard-seeker.js"></script>
+  
+  <script>
+    // Tab switching controls in settings
+    function switchSettingsTab(btn, tabId) {
+      // Remove active tab button classes
+      const tabs = btn.parentElement.querySelectorAll('.settings-tab-btn');
+      tabs.forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Toggle panels
+      const panels = btn.closest('.db-card').querySelectorAll('.settings-panel-tab');
+      panels.forEach(p => p.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    // Toggle skill tag visually
+    function toggleSkillTag(tag) {
+      if (tag.classList.contains('type')) {
+        tag.classList.remove('type');
+      } else {
+        tag.classList.add('type');
+      }
+    }
+
+    // Chat function
+    function sendDemoSeekerChat() {
+      const input = document.getElementById('seeker-chat-text-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const timeline = document.querySelector('.chat-message-timeline');
+      
+      // Add seeker message bubble
+      const seekerBubble = document.createElement('div');
+      seekerBubble.className = 'chat-bubble sent';
+      seekerBubble.textContent = text;
+      timeline.appendChild(seekerBubble);
+
+      input.value = '';
+      timeline.scrollTop = timeline.scrollHeight;
+
+      // Simulated recruiter immediate response
+      setTimeout(() => {
+        const recruiterBubble = document.createElement('div');
+        recruiterBubble.className = 'chat-bubble received';
+        recruiterBubble.textContent = "Perfect. I've logged the time slot. Let's speak on Monday!";
+        timeline.appendChild(recruiterBubble);
+        timeline.scrollTop = timeline.scrollHeight;
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

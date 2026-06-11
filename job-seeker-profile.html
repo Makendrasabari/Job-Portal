@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Edit your job seeker profile on Stackly.">
+  <title>Profile &bull; Stackly Talent Matching</title>
+  
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/webp" href="assets/logo-favicon.webp">
+  
+  <style>
+    :root {
+      --primary: #1a83ea;
+      --primary-hover: #1568c7;
+      --secondary: #10b981;
+      --secondary-hover: #059669;
+      --accent: #f5f3ff;
+      --accent-hover: #ede9fe;
+      --primary-gradient: linear-gradient(135deg, #1a83ea 0%, #1568c7 100%);
+      --hover-gradient: linear-gradient(135deg, #1568c7 0%, #0d4e9a 100%);
+      --white: #ffffff;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+    }
+    
+    body.dashboard-body { background-color: #f0f9ff; }
+    .db-sidebar { background: linear-gradient(180deg, #1a83ea 0%, #1568c7 100%); border-right: none; }
+    .db-menu-list { gap: 0.6rem; }
+    .db-menu-item a { color: #bfdbfe; padding: 0.9rem 1.25rem; }
+    .db-menu-item a:hover { background-color: rgba(255, 255, 255, 0.1); color: #ffffff; padding-left: 1.5rem; }
+    .db-menu-item.active a { background: rgba(255, 255, 255, 0.2); color: #ffffff; font-weight: 700; box-shadow: 0 4px 12px rgba(26, 131, 234, 0.3); border-left: 4px solid #10b981; }
+    .db-menu-item i { color: #93c5fd; }
+    .db-menu-item.active i { color: #10b981; }
+    .db-topnav { border-bottom: 2px solid #dbeafe; background-color: rgba(255, 255, 255, 0.95); }
+    .db-nav-icon-btn { background-color: #eff6ff; color: #1a83ea; }
+    .db-nav-icon-btn:hover { background-color: #dbeafe; }
+    .db-profile-avatar { background: var(--primary-gradient); box-shadow: 0 4px 10px rgba(26, 131, 234, 0.3); }
+    .db-profile-role { color: #1a83ea; font-weight: 700; }
+    .db-card { border-color: #dbeafe; box-shadow: 0 4px 6px -1px rgba(26, 131, 234, 0.05); background-color: #ffffff; }
+    .btn-primary { background: var(--primary-gradient); box-shadow: 0 4px 14px rgba(26, 131, 234, 0.3); color: var(--white); }
+    .btn-primary:hover { background: var(--hover-gradient); box-shadow: 0 6px 20px rgba(26, 131, 234, 0.4); }
+    .btn-outline { border-color: #dbeafe; color: #1a83ea; }
+    .btn-outline:hover { border-color: #1a83ea; background-color: #eff6ff; color: #1a83ea; }
+    .brand-badge { display: inline-block; padding: 0.25rem 0.75rem; font-size: 0.75rem; font-weight: 700; color: #1a83ea; background-color: #eff6ff; border-radius: 50px; margin-bottom: 0.75rem; border: 1px solid #bfdbfe; }
+    .form-group { margin-bottom:1.5rem; }
+    .form-group label { font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.5rem; color:var(--slate-700); }
+    input[type="text"], input[type="email"] { outline:none; border:1px solid #dbeafe; background-color:#fcfbfe; transition:all 0.2s ease; width:100%; padding:0.75rem; border-radius:6px; font-family:var(--font-primary); }
+    input[type="text"]:focus, input[type="email"]:focus { border-color:#1a83ea; box-shadow:0 0 0 3px rgba(26,131,234,0.15); background-color:#ffffff; }
+    .job-tag { display:inline-block; padding:0.35rem 0.75rem; background-color:var(--slate-100); color:var(--slate-700); border-radius:20px; font-size:0.8rem; font-weight:500; cursor:pointer; transition:all 0.2s; }
+    .job-tag.type { background-color:var(--primary); color:white; }
+    .job-tag:hover { background-color:var(--primary); color:white; }
+  </style>
+</head>
+<body class="dashboard-body">
+
+  <header class="db-topnav" aria-label="Dashboard Top Bar">
+    <div class="db-topnav-left">
+      <button class="db-menu-toggle" aria-label="Toggle Dashboard Sidebar Menu" id="db-sidebar-trigger">
+        <i class="fas fa-bars"></i>
+      </button>
+      <a href="index.html" class="db-logo">
+        <img src="images/logo5.webp" alt="Stackly Primary Logo">
+      </a>
+      <div class="db-search">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search dashboard..." id="db-top-search-input">
+      </div>
+    </div>
+    
+    <div class="db-topnav-right">
+      <button class="db-nav-icon-btn" aria-label="View notifications">
+        <i class="far fa-bell"></i>
+        <span class="db-nav-badge"></span>
+      </button>
+      <div class="db-profile-trigger">
+        <div class="db-profile-avatar"><i class="fas fa-user-astronaut"></i></div>
+        <div class="db-profile-info">
+          <span class="db-profile-name session-user-name">Sarah Connor</span>
+          <span class="db-profile-role">Job Seeker</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="db-wrapper">
+    <aside class="db-sidebar" aria-label="Dashboard Sidebar Navigation Menu">
+      <button class="sidebar-close-btn" id="db-sidebar-close" aria-label="Close Sidebar">
+        <i class="fas fa-times"></i>
+      </button>
+      <ul class="db-menu-list">
+        <li class="db-menu-item"><a href="job-seeker-dashboard.html"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+        <li class="db-menu-item"><a href="job-seeker-find-jobs.html"><i class="fas fa-briefcase"></i> Find Jobs</a></li>
+        <li class="db-menu-item"><a href="job-seeker-applied-jobs.html"><i class="fas fa-file-signature"></i> Applied Jobs</a></li>
+        <li class="db-menu-item"><a href="job-seeker-messages.html"><i class="far fa-comments"></i> Messages</a></li>
+        <li class="db-menu-item active"><a href="job-seeker-profile.html"><i class="far fa-user-circle"></i> Profile</a></li>
+        <li class="db-menu-item db-logout-item">
+          <a href="index.html" onclick="alert('Logged out successfully!')"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </li>
+      </ul>
+    </aside>
+
+    <main class="db-content-area">
+      <section class="db-panel active" aria-label="Edit Seeker Personal Profile">
+        <div class="db-header">
+          <span class="brand-badge"> JOB SEEKER PORTAL</span>
+          <h1>Account Profile details</h1>
+          <p>Edit verification parameters used for platform matchmaking</p>
+        </div>
+        
+        <div class="db-grid-2col" style="grid-template-columns:1.5fr 1fr;">
+          <div class="db-card" style="margin-bottom:0;">
+            <form id="profile-edit-form">
+              <div class="form-group">
+                <label style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.5rem; color:var(--slate-700);">Full Name</label>
+                <input type="text" id="profile-name" value="Sarah Connor" required>
+              </div>
+              
+              <div class="form-group">
+                <label style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.5rem; color:var(--slate-700);">Email Address</label>
+                <input type="email" id="profile-email" value="sarah.connor@email.com" required>
+              </div>
+              
+              <div class="form-group" style="opacity:0.65;">
+                <label style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.5rem; color:var(--slate-700);">Username (Locked)</label>
+                <input type="text" id="profile-username" value="sarah_connor_dev" readonly>
+              </div>
+              
+              <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle"></i> Save Account Updates</button>
+            </form>
+          </div>
+
+          <div class="db-card" style="margin-bottom:0;">
+            <h3 style="font-size:1.1rem; margin-bottom:1rem;"><i class="fas fa-tags" style="color:var(--primary);"></i> Match Tags Editor</h3>
+            <p style="font-size:0.85rem; color:var(--slate-500); margin-bottom:1.5rem;">Select technologies to match targeted job postings algorithms.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:0.5rem;" id="profile-skill-tags-selector">
+              <span class="job-tag type" style="cursor:pointer;" onclick="this.classList.toggle('type')">React</span>
+              <span class="job-tag type" style="cursor:pointer;" onclick="this.classList.toggle('type')">CSS3</span>
+              <span class="job-tag" style="cursor:pointer;" onclick="this.classList.toggle('type')">Node.js</span>
+              <span class="job-tag" style="cursor:pointer;" onclick="this.classList.toggle('type')">Postgres</span>
+              <span class="job-tag" style="cursor:pointer;" onclick="this.classList.toggle('type')">AWS</span>
+              <span class="job-tag" style="cursor:pointer;" onclick="this.classList.toggle('type')">Docker</span>
+              <span class="job-tag" style="cursor:pointer;" onclick="this.classList.toggle('type')">Figma</span>
+            </div>
+            <div style="margin-top:1.5rem;">
+              <button class="btn btn-outline" style="width:100%; font-size:0.8rem; padding:0.5rem;" onclick="alert('Tags configuration updated successfully!')">Apply Skills Config</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/dashboard-seeker.js"></script>
+</body>
+</html>

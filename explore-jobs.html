@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore open tech jobs on Stackly. View trending developer opportunities, filter by technology stacks, simulate skill matching, and apply directly.">
+  <title>Explore Jobs &bull; Live Tech Career Matching Marketplace</title>
+  
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/pages.css">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- AOS Animations Library CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/webp" href="assets/logo-favicon.webp">
+
+
+</head>
+<body>
+
+  <!-- Preloader Screen -->
+  <div id="preloader">
+    <div class="preloader-content">
+      <img src="images/logo5.webp" alt="Stackly Icon Logo" class="preloader-logo">
+      <div class="preloader-spinner"></div>
+    </div>
+  </div>
+
+  <!-- Sticky Top Navigation Bar -->
+  <header class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="nav-logo" id="header-logo-link">
+        <img src="images/logo5.webp" alt="Stackly Logo">
+      </a>
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="explore-jobs.html" class="nav-link">Explore Jobs</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="services.html" class="nav-link">Services</a></li>
+          <li><a href="blog.html" class="nav-link">Blog</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions" id="navbar-actions-container">
+        <!-- Loaded dynamically by auth.js -->
+      </div>
+      <button class="menu-toggle" aria-label="Toggle Navigation Drawer" id="mobile-menu-trigger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Slide-in Mobile Drawer Navigation -->
+  <div class="mobile-overlay"></div>
+  <aside class="mobile-nav" aria-label="Mobile Navigation Menu">
+    <button class="mobile-nav-close" aria-label="Close Menu" id="mobile-menu-close">
+      <i class="fas fa-times"></i>
+    </button>
+    <ul class="mobile-nav-links">
+      <li><a href="index.html" class="mobile-nav-link">Home</a></li>
+      <li><a href="explore-jobs.html" class="mobile-nav-link">Explore Jobs</a></li>
+      <li><a href="about.html" class="mobile-nav-link">About</a></li>
+      <li><a href="services.html" class="mobile-nav-link">Services</a></li>
+      <li><a href="blog.html" class="mobile-nav-link">Blog</a></li>
+      <li><a href="contact.html" class="mobile-nav-link">Contact</a></li>
+    </ul>
+    <div class="mobile-nav-actions" id="mobile-nav-actions-container">
+      <!-- Loaded dynamically by auth.js -->
+    </div>
+  </aside>
+
+  <main>
+    <!-- Section 1: Explore Hero Section (Job Search Engine) -->
+    <section class="explore-hero" aria-label="Explore Jobs Hero Search">
+      <div class="container">
+        <h1 data-aos="fade-down">Find Your Next <span>Technical Match</span></h1>
+        <p data-aos="fade-up" data-aos-delay="50">Search thousands of vetted opportunities with absolute clarity on salary, stack, and expectations.</p>
+        
+        <div class="search-panel-glass" data-aos="zoom-in" data-aos-delay="100">
+          <div class="search-panel-grid">
+            <div class="search-panel-input">
+              <i class="fas fa-search"></i>
+              <input type="text" placeholder="Job title, keywords, or skills..." id="explore-keyword">
+            </div>
+            <div class="search-panel-input">
+              <i class="fas fa-map-marker-alt"></i>
+              <input type="text" placeholder="Location or Remote..." id="explore-location">
+            </div>
+            <div class="search-panel-input">
+              <i class="fas fa-briefcase"></i>
+              <select id="explore-type">
+                <option value="">All Job Types</option>
+                <option value="Full-time">Full-Time</option>
+                <option value="Remote">Remote</option>
+                <option value="Contract">Contract</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" onclick="searchExploreJobs()" style="height:100%; border-radius:var(--radius-md);"><i class="fas fa-search" style="font-size:1.1rem;"></i></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Platform Stats Ticker -->
+    <section class="stats-sec" aria-label="Platform Performance Counters">
+      <div class="container stats-grid">
+        <div class="stat-card" data-aos="fade-up">
+          <h3 class="counter-number" data-target="15240" data-suffix="+">0</h3>
+          <p>Active Job Openings</p>
+        </div>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="50">
+          <h3 class="counter-number" data-target="1280" data-suffix="+">0</h3>
+          <p>Verified Employers</p>
+        </div>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+          <h3 class="counter-number" data-target="89450" data-suffix="+">0</h3>
+          <p>Qualified Candidates</p>
+        </div>
+        <div class="stat-card" data-aos="fade-up" data-aos-delay="150">
+          <h3 class="counter-number" data-target="94" data-suffix="%">0</h3>
+          <p>Placement Success Rate</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Explore by Tech Stack (Trending Technologies) -->
+    <section class="section-padding" aria-label="Explore Trending Tech Stacks">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <h2>Trending Programming Stacks</h2>
+          <p>Access active vacancies mapped directly to popular technologies and languages.</p>
+        </div>
+
+        <div class="stack-grid">
+          <div class="stack-card" data-aos="fade-up" onclick="selectStack('React')">
+            <div class="stack-icon"><i class="fab fa-react"></i></div>
+            <h3>Frontend React</h3>
+            <p>4,820 active roles</p>
+          </div>
+          <div class="stack-card" data-aos="fade-up" data-aos-delay="50" onclick="selectStack('Node.js')">
+            <div class="stack-icon"><i class="fab fa-node-js"></i></div>
+            <h3>Node.js Backend</h3>
+            <p>3,120 active roles</p>
+          </div>
+          <div class="stack-card" data-aos="fade-up" data-aos-delay="100" onclick="selectStack('AWS')">
+            <div class="stack-icon"><i class="fab fa-aws"></i></div>
+            <h3>AWS / Cloud Systems</h3>
+            <p>2,940 active roles</p>
+          </div>
+          <div class="stack-card" data-aos="fade-up" data-aos-delay="150" onclick="selectStack('Python')">
+            <div class="stack-icon"><i class="fab fa-python"></i></div>
+            <h3>Python / Data &amp; AI</h3>
+            <p>4,250 active roles</p>
+          </div>
+          <div class="stack-card" data-aos="fade-up" onclick="selectStack('Docker')">
+            <div class="stack-icon"><i class="fab fa-docker"></i></div>
+            <h3>Docker / DevOps</h3>
+            <p>1,890 active roles</p>
+          </div>
+          <div class="stack-card" data-aos="fade-up" data-aos-delay="50" onclick="selectStack('Figma')">
+            <div class="stack-icon"><i class="fab fa-figma"></i></div>
+            <h3>Figma / UI/UX Design</h3>
+            <p>1,240 active roles</p>
+          </div>
+          <div class="stack-card" data-aos="fade-up" data-aos-delay="100" onclick="selectStack('Swift')">
+            <div class="stack-icon"><i class="fab fa-app-store-ios"></i></div>
+            <h3>Swift / Mobile iOS</h3>
+            <p>980 active roles</p>
+          </div>
+          <div class="stack-card" data-aos="fade-up" data-aos-delay="150" onclick="selectStack('Security')">
+            <div class="stack-icon"><i class="fas fa-shield-halved"></i></div>
+            <h3>Cyber Security / Linux</h3>
+            <p>1,450 active roles</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Interactive Match Simulator Section -->
+    <section class="section-padding" style="background-color: var(--slate-50);" aria-label="Interactive Match Simulator">
+      <div class="container">
+        <div class="match-simulator-box" data-aos="zoom-in">
+          <div class="sim-grid">
+            <div class="skills-selector-wrap">
+              <h3>Match Simulator</h3>
+              <p>Toggle your technical capabilities below. Our matching algorithms will calculate your matching percentage and active postings instantly.</p>
+              
+              <div class="skills-badges-grid">
+                <button class="sim-skill-btn" onclick="toggleSimSkill(this, 15)">React</button>
+                <button class="sim-skill-btn" onclick="toggleSimSkill(this, 15)">CSS3</button>
+                <button class="sim-skill-btn" onclick="toggleSimSkill(this, 20)">Node.js</button>
+                <button class="sim-skill-btn" onclick="toggleSimSkill(this, 15)">PostgreSQL</button>
+                <button class="sim-skill-btn" onclick="toggleSimSkill(this, 20)">AWS</button>
+                <button class="sim-skill-btn" onclick="toggleSimSkill(this, 15)">Docker</button>
+                <button class="sim-skill-btn" onclick="toggleSimSkill(this, 10)">Figma</button>
+              </div>
+            </div>
+
+            <div class="sim-result-card">
+              <div class="sim-percentage" id="sim-match-pct">0%</div>
+              <p style="color:var(--slate-400); font-weight:600; text-transform:uppercase; font-size:0.85rem; margin-bottom:1rem; letter-spacing:0.05em;">Calculated Match Rating</p>
+              <div class="sim-bar-bg">
+                <div class="sim-bar-fill" id="sim-match-fill"></div>
+              </div>
+              <p style="font-size:0.95rem; color:var(--slate-300);" id="sim-match-status">Select skills to trigger calculations.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Featured Matches (Real-time Jobs List) -->
+    <section class="section-padding" aria-label="Vetted Tech Opportunities">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <h2>Featured Opportunities</h2>
+          <p>Apply directly to corporate jobs matched to your stack expectations.</p>
+        </div>
+
+        <div class="jobs-filter-tabs" data-aos="fade-up">
+          <button class="filter-tab active" onclick="filterExploreJobs('all')">All Positions</button>
+          <button class="filter-tab" onclick="filterExploreJobs('Full-time')">Full-Time</button>
+          <button class="filter-tab" onclick="filterExploreJobs('Remote')">Remote</button>
+          <button class="filter-tab" onclick="filterExploreJobs('Contract')">Contract</button>
+        </div>
+
+        <div class="jobs-grid" id="explore-jobs-list" style="margin-bottom:0;">
+          <!-- Loaded dynamically from localStorage database -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Career Salary Insights (Industry Analytics) -->
+    <section class="section-padding" style="background-color: var(--slate-50);" aria-label="Salary Benchmarks Analytics">
+      <div class="container explore-salary-grid">
+        <div data-aos="fade-right">
+          <h2>Market Salary Benchmarks</h2>
+          <p style="color:var(--slate-600); margin-top:1rem; margin-bottom:2rem; font-size:1.05rem;">We ensure salary baseline transparency across all roles. Compare standard salary distributions across key job divisions to plan your growth trajectory.</p>
+          <div style="background-color:var(--white); border:1px solid var(--slate-200); border-radius:var(--radius-lg); padding:2rem; box-shadow:var(--shadow-sm);">
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.75rem; font-size:0.95rem;">
+              <strong>National average salary growth</strong>
+              <span style="color:#22c55e; font-weight:700;"><i class="fas fa-arrow-trend-up"></i> +8.4% YOY</span>
+            </div>
+            <p style="font-size:0.85rem; color:var(--slate-500); line-height:1.5;">Data compiled from verified contract matches and regional payroll registers in the SaaS sector.</p>
+          </div>
+        </div>
+
+        <div class="db-card" data-aos="fade-left" style="margin-bottom:0; padding:2.5rem;">
+          <h3 style="margin-bottom:2rem; font-size:1.35rem;"><i class="fas fa-chart-bar" style="color:var(--primary);"></i> Annual Averages (USD)</h3>
+          
+          <div class="salary-bar-item">
+            <div class="salary-bar-labels">
+              <span>Senior Frontend Engineer</span>
+              <span>$145,000</span>
+            </div>
+            <div class="salary-bar-track">
+              <div class="salary-bar-fill" style="width: 85%;"></div>
+            </div>
+          </div>
+          
+          <div class="salary-bar-item">
+            <div class="salary-bar-labels">
+              <span>Full Stack Web Developer</span>
+              <span>$125,000</span>
+            </div>
+            <div class="salary-bar-track">
+              <div class="salary-bar-fill" style="width: 72%;"></div>
+            </div>
+          </div>
+          
+          <div class="salary-bar-item">
+            <div class="salary-bar-labels">
+              <span>AWS DevOps Systems Architect</span>
+              <span>$160,000</span>
+            </div>
+            <div class="salary-bar-track">
+              <div class="salary-bar-fill" style="width: 95%;"></div>
+            </div>
+          </div>
+          
+          <div class="salary-bar-item" style="margin-bottom:0;">
+            <div class="salary-bar-labels">
+              <span>Product Lead / UI Designer</span>
+              <span>$110,000</span>
+            </div>
+            <div class="salary-bar-track">
+              <div class="salary-bar-fill" style="width: 65%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 7: Final Double Registration Call-to-Action -->
+    <section class="section-padding cta-sec" aria-label="Signup Callout Portals">
+      <div class="container cta-grid">
+        <div class="cta-box" data-aos="fade-right">
+          <h3>Register as a Tech Candidate</h3>
+          <p>Upload your portfolio criteria once. Access custom dashboard match reports and directly apply to employers.</p>
+          <a href="signup.html" class="btn btn-white"><i class="fas fa-user-astronaut"></i> Build Profile Now</a>
+        </div>
+        <div class="cta-box" data-aos="fade-left" data-aos-delay="100">
+          <h3>Source Vetted Software Talent</h3>
+          <p>Post tech listings, configure screening pipelines, and communicate directly with verified professionals.</p>
+          <a href="signup.html" class="btn btn-primary"><i class="fas fa-building-user"></i> Recruit Candidates</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo5.webp" alt="Stackly White Logo">
+        <p class="footer-desc">Stackly is an industry leading tech matching portal, bridging the gap between top software builders and modern tech enterprises globally.</p>
+        <div class="social-links">
+          <a href="404.html" class="social-icon" aria-label="Visit Facebook Profile"><i class="fab fa-facebook-f"></i></a>
+          <a href="404.html" class="social-icon" aria-label="Visit Instagram Profile"><i class="fab fa-instagram"></i></a>
+          <a href="404.html" class="social-icon" aria-label="Visit LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+          <a href="404.html" class="social-icon" aria-label="Visit Twitter Profile"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      
+      <div>
+        <h3 class="footer-heading">Company</h3>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="blog.html">Resources</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="footer-heading">Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Home Landing</a></li>
+          <li><a href="login.html">Sign In Portal</a></li>
+          <li><a href="signup.html">Register User</a></li>
+          <li><a href="404.html">Error Reference</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="footer-heading">Job Categories</h3>
+        <ul class="footer-links">
+          <li><a href="login.html">IT Support</a></li>
+          <li><a href="login.html">Marketing</a></li>
+          <li><a href="login.html">Engineering</a></li>
+          <li><a href="login.html">Design Details</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="footer-heading">Contact Details</h3>
+        <div class="footer-contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>MMR Complex, Chinna Thirupathi,<br>Salem, Tamil Nadu 636008</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fas fa-phone-alt"></i>
+          <span>+91 70107 92745</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>info@thestackly.com</span>
+        </div>
+        
+        <div class="footer-map-container">
+          <iframe 
+            src="https://maps.google.com/maps?q=Stackly%20MMR%20Complex%20Chinna%20Thirupathi%20Salem&t=&z=14&ie=UTF8&iwloc=&output=embed" 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Stackly. All Rights Reserved.</p>
+      <p>Designed for Modern Recruitment Systems.</p>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" aria-label="Scroll to top of page"><i class="fas fa-chevron-up"></i></button>
+
+  <!-- JS Scripts -->
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  
+  <!-- AOS Script CDN & Init -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    let activeFilter = 'all';
+    let simScore = 0;
+
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: false,
+      offset: 100
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderExploreJobs('all');
+    });
+
+    function renderExploreJobs(filterType) {
+      const container = document.getElementById('explore-jobs-list');
+      if (!container) return;
+
+      const keyword = (document.getElementById('explore-keyword').value || '').toLowerCase();
+      const location = (document.getElementById('explore-location').value || '').toLowerCase();
+      const typeSelect = document.getElementById('explore-type').value;
+
+      const jobs = JSON.parse(localStorage.getItem('stackly_jobs')) || [];
+      
+      const filtered = jobs.filter(job => {
+        const matchesKeyword = !keyword || job.title.toLowerCase().includes(keyword) || job.company.toLowerCase().includes(keyword) || job.description.toLowerCase().includes(keyword);
+        const matchesLocation = !location || job.location.toLowerCase().includes(location);
+        const matchesType = !typeSelect || job.type === typeSelect;
+        const matchesFilter = filterType === 'all' || job.type === filterType;
+        
+        return matchesKeyword && matchesLocation && matchesType && matchesFilter;
+      });
+
+      container.innerHTML = '';
+      if (filtered.length === 0) {
+        container.innerHTML = `<p style="grid-column:span 2; text-align:center; color:var(--slate-400); padding:3rem 0;">No matching openings were found in our directory.</p>`;
+        return;
+      }
+
+      filtered.forEach(job => {
+        const card = document.createElement('div');
+        card.className = 'job-card';
+        card.setAttribute('data-aos', 'fade-up');
+        card.innerHTML = `
+          <div class="job-card-header">
+            <div class="job-comp-logo">${job.logoText || job.company.substring(0,2).toUpperCase()}</div>
+            <div class="job-title-wrapper">
+              <h3>${job.title}</h3>
+              <span class="job-comp-name">${job.company}</span>
+            </div>
+          </div>
+          <p style="font-size:0.9rem; color:var(--slate-600); margin-bottom:1rem; line-height:1.5;">${job.description}</p>
+          <div class="job-tag-list">
+            <span class="job-tag type">${job.type}</span>
+            ${job.tags.slice(0,3).map(t => `<span class="job-tag">${t}</span>`).join('')}
+          </div>
+          <div class="job-card-footer">
+            <div class="job-salary-loc">
+              <span class="job-salary">${job.salary}</span>
+              <span class="job-loc">${job.location}</span>
+            </div>
+            <div class="job-actions">
+              <a href="login.html" class="btn btn-primary job-btn-apply">Sign In to Apply</a>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterExploreJobs(type) {
+      activeFilter = type;
+      const tabs = document.querySelectorAll('.filter-tab');
+      tabs.forEach(tab => {
+        if (tab.textContent.toLowerCase().includes(type.toLowerCase()) || (type === 'all' && tab.textContent === 'All Positions')) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+      renderExploreJobs(type);
+    }
+
+    function searchExploreJobs() {
+      renderExploreJobs(activeFilter);
+    }
+
+    function selectStack(stackName) {
+      document.getElementById('explore-keyword').value = stackName;
+      renderExploreJobs(activeFilter);
+      window.scrollTo({
+        top: document.getElementById('explore-jobs-list').previousElementSibling.previousElementSibling.offsetTop - 100,
+        behavior: 'smooth'
+      });
+    }
+
+    function toggleSimSkill(btn, value) {
+      btn.classList.toggle('active');
+      
+      const isActive = btn.classList.contains('active');
+      if (isActive) {
+        simScore += value;
+      } else {
+        simScore -= value;
+      }
+
+      if (simScore < 0) simScore = 0;
+      if (simScore > 100) simScore = 100;
+
+      // Update UI
+      const pctEl = document.getElementById('sim-match-pct');
+      const fillEl = document.getElementById('sim-match-fill');
+      const statusEl = document.getElementById('sim-match-status');
+
+      pctEl.textContent = `${simScore}%`;
+      fillEl.style.width = `${simScore}%`;
+
+      if (simScore === 0) {
+        statusEl.textContent = 'Select skills to trigger calculations.';
+        pctEl.style.color = '#94a3b8';
+      } else if (simScore < 40) {
+        statusEl.textContent = 'Low match index. Add Node, AWS or React skills to increase.';
+        pctEl.style.color = '#ef4444';
+      } else if (simScore < 75) {
+        statusEl.textContent = 'Intermediate match! You match 2-3 active tech job postings.';
+        pctEl.style.color = '#f59e0b';
+      } else {
+        statusEl.textContent = 'Strong MATCH! You rank in the top 10% of candidates for software engineering roles.';
+        pctEl.style.color = '#22c55e';
+      }
+    }
+  </script>
+</body>
+</html>
