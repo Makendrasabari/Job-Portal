@@ -917,7 +917,7 @@ body.dashboard-body {
 }
 
 .db-menu-toggle {
-  display: block; /* Always show menu toggle to collapse/expand sidebar */
+  display: none; /* Hidden on desktop — shown only on mobile */
   background: none;
   border: none;
   cursor: pointer;
@@ -932,28 +932,58 @@ body.dashboard-body {
   transform: scale(1.05);
 }
 
-.sidebar-close-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  font-size: 1.25rem;
-  color: var(--slate-400);
-  cursor: pointer;
+/* Desktop Sidebar Toggle Button — sits inside sidebar */
+.db-sidebar-desktop-toggle {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.db-sidebar-desktop-toggle:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+/* Sidebar header row — logo + desktop toggle */
+.db-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.sidebar-close-btn {
+  display: none; /* Mobile-only close button inside sidebar */
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
   align-items: center;
   justify-content: center;
   width: 32px;
   height: 32px;
   border-radius: 50%;
   transition: var(--transition-fast);
-  z-index: 10;
+  flex-shrink: 0;
 }
 
 .sidebar-close-btn:hover {
-  background-color: var(--slate-100);
-  color: var(--slate-900);
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
 }
 
 @media (min-width: 769px) {
@@ -963,8 +993,9 @@ body.dashboard-body {
   .db-content-area.expanded {
     margin-left: 0;
   }
-  .sidebar-close-btn {
-    display: none;
+  /* Desktop toggle button in sidebar header is always visible on desktop */
+  .db-sidebar-desktop-toggle {
+    display: flex;
   }
 }
 
@@ -1002,14 +1033,19 @@ body.dashboard-body {
 }
 
 @media (max-width: 768px) {
+  /* Show hamburger in top nav on mobile */
   .db-menu-toggle {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .db-search {
     display: none;
   }
+  /* Sidebar is off-screen on mobile; slides in on .open */
   .db-sidebar {
     left: -260px;
+    z-index: 1000;
   }
   .db-sidebar.open {
     left: 0;
@@ -1020,6 +1056,17 @@ body.dashboard-body {
   }
   .db-stats-grid {
     grid-template-columns: 1fr;
+  }
+  /* On mobile: show close button, hide desktop toggle */
+  .sidebar-close-btn {
+    display: flex;
+  }
+  .db-sidebar-desktop-toggle {
+    display: none;
+  }
+  /* Sidebar header on mobile */
+  .db-sidebar-header {
+    margin-bottom: 1.5rem;
   }
 }
 

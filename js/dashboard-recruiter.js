@@ -131,6 +131,7 @@ function setupMobileSidebar() {
   const sidebar = document.querySelector('.db-sidebar');
   const closeBtn = document.querySelector('#db-sidebar-close');
   const contentArea = document.querySelector('.db-content-area');
+  const desktopToggleBtn = document.querySelector('#db-sidebar-desktop-toggle');
   
   // Find or create overlay
   let overlay = document.querySelector('.db-sidebar-overlay');
@@ -168,6 +169,13 @@ function setupMobileSidebar() {
           sidebar.classList.add('collapsed');
           if (contentArea) contentArea.classList.add('expanded');
         }
+      });
+    }
+    
+    if (desktopToggleBtn) {
+      desktopToggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+        if (contentArea) contentArea.classList.toggle('expanded');
       });
     }
   }
