@@ -195,37 +195,17 @@ function enforceRouteGuard(requiredRole) {
   }
 }
 
-// Update primary website navbars based on auth state
+// Update primary website navbars — always show only Sign In button
 document.addEventListener('DOMContentLoaded', () => {
-  const session = getActiveSession();
   const navActions = document.querySelector('.nav-actions');
   const mobileNavActions = document.querySelector('.mobile-nav-actions');
   
-  const getAuthNavHTML = (isMobile) => {
-    if (session) {
-      const dbUrl = session.role === 'job_seeker' ? 'job-seeker-dashboard.html' : 'recruiter-dashboard.html';
-      const ctaClass = isMobile ? 'btn btn-primary' : 'btn btn-primary';
-      const logoutClass = isMobile ? 'btn btn-outline' : 'btn btn-outline';
-      
-      return `
-        <a href="${dbUrl}" class="${ctaClass}"><i class="fas fa-chart-line"></i> Dashboard</a>
-        <button onclick="logoutUser()" class="${logoutClass}"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
-      `;
-    } else {
-      const loginClass = isMobile ? 'btn btn-outline' : 'btn btn-outline';
-      const signupClass = isMobile ? 'btn btn-primary' : 'btn btn-primary';
-      
-      return `
-        <a href="login.html" class="${loginClass}">Sign In</a>
-        <a href="signup.html" class="${signupClass}">Register</a>
-      `;
-    }
-  };
+  const signInBtn = `<a href="login.html" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Sign In</a>`;
   
   if (navActions) {
-    navActions.innerHTML = getAuthNavHTML(false);
+    navActions.innerHTML = signInBtn;
   }
   if (mobileNavActions) {
-    mobileNavActions.innerHTML = getAuthNavHTML(true);
+    mobileNavActions.innerHTML = signInBtn;
   }
 });
