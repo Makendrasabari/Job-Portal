@@ -366,8 +366,8 @@ img {
 .mobile-nav {
   position: fixed;
   top: 0;
-  right: -320px;
-  width: 300px;
+  right: -100vw;
+  width: 100vw;
   height: 100vh;
   background-color: var(--white);
   box-shadow: var(--shadow-premium);
@@ -376,6 +376,7 @@ img {
   flex-direction: column;
   padding: 6rem 2rem 2rem 2rem;
   transition: var(--transition-normal);
+  overflow-y: auto;
 }
 
 .mobile-nav.open {
@@ -644,3 +645,24 @@ img {
     text-align: center;
   }
 }
+
+/* Navigation User Info Wrapper (Landing Pages) */
+.navbar-user-wrapper-mobile-desktop {
+  display: flex !important;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .navbar-user-wrapper-mobile-desktop .nav-user-name {
+    font-size: 0.75rem !important;
+    max-width: 90px !important;
+  }
+  .navbar-user-wrapper-mobile-desktop .nav-user-role-badge {
+    font-size: 0.65rem !important;
+    padding: 0.1rem 0.35rem !important;
+  }
+}
+

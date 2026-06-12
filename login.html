@@ -117,9 +117,14 @@
     }
     .auth-left-stats {
       display: flex;
+      justify-content: center;
       gap: 2.5rem;
       position: relative;
       z-index: 2;
+      width: 100%;
+    }
+    .auth-left-stat {
+      text-align: center;
     }
     .auth-left-stat h4 {
       color: #0ea5e9;
@@ -225,11 +230,11 @@
           </div>
 
           <div class="form-group">
-            <input type="text" placeholder="Email or Username" id="login-username" required autocomplete="email username">
+            <input type="text" placeholder="Email or Username" id="login-username" autocomplete="email username">
           </div>
           
           <div class="form-group">
-            <input type="password" placeholder="Password" id="login-password" required autocomplete="current-password">
+            <input type="password" placeholder="Password" id="login-password" autocomplete="current-password">
           </div>
           
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; font-size:0.85rem;">
@@ -250,35 +255,17 @@
           <a href="index.html" style="color:var(--slate-400); text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem; transition:color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--slate-400)'"><i class="fas fa-arrow-left"></i> Back to Home</a>
         </div>
         
-        <!-- Test Credentials -->
-        <!-- <div style="margin-top:2rem; background:var(--slate-50); border:1px solid var(--slate-200); border-radius:var(--radius-md); padding:1.25rem; font-size:0.8rem; color:var(--slate-500);">
-          <p style="font-weight:700; color:var(--slate-700); margin-bottom:0.5rem; display:flex;align-items:center;gap:0.4rem;"><i class="fas fa-circle-info" style="color:var(--primary);"></i> Test Credentials</p>
-          <p>Job Seeker: <span style="font-family:monospace; font-weight:bold; color:var(--slate-800);">seeker</span> / <span style="font-family:monospace; font-weight:bold; color:var(--slate-800);">password123</span></p>
-          <p style="margin-top:0.3rem;">Recruiter: <span style="font-family:monospace; font-weight:bold; color:var(--slate-800);">recruiter</span> / <span style="font-family:monospace; font-weight:bold; color:var(--slate-800);">password123</span></p>
-        </div> -->
       </div>
     </div>
   </div>
 
   <!-- JS Scripts -->
-  <script src="js/auth.js"></script>
+  <script src="js/auth.js?v=2.0"></script>
   <script>
-    // Redirect if already logged in
-    document.addEventListener('DOMContentLoaded', () => {
-      const session = getActiveSession();
-      if (session) {
-        if (session.role === 'job_seeker') {
-          window.location.href = 'job-seeker-dashboard.html';
-        } else if (session.role === 'recruiter') {
-          window.location.href = 'recruiter-dashboard.html';
-        }
-      }
-    });
-
     function handleLoginSubmit(e) {
       e.preventDefault();
       
-      const usernameInput = document.getElementById('login-username').value;
+      const usernameInput = document.getElementById('login-username').value.trim();
       const passwordInput = document.getElementById('login-password').value;
       const selectedRole = document.querySelector('input[name="login-role"]:checked').value;
       const alertBox = document.getElementById('auth-alert');
@@ -289,27 +276,28 @@
       alertBox.style.color = '';
       alertBox.textContent = '';
       
-      const res = loginUser(usernameInput, passwordInput, selectedRole);
-      
-      if (res.success) {
-        alertBox.style.display = 'block';
-        alertBox.style.backgroundColor = '#dcfce7';
-        alertBox.style.color = '#15803d';
-        alertBox.textContent = 'Sign in successful! Redirecting...';
-        
-        setTimeout(() => {
-          if (res.role === 'job_seeker') {
-            window.location.href = 'job-seeker-dashboard.html';
-          } else if (res.role === 'recruiter') {
-            window.location.href = 'recruiter-dashboard.html';
-          }
-        }, 800);
-      } else {
+      // Only check: both fields must be non-empty
+      if (!usernameInput || !passwordInput) {
         alertBox.style.display = 'block';
         alertBox.style.backgroundColor = '#fee2e2';
         alertBox.style.color = '#b91c1c';
-        alertBox.textContent = res.message;
+        alertBox.textContent = 'Please enter Email and Password.';
+        return;
       }
+      
+      // Success — redirect to appropriate dashboard
+      alertBox.style.display = 'block';
+      alertBox.style.backgroundColor = '#dcfce7';
+      alertBox.style.color = '#15803d';
+      alertBox.textContent = 'Sign in successful! Redirecting...';
+      
+      setTimeout(() => {
+        if (selectedRole === 'job_seeker') {
+          window.location.replace('job-seeker-dashboard.html');
+        } else if (selectedRole === 'recruiter') {
+          window.location.replace('recruiter-dashboard.html');
+        }
+      }, 800);
     }
   </script>
 

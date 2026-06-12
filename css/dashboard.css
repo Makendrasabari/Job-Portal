@@ -1,9 +1,19 @@
 /* Stackly Premium Dashboard Stylesheet */
 
 /* Layout & Sidebar */
+body.no-scroll {
+  overflow: hidden !important;
+  height: 100vh !important;
+  position: fixed !important;
+  width: 100% !important;
+}
+
 .dashboard-container {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
+  width: 100vw;
+  overflow: hidden;
   background-color: #f1f5f9;
   font-family: 'Outfit', sans-serif;
 }
@@ -23,6 +33,7 @@
   box-sizing: border-box;
   box-shadow: 4px 0 20px rgba(15, 23, 42, 0.15);
   z-index: 100;
+  -webkit-overflow-scrolling: touch;
 }
 
 .db-logo-section {
@@ -105,7 +116,8 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
+  height: 100%;
+  overflow: hidden;
   max-width: calc(100% - 280px);
 }
 
@@ -248,6 +260,7 @@
   padding: 2.5rem;
   overflow-y: auto;
   flex: 1;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Statistics Tiles Grid */
@@ -864,6 +877,71 @@
 }
 
 /* Responsive adjustments */
+.db-sidebar-mobile-profile {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0.75rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-sizing: border-box;
+}
+
+.db-sidebar-mobile-profile .db-user-avatar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+.db-sidebar-mobile-profile .mobile-avatar-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #1A83EA;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.db-sidebar-mobile-profile .mobile-user-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: block;
+}
+
+.db-sidebar-mobile-profile .mobile-user-role {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+.db-sidebar-mobile-profile .mobile-notification-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.db-sidebar-mobile-profile .mobile-notification-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
 @media (max-width: 1200px) {
   .db-stats-grid {
     grid-template-columns: 1fr 1fr;
@@ -876,7 +954,7 @@
 @media (max-width: 1024px) {
   /* Sidebar becomes a drawer on tablet */
   .db-hamburger {
-    display: flex;
+    display: flex !important;
   }
 
   .db-sidebar {
@@ -886,20 +964,27 @@
     height: 100vh;
     z-index: 300;
     transform: translateX(-100%);
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.35s ease;
-    width: 280px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 300px;
+    max-width: 85vw;
     overflow-y: auto;
+    box-shadow: none;
+  }
+
+  @media (max-width: 480px) {
+    .db-sidebar {
+      width: 100% !important;
+      max-width: 100vw !important;
+    }
   }
 
   .db-sidebar.is-open {
-    width: 100%;
     transform: translateX(0);
     box-shadow: 6px 0 40px rgba(15, 23, 42, 0.25);
   }
 
-  body:has(.db-sidebar.is-open) {
-    overflow: hidden;
+  .db-sidebar-mobile-profile {
+    display: flex;
   }
 
   .db-main {
@@ -910,8 +995,9 @@
     padding: 0 1.25rem;
   }
 
-  .db-header-search {
-    width: 220px;
+  .db-header-search,
+  .db-header-actions {
+    display: none !important;
   }
 
   .db-body {
@@ -964,12 +1050,28 @@
   }
 
   .db-job-row {
-    flex-wrap: wrap;
-    gap: 0.75rem;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .db-job-comp-logo {
+    margin: 0 auto;
+  }
+
+  .db-job-details {
+    margin-left: 0;
   }
 
   .db-job-metrics {
     margin-right: 0;
+    text-align: center;
+  }
+
+  .db-job-row .btn {
+    width: 100%;
   }
 }
 

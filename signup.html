@@ -159,24 +159,24 @@
           </div>
           
           <div class="form-group">
-            <input type="text" placeholder="Full Name" id="signup-fullname" required autocomplete="name">
+            <input type="text" placeholder="Full Name" id="signup-fullname" autocomplete="name">
           </div>
           
           <div class="form-group">
-            <input type="email" placeholder="Email Address" id="signup-email" required autocomplete="email">
+            <input type="email" placeholder="Email Address" id="signup-email" autocomplete="email">
           </div>
           
           <div class="form-group">
-            <input type="text" placeholder="Desired Username" id="signup-username" required autocomplete="username">
+            <input type="text" placeholder="Desired Username" id="signup-username" autocomplete="username">
           </div>
           
           <div class="form-group">
-            <input type="password" placeholder="Choose a Password" id="signup-password" required autocomplete="new-password">
+            <input type="password" placeholder="Choose a Password" id="signup-password" autocomplete="new-password">
           </div>
           
           <div style="margin-bottom:2rem; font-size:0.85rem;">
             <label style="display:flex; align-items:flex-start; gap:0.5rem; cursor:pointer;">
-              <input type="checkbox" id="signup-agree" required style="margin-top:0.2rem;"> 
+              <input type="checkbox" id="signup-agree" style="margin-top:0.2rem;"> 
               <span>I agree to the <span class="text-gradient-sky-blue">Stackly</span> <a href="404.html" style="color:var(--primary); font-weight:600;">Terms of Service</a> and <a href="404.html" style="color:var(--primary); font-weight:600;">Privacy Policy</a>.</span>
             </label>
           </div>
@@ -191,16 +191,12 @@
     </div>
   </div>
 
-  <!-- JS Scripts -->
   <script src="js/auth.js"></script>
   <script>
     function handleSignupSubmit(e) {
       e.preventDefault();
       
-      const role = document.querySelector('input[name="auth-role"]:checked').value;
-      const fullName = document.getElementById('signup-fullname').value;
-      const email = document.getElementById('signup-email').value;
-      const username = document.getElementById('signup-username').value;
+      const email = document.getElementById('signup-email').value.trim();
       const password = document.getElementById('signup-password').value;
       const alertBox = document.getElementById('auth-alert');
       
@@ -210,23 +206,24 @@
       alertBox.style.backgroundColor = '';
       alertBox.style.color = '';
       
-      const res = registerUser(fullName, email, username, password, role);
-      
-      if (res.success) {
-        alertBox.style.display = 'block';
-        alertBox.style.backgroundColor = '#dcfce7';
-        alertBox.style.color = '#15803d';
-        alertBox.textContent = 'Account registered successfully! Redirecting to login...';
-        
-        setTimeout(() => {
-          window.location.href = 'login.html';
-        }, 1200);
-      } else {
+      // Only check: both fields must be non-empty
+      if (!email || !password) {
         alertBox.style.display = 'block';
         alertBox.style.backgroundColor = '#fee2e2';
         alertBox.style.color = '#b91c1c';
-        alertBox.textContent = res.message;
+        alertBox.textContent = 'Please enter Email and Password.';
+        return;
       }
+
+      // Success — redirect to login
+      alertBox.style.display = 'block';
+      alertBox.style.backgroundColor = '#dcfce7';
+      alertBox.style.color = '#15803d';
+      alertBox.textContent = 'Account registered successfully! Redirecting to login...';
+      
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 1200);
     }
   </script>
 </body>

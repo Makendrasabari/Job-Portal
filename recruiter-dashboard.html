@@ -2,29 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="Manage corporate tech job listings, screen candidates, schedule interviews, and grow your engineering team.">
   <title>Recruiter Dashboard &bull; Stackly Employer Portal</title>
+
   
   <!-- CSS Stylesheets -->
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/pages.css">
   <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive-fix.css">
   
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <!-- Chart.js CDN for live graphs -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script src="js/auth.js?v=2.0"></script>
 </head>
 <body style="overflow: hidden;">
-
-  <!-- Page Route Guard -->
-  <script src="js/auth.js"></script>
-  <script>
-    // Enforce recruiter access only
-    enforceRouteGuard('recruiter');
-  </script>
 
   <!-- Sidebar Backdrop Overlay (mobile/tablet) -->
   <div class="db-sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
@@ -36,6 +33,20 @@
         <a href="index.html" style="display: flex; align-items: center; gap: 0.5rem;">
           <img src="images/logo5.webp" alt="Stackly Logo">
         </a>
+      </div>
+      
+      <!-- Mobile User Profile & Notifications Section -->
+      <div class="db-sidebar-mobile-profile">
+        <div class="db-user-avatar" onclick="switchTab('settings')">
+          <div class="db-avatar-circle mobile-avatar-circle" id="user-avatar-initials-mobile">MA</div>
+          <div class="db-user-info">
+            <span class="db-user-name mobile-user-name" id="user-display-name-mobile">Marcus Aurelius</span>
+            <span class="db-user-role mobile-user-role" id="user-display-role-mobile">Recruiter</span>
+          </div>
+        </div>
+        <button class="db-icon-btn mobile-notification-btn" aria-label="View notifications" onclick="alert('System Notifications:\n- 4 new candidate matches for Senior Frontend Engineer\n- Priority ticket #STK-84221 updated')">
+          <i class="far fa-bell"></i>
+        </button>
       </div>
       
       <p class="db-menu-label">Main Menu</p>
@@ -77,6 +88,24 @@
     <main class="db-main" aria-label="Main Work Content">
       <!-- Top header bar -->
       <header class="db-header">
+        <!-- Mobile Logo (shown only on mobile/tablet) -->
+        <div class="db-header-logo-mobile" style="display: none; align-items: center;">
+          <a href="index.html" style="display: flex; align-items: center;"><img src="images/logo5.webp" alt="Stackly Logo" style="height: 30px;"></a>
+        </div>
+
+        <div class="db-header-search">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search applicant names, skills or resumes..." id="dashboard-search-input" onkeyup="handleSearchInput(event)">
+        </div>
+        
+        <!-- Mobile User Badge (shown next to hamburger icon on mobile) -->
+        <div class="db-header-user-mobile" id="db-header-user-mobile-container" style="display: none; align-items: center; gap: 0.5rem; margin-left: auto; margin-right: 0.5rem;">
+          <div style="text-align: right; line-height: 1.2;">
+            <span class="db-mobile-username" id="db-mobile-username" style="font-weight: 600; font-size: 0.85rem; color: #334155; display: block; max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">email@recruiter.com</span>
+            <span class="db-mobile-role" style="display: inline-block; font-size: 0.7rem; font-weight: 700; color: #1e3a8a; background: #eff6ff; padding: 0.15rem 0.5rem; border-radius: 20px; border: 1px solid #bfdbfe; margin-top: 0.1rem;">• Recruiter</span>
+          </div>
+        </div>
+
         <!-- Hamburger Button (shown on tablet/mobile) -->
         <button class="db-hamburger" id="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false" onclick="toggleSidebar()">
           <span class="bar"></span>
@@ -84,18 +113,12 @@
           <span class="bar"></span>
         </button>
 
-        <div class="db-header-search">
-          <i class="fas fa-search"></i>
-          <input type="text" placeholder="Search applicant names, skills or resumes..." id="dashboard-search-input" onkeyup="handleSearchInput(event)">
-        </div>
-        
         <div class="db-header-actions">
           <button class="db-icon-btn" aria-label="View notifications">
             <i class="far fa-bell"></i>
           </button>
           <button class="db-icon-btn" aria-label="View messages">
             <i class="far fa-comment-dots"></i>
-           
           </button>
           
           <div class="db-user-avatar" id="avatar-dropdown-trigger" onclick="switchTab('settings')">
@@ -513,14 +536,18 @@
     const sidebar   = document.querySelector('.db-sidebar');
     const overlay   = document.getElementById('sidebar-overlay');
     const hamburger = document.getElementById('hamburger-btn');
+    let _scrollY = 0;
 
     function openSidebar() {
+      if (window.innerWidth > 1024) return; // No-op on desktop
+      _scrollY = window.scrollY;
       sidebar.classList.add('is-open');
       hamburger.classList.add('is-open');
       hamburger.setAttribute('aria-expanded', 'true');
       overlay.classList.add('visible');
       requestAnimationFrame(() => overlay.classList.add('active'));
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('no-scroll');
+      document.body.style.top = `-${_scrollY}px`;
     }
 
     function closeSidebar() {
@@ -533,7 +560,9 @@
           overlay.classList.remove('visible');
         }
       }, { once: true });
-      document.body.style.overflow = '';
+      document.body.classList.remove('no-scroll');
+      document.body.style.top = '';
+      window.scrollTo(0, _scrollY);
     }
 
     function toggleSidebar() {
@@ -546,13 +575,18 @@
     });
 
     // Close when resized to desktop
+    let _resizeTimer;
     window.addEventListener('resize', () => {
-      if (window.innerWidth > 1024) {
-        sidebar.classList.remove('is-open');
-        hamburger.classList.remove('is-open');
-        overlay.classList.remove('active', 'visible');
-        document.body.style.overflow = '';
-      }
+      clearTimeout(_resizeTimer);
+      _resizeTimer = setTimeout(() => {
+        if (window.innerWidth > 1024) {
+          sidebar.classList.remove('is-open');
+          hamburger.classList.remove('is-open');
+          overlay.classList.remove('active', 'visible');
+          document.body.classList.remove('no-scroll');
+          document.body.style.top = '';
+        }
+      }, 100);
     });
 
     // Tab switching controller
@@ -592,19 +626,25 @@
     document.addEventListener('DOMContentLoaded', () => {
       const session = getActiveSession();
       if (session) {
+        const emailOrName = session.email || session.fullName || session.username;
         // Init header and profiles
-        document.getElementById('user-display-name').textContent = session.fullName;
+        document.getElementById('user-display-name').textContent = emailOrName;
+        document.getElementById('user-display-role').innerHTML = `<span style="font-weight: 700; color: #1e3a8a; background: #eff6ff; padding: 0.1rem 0.4rem; border-radius: 12px; font-size: 0.7rem; border: 1px solid #bfdbfe;">• Recruiter</span>`;
+        document.getElementById('db-mobile-username').textContent = emailOrName;
+        document.getElementById('user-display-name-mobile').textContent = session.fullName;
         document.getElementById('profile-name').textContent = session.fullName;
         
         // Init initials logo
         const initials = session.fullName.split(' ').map(n => n[0]).join('').toUpperCase();
         document.getElementById('user-avatar-initials').textContent = initials;
+        document.getElementById('user-avatar-initials-mobile').textContent = initials;
 
         // Init settings form inputs
         document.getElementById('settings-fullname').value = session.fullName;
         document.getElementById('settings-email').value = session.email || (session.username + '@recruiter.com');
         document.getElementById('settings-username').value = session.username;
         document.getElementById('settings-role').value = document.getElementById('profile-role').textContent;
+        document.getElementById('user-display-role-mobile').textContent = document.getElementById('profile-role').textContent;
       }
       
       renderMockChart();
@@ -643,10 +683,13 @@
 
         // Update UI
         document.getElementById('user-display-name').textContent = newName;
+        document.getElementById('user-display-name-mobile').textContent = newName;
         document.getElementById('profile-name').textContent = newName;
         document.getElementById('profile-role').textContent = newRole;
         const initials = newName.split(' ').map(n => n[0]).join('').toUpperCase();
         document.getElementById('user-avatar-initials').textContent = initials;
+        document.getElementById('user-avatar-initials-mobile').textContent = initials;
+        document.getElementById('user-display-role-mobile').textContent = newRole;
       }
       
       alert('Settings changes successfully saved!');
