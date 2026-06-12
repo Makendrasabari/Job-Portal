@@ -917,7 +917,9 @@ body.dashboard-body {
 }
 
 .db-menu-toggle {
-  display: none; /* Hidden on desktop — shown only on mobile */
+  display: flex; /* Always visible — works on both mobile and desktop */
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
   cursor: pointer;
@@ -987,15 +989,27 @@ body.dashboard-body {
 }
 
 @media (min-width: 769px) {
-  .db-sidebar.collapsed {
+  .db-sidebar {
     left: -260px;
+  }
+  .db-sidebar.open {
+    left: 0;
+    box-shadow: 4px 0 24px rgba(15, 23, 42, 0.15);
+  }
+  .db-content-area {
+    margin-left: 0;
   }
   .db-content-area.expanded {
     margin-left: 0;
   }
-  /* Desktop toggle button in sidebar header is always visible on desktop */
+  /* Desktop toggle button in sidebar header — hidden since hamburger is in top nav */
   .db-sidebar-desktop-toggle {
-    display: flex;
+    display: none;
+  }
+  /* Overlay also active on desktop when sidebar is open */
+  .db-sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
   }
 }
 
@@ -1033,12 +1047,6 @@ body.dashboard-body {
 }
 
 @media (max-width: 768px) {
-  /* Show hamburger in top nav on mobile */
-  .db-menu-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
   .db-search {
     display: none;
   }
@@ -1049,6 +1057,7 @@ body.dashboard-body {
   }
   .db-sidebar.open {
     left: 0;
+    box-shadow: 4px 0 24px rgba(15, 23, 42, 0.25);
   }
   .db-content-area {
     margin-left: 0;

@@ -409,11 +409,9 @@
       const message = document.getElementById('contact-message').value;
       
       if (!name || !email || !subject || !message) {
-        alert("All form inputs are required before submitting.");
         return;
       }
       
-      alert(`Thank you, ${name}! Your inquiry regarding "${subject}" has been successfully logged. Our operations team will contact you at ${email} shortly.`);
       document.getElementById('contact-help-form').reset();
     }
   </script>

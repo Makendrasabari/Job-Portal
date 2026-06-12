@@ -130,7 +130,6 @@ function setupMobileSidebar() {
   const menuBtn = document.querySelector('.db-menu-toggle');
   const sidebar = document.querySelector('.db-sidebar');
   const closeBtn = document.querySelector('#db-sidebar-close');
-  const contentArea = document.querySelector('.db-content-area');
   const desktopToggleBtn = document.querySelector('#db-sidebar-desktop-toggle');
   
   // Find or create overlay
@@ -144,38 +143,38 @@ function setupMobileSidebar() {
     }
   }
   
+  function openSidebar() {
+    sidebar.classList.add('open');
+    overlay.classList.add('active');
+  }
+  
+  function closeSidebar() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('active');
+  }
+  
   if (menuBtn && sidebar && overlay) {
     menuBtn.addEventListener('click', () => {
-      if (window.innerWidth <= 768) {
-        sidebar.classList.toggle('open');
-        overlay.classList.toggle('active');
+      if (sidebar.classList.contains('open')) {
+        closeSidebar();
       } else {
-        sidebar.classList.toggle('collapsed');
-        if (contentArea) contentArea.classList.toggle('expanded');
+        openSidebar();
       }
     });
     
-    overlay.addEventListener('click', () => {
-      sidebar.classList.remove('open');
-      overlay.classList.remove('active');
-    });
+    overlay.addEventListener('click', closeSidebar);
     
     if (closeBtn) {
-      closeBtn.addEventListener('click', () => {
-        if (window.innerWidth <= 768) {
-          sidebar.classList.remove('open');
-          overlay.classList.remove('active');
-        } else {
-          sidebar.classList.add('collapsed');
-          if (contentArea) contentArea.classList.add('expanded');
-        }
-      });
+      closeBtn.addEventListener('click', closeSidebar);
     }
     
     if (desktopToggleBtn) {
       desktopToggleBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('collapsed');
-        if (contentArea) contentArea.classList.toggle('expanded');
+        if (sidebar.classList.contains('open')) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
       });
     }
   }
@@ -200,10 +199,14 @@ function renderDashboardStats() {
   const hiredCount = recruiterApps.filter(a => a.status === 'hired').length;
   
   // Update UI stats
-  document.getElementById('stat-active-jobs').textContent = activeJobsCount;
-  document.getElementById('stat-recruiter-apps').textContent = totalAppsCount;
-  document.getElementById('stat-shortlisted').textContent = shortlistedCount;
-  document.getElementById('stat-hired').textContent = hiredCount;
+  const activeJobsEl = document.getElementById('stat-active-jobs');
+  if (activeJobsEl) activeJobsEl.textContent = activeJobsCount;
+  const recruiterAppsEl = document.getElementById('stat-recruiter-apps');
+  if (recruiterAppsEl) recruiterAppsEl.textContent = totalAppsCount;
+  const shortlistedEl = document.getElementById('stat-shortlisted');
+  if (shortlistedEl) shortlistedEl.textContent = shortlistedCount;
+  const hiredEl = document.getElementById('stat-hired');
+  if (hiredEl) hiredEl.textContent = hiredCount;
   
   // Recent candidate list summary
   const recentCandidatesList = document.getElementById('recent-candidates-list');
@@ -264,7 +267,11 @@ function renderCharts() {
           legend: { display: false }
         },
         scales: {
-          y: { grid: { color: '#f1f5f9' }, ticks: { font: { family: 'Outfit' } } },
+          y: { 
+            beginAtZero: true,
+            grid: { color: '#f1f5f9' }, 
+            ticks: { font: { family: 'Outfit' } } 
+          },
           x: { grid: { display: false }, ticks: { font: { family: 'Outfit' } } }
         }
       }
@@ -289,7 +296,11 @@ function renderCharts() {
           legend: { display: false }
         },
         scales: {
-          y: { grid: { color: '#f1f5f9' }, ticks: { font: { family: 'Outfit' } } },
+          y: { 
+            beginAtZero: true,
+            grid: { color: '#f1f5f9' }, 
+            ticks: { font: { family: 'Outfit' } } 
+          },
           x: { grid: { display: false }, ticks: { font: { family: 'Outfit' } } }
         }
       }
@@ -342,7 +353,6 @@ function setupJobPoster() {
       const description = document.getElementById('post-job-desc').value.trim();
       
       if (!title || !company || !location || !salary || !description) {
-        alert("Please fill in all the required job fields.");
         return;
       }
       
@@ -366,7 +376,6 @@ function setupJobPoster() {
       jobs.push(newJob);
       localStorage.setItem(JOBS_KEY, JSON.stringify(jobs));
       
-      alert("Job Opportunity posted successfully!");
       form.reset();
       
       // Navigate to manage jobs
@@ -550,7 +559,6 @@ function setupCompanyProfile() {
       companyData.desc = document.getElementById('comp-desc').value.trim();
       
       localStorage.setItem(companyKey, JSON.stringify(companyData));
-      alert("Company details updated successfully!");
     });
   }
 }
@@ -590,6 +598,7 @@ function renderReportsPanel() {
       },
       scales: {
         y: { 
+          beginAtZero: true,
           grid: { color: '#21262d' }, 
           ticks: { color: '#8b949e', font: { family: 'Outfit' } } 
         },

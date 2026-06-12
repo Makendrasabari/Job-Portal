@@ -250,7 +250,6 @@ function setupMobileSidebar() {
   const menuBtn = document.querySelector('.db-menu-toggle');
   const sidebar = document.querySelector('.db-sidebar');
   const closeBtn = document.querySelector('#db-sidebar-close');
-  const contentArea = document.querySelector('.db-content-area');
   const desktopToggleBtn = document.querySelector('#db-sidebar-desktop-toggle');
   
   // Find or create overlay
@@ -264,38 +263,38 @@ function setupMobileSidebar() {
     }
   }
   
+  function openSidebar() {
+    sidebar.classList.add('open');
+    overlay.classList.add('active');
+  }
+  
+  function closeSidebar() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('active');
+  }
+  
   if (menuBtn && sidebar && overlay) {
     menuBtn.addEventListener('click', () => {
-      if (window.innerWidth <= 768) {
-        sidebar.classList.toggle('open');
-        overlay.classList.toggle('active');
+      if (sidebar.classList.contains('open')) {
+        closeSidebar();
       } else {
-        sidebar.classList.toggle('collapsed');
-        if (contentArea) contentArea.classList.toggle('expanded');
+        openSidebar();
       }
     });
     
-    overlay.addEventListener('click', () => {
-      sidebar.classList.remove('open');
-      overlay.classList.remove('active');
-    });
+    overlay.addEventListener('click', closeSidebar);
     
     if (closeBtn) {
-      closeBtn.addEventListener('click', () => {
-        if (window.innerWidth <= 768) {
-          sidebar.classList.remove('open');
-          overlay.classList.remove('active');
-        } else {
-          sidebar.classList.add('collapsed');
-          if (contentArea) contentArea.classList.add('expanded');
-        }
-      });
+      closeBtn.addEventListener('click', closeSidebar);
     }
     
     if (desktopToggleBtn) {
       desktopToggleBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('collapsed');
-        if (contentArea) contentArea.classList.toggle('expanded');
+        if (sidebar.classList.contains('open')) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
       });
     }
   }
@@ -318,9 +317,12 @@ function renderDashboardStats() {
   const progressBar = document.getElementById('profile-strength-bar');
   
   // Update UI Elements
-  document.getElementById('stat-total-apps').textContent = totalApps;
-  document.getElementById('stat-saved').textContent = savedCount;
-  document.getElementById('stat-interviews').textContent = interviewCount;
+  const totalAppsEl = document.getElementById('stat-total-apps');
+  if (totalAppsEl) totalAppsEl.textContent = totalApps;
+  const savedEl = document.getElementById('stat-saved');
+  if (savedEl) savedEl.textContent = savedCount;
+  const interviewsEl = document.getElementById('stat-interviews');
+  if (interviewsEl) interviewsEl.textContent = interviewCount;
   
   // Render applications list summary
   const recentAppsList = document.getElementById('recent-apps-list');
@@ -401,7 +403,11 @@ function renderCharts() {
           legend: { display: false }
         },
         scales: {
-          y: { grid: { color: '#f1f5f9' }, ticks: { font: { family: 'Outfit' } } },
+          y: { 
+            beginAtZero: true,
+            grid: { color: '#f1f5f9' }, 
+            ticks: { font: { family: 'Outfit' } } 
+          },
           x: { grid: { display: false }, ticks: { font: { family: 'Outfit' } } }
         }
       }
@@ -725,7 +731,6 @@ function setupProfileEditor() {
       const newEmail = document.getElementById('profile-email').value.trim();
       
       if (!newName || !newEmail) {
-        alert("Name and email are required fields.");
         return;
       }
       
@@ -746,8 +751,6 @@ function setupProfileEditor() {
       // Update UI names
       const userNameElements = document.querySelectorAll('.session-user-name');
       userNameElements.forEach(el => el.textContent = newName);
-      
-      alert("Profile updated successfully!");
     });
   }
 }

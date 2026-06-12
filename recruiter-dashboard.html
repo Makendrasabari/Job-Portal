@@ -388,8 +388,7 @@
     </div>
 
     <div class="db-topnav-right">
-      <button class="db-nav-icon-btn" aria-label="View notifications"
-        onclick="alert('Notification Alert: Sarah Connor applied for Lead QA Analyst!')">
+      <button class="db-nav-icon-btn" aria-label="View notifications">
         <i class="far fa-bell"></i>
         <span class="db-nav-badge"></span>
       </button>
@@ -421,7 +420,7 @@
         <li class="db-menu-item"><a href="recruiter-applicants.html"><i class="fas fa-users-rectangle"></i> Applicants</a></li>
         <li class="db-menu-item"><a href="recruiter-messages.html"><i class="far fa-comments"></i> Messages</a></li>
         <li class="db-menu-item db-logout-item">
-          <a href="index.html" onclick="alert('Logged out successfully!')"><i class="fas fa-sign-out-alt"></i> Logout</a>
+          <a href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </li>
       </ul>
     </aside>
@@ -757,12 +756,10 @@
 
               <!-- Days cells -->
               <span class="calendar-day-cell">14</span>
-              <span class="calendar-day-cell active has-event"
-                onclick="alert('June 15: Scheduled screener with Sarah Connor at 2:00 PM EST')">15</span>
+              <span class="calendar-day-cell active has-event">15</span>
               <span class="calendar-day-cell">16</span>
               <span class="calendar-day-cell">17</span>
-              <span class="calendar-day-cell has-event"
-                onclick="alert('June 18: System Architect review at 11:30 AM PST')">18</span>
+              <span class="calendar-day-cell has-event">18</span>
               <span class="calendar-day-cell">19</span>
               <span class="calendar-day-cell">20</span>
             </div>
@@ -893,8 +890,7 @@
             <h4 style="margin-bottom:0.25rem;">Corporate Logo Banner</h4>
             <p style="font-size:0.8rem; color:var(--slate-500); margin-bottom:1.5rem;">Upload custom WebP dimensions
               100x100 for seeker tags matching portals.</p>
-            <button class="btn btn-outline" style="width:100%; font-size:0.85rem;"
-              onclick="alert('Logo updates template loaded!')"><i class="fas fa-upload"></i> Upload Logo file</button>
+            <button class="btn btn-outline" style="width:100%; font-size:0.85rem;"><i class="fas fa-upload"></i> Upload Logo file</button>
           </div>
         </div>
       </section>
@@ -931,8 +927,7 @@
                 <input type="checkbox" checked> Warn when candidate cards stay in screening over 48 hours
               </label>
             </div>
-            <button class="btn btn-primary" onclick="alert('Recruiter notifications updated!')">Save
-              Configurations</button>
+            <button class="btn btn-primary">Save Configurations</button>
           </div>
 
           <!-- Tab 2: Billing Plan -->
@@ -947,8 +942,7 @@
               <p style="font-size:0.85rem; color:var(--slate-600); margin-top:0.5rem;">You have <strong>5 active job
                   posting credits</strong> remaining this month. Job matching alerts are Synergized.</p>
             </div>
-            <button class="btn btn-primary" onclick="alert('Invoices template is loading!')"><i
-                class="fas fa-file-invoice-dollar"></i> View Corporate Invoices</button>
+            <button class="btn btn-primary"><i class="fas fa-file-invoice-dollar"></i> View Corporate Invoices</button>
           </div>
 
           <!-- Tab 3: Integrations & API -->
@@ -965,7 +959,7 @@
                   id="settings-webhook-url">
               </div>
             </div>
-            <button class="btn btn-primary" onclick="alert('Webhook endpoint configured!')">Register Endpoint</button>
+            <button class="btn btn-primary">Register Endpoint</button>
           </div>
         </div>
       </section>
@@ -1102,13 +1096,13 @@
               </div>
             </div>
             
-            <button class="btn btn-primary" style="width:100%;" onclick="alert('Upgrade package: Redirecting to corporate invoice checkout portal...')"><i class="fas fa-arrow-up-right-from-square"></i> Upgrade Package Tier</button>
+            <button class="btn btn-primary" style="width:100%;"><i class="fas fa-arrow-up-right-from-square"></i> Upgrade Package Tier</button>
           </div>
 
           <!-- Billing Info Form -->
           <div class="db-card">
             <h3 style="margin-bottom:1.25rem;"><i class="fas fa-wallet" style="color:var(--primary);"></i> Billing Configuration</h3>
-            <form id="recruiter-billing-info-form" onsubmit="event.preventDefault(); alert('Billing coordinates updated successfully!');">
+            <form id="recruiter-billing-info-form" onsubmit="event.preventDefault();">
               <div style="display:grid; grid-template-columns:1fr; gap:1rem; margin-bottom:1.25rem;">
                 <div>
                   <label style="font-size:0.8rem; font-weight:600; display:block; margin-bottom:0.25rem; color:var(--slate-400);">Billing Contact Email</label>
@@ -1148,21 +1142,21 @@
                   <td style="padding:1rem;">June 1, 2026 - June 30, 2026</td>
                   <td style="padding:1rem;">$299.00 USD</td>
                   <td style="padding:1rem;"><span style="color:#22c55e; font-weight:600;"><i class="fas fa-circle-check"></i> Cleared</span></td>
-                  <td style="padding:1rem; text-align:right;"><a href="#" onclick="alert('Downloading invoice PDF INV-2026-006...')" style="color:var(--primary); font-weight:600;"><i class="fas fa-download"></i> PDF</a></td>
+                  <td style="padding:1rem; text-align:right;"><a href="#" style="color:var(--primary); font-weight:600;"><i class="fas fa-download"></i> PDF</a></td>
                 </tr>
                 <tr style="border-bottom:1px solid var(--slate-200);">
                   <td style="padding:1rem; font-weight:600;">#INV-2026-005</td>
                   <td style="padding:1rem;">May 1, 2026 - May 31, 2026</td>
                   <td style="padding:1rem;">$299.00 USD</td>
                   <td style="padding:1rem;"><span style="color:#22c55e; font-weight:600;"><i class="fas fa-circle-check"></i> Cleared</span></td>
-                  <td style="padding:1rem; text-align:right;"><a href="#" onclick="alert('Downloading invoice PDF INV-2026-005...')" style="color:var(--primary); font-weight:600;"><i class="fas fa-download"></i> PDF</a></td>
+                  <td style="padding:1rem; text-align:right;"><a href="#" style="color:var(--primary); font-weight:600;"><i class="fas fa-download"></i> PDF</a></td>
                 </tr>
                 <tr>
                   <td style="padding:1rem; font-weight:600;">#INV-2026-004</td>
                   <td style="padding:1rem;">April 1, 2026 - April 30, 2026</td>
                   <td style="padding:1rem;">$299.00 USD</td>
                   <td style="padding:1rem;"><span style="color:#22c55e; font-weight:600;"><i class="fas fa-circle-check"></i> Cleared</span></td>
-                  <td style="padding:1rem; text-align:right;"><a href="#" onclick="alert('Downloading invoice PDF INV-2026-004...')" style="color:var(--primary); font-weight:600;"><i class="fas fa-download"></i> PDF</a></td>
+                  <td style="padding:1rem; text-align:right;"><a href="#" style="color:var(--primary); font-weight:600;"><i class="fas fa-download"></i> PDF</a></td>
                 </tr>
               </tbody>
             </table>
