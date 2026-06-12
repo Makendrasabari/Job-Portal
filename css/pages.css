@@ -1704,27 +1704,42 @@
   margin-bottom: 2.5rem;
   display: flex;
   justify-content: center;
+  animation: errorFadeIn 0.8s ease both;
 }
 
 .error-illustration img {
   max-width: 400px;
   width: 100%;
+  animation: errorFloat 3.5s ease-in-out infinite;
 }
 
 .error-card h1 {
   font-size: 4rem;
   margin-bottom: 1rem;
+  animation: errorFadeIn 0.8s ease 0.15s both;
 }
 
 .error-card p {
   font-size: 1.15rem;
   margin-bottom: 2.5rem;
+  animation: errorFadeIn 0.8s ease 0.3s both;
 }
 
 .error-actions {
   display: flex;
   justify-content: center;
   gap: 1rem;
+  animation: errorFadeIn 0.8s ease 0.45s both;
+}
+
+@keyframes errorFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+
+@keyframes errorFadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 
